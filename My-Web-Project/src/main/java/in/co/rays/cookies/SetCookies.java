@@ -14,11 +14,16 @@ public class SetCookies extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String name = req.getParameter("name");
-		String value = req.getParameter("value");
 
-		Cookie c = new Cookie(name, value);
+//		String name = req.getParameter("name");
+//		String value = req.getParameter("value");
 
+//		Cookie c = new Cookie(name, value);
+		
+		String firstName = req.getParameter("firstName");
+		String lastName = req.getParameter("lastName");
+
+		Cookie c = new Cookie(firstName, lastName);
 		resp.addCookie(c);
 	}
 

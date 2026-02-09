@@ -20,12 +20,17 @@ public class GetCookies extends HttpServlet {
 
 			Cookie c = cookies[i];
 
-			String name = c.getName();
-			String value = c.getValue();
+//			String name = c.getName();
+//			String value = c.getValue();
 
-			System.out.println("Name = " + name);
-			System.out.println("Value = " + value);
+//			System.out.println("Name = " + name);
+//			System.out.println("Value = " + value);
 
+			String firstName = c.getName();
+			String lastName = c.getValue();
+
+			System.out.println("First Name = " + firstName);
+			System.out.println("Last Name = " + lastName);
 		}
 	}
 
