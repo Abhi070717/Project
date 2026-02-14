@@ -24,8 +24,8 @@ public class RoleModel {
 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement("select max(id) from st_role");
-
 			ResultSet rs = pstmt.executeQuery();
+
 			while (rs.next()) {
 				pk = rs.getInt(1);
 			}
@@ -46,9 +46,9 @@ public class RoleModel {
 		Connection conn = null;
 		int pk = 0;
 
-		RoleBean duplicataRole = findByName(bean.getName());
+		RoleBean duplicateRole = findByName(bean.getName());
 
-		if (duplicataRole != null) {
+		if (duplicateRole != null) {
 			throw new DuplicateRecordException("Role already exists");
 		}
 		try {
@@ -75,7 +75,7 @@ public class RoleModel {
 				throw new ApplicationException("Exception : add rollback exception " + ex.getMessage());
 			}
 			throw new ApplicationException("Exception : Exception in add Role");
-		} finally {
+		} finally {   
 			JDBCDataSource.closeConnection(conn);
 		}
 		return pk;
