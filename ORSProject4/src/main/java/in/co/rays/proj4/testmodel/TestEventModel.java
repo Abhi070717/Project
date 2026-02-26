@@ -23,8 +23,8 @@ public class TestEventModel {
 //		testUpdate();
 //		testDelete();
 //		testFindByPk();
-		testFindByVenue();
-//		testSearch();
+//		testFindByVenue();
+		testSearch();
 
 	}
 
@@ -85,7 +85,7 @@ public class TestEventModel {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			bean.setId(2);
-			bean.setTitle("Teachers Day");
+			bean.setTitle("Teacher's Day");
 			bean.setDescription("Teachers Celebration");
 			bean.setEventDate(sdf.parse("2025-09-05"));
 			bean.setStartTime("08:00 AM");
@@ -194,7 +194,7 @@ public class TestEventModel {
 
 		EventBean bean = new EventBean();
 
-		bean.setId(2);
+		bean.setTitle("Teacher's Day");
 
 		List list = new ArrayList();
 

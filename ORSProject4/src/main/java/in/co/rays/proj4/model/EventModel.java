@@ -42,11 +42,11 @@ public class EventModel {
 		Connection conn = null;
 		int pk = 0;
 
-//		EventBean existBean = findByVenue(bean.getVenue());
-//
-//		if (existBean != null) {
-//			throw new DuplicateRecordException("Venue Already Exist");
-//		}
+		EventBean existBean = findByVenue(bean.getVenue());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("Venue Already Exist");
+		}
 
 		try {
 			conn = JDBCDataSource.getConnection();
