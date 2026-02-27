@@ -24,7 +24,7 @@ public class TestEventModel {
 //		testDelete();
 //		testFindByPk();
 //		testFindByVenue();
-		testSearch();
+//		testSearch();
 
 	}
 
@@ -33,7 +33,7 @@ public class TestEventModel {
 		EventModel model = new EventModel();
 
 		try {
-			int i = model.nextPk();
+			long i = model.nextPk();
 			System.out.println("Next Pk : " + i);
 		} catch (DatabaseException e) {
 			e.printStackTrace();

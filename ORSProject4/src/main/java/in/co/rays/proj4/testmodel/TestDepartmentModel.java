@@ -54,17 +54,11 @@ public class TestDepartmentModel {
 
 			DepartmentModel model = new DepartmentModel();
 
-			long pk;
-			try {
-				pk = model.add(bean);
-				System.out.println("Department Added Successfully, PK = " + pk);
-			} catch (DuplicateRecordException e) {
-				e.printStackTrace();
-			}
-		} catch (ApplicationException e) {
+			 long pk = model.add(bean);
+			System.out.println("Department Added Successfully, PK = " + pk);
+		} catch (ApplicationException | DuplicateRecordException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public static void testUpdate() {
@@ -160,7 +154,7 @@ public class TestDepartmentModel {
 	public static void testSearch() {
 
 		DepartmentBean bean = new DepartmentBean();
-		
+
 		bean.setName("Data Science");
 
 		DepartmentModel model = new DepartmentModel();

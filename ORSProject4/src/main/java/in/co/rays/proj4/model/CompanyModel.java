@@ -69,9 +69,6 @@ public class CompanyModel {
 			pstmt.executeUpdate();
 			conn.commit();
 
-		} catch (DuplicateRecordException e) {
-			throw e;
-
 		} catch (Exception e) {
 
 			try {
@@ -191,11 +188,6 @@ public class CompanyModel {
 			}
 
 		} catch (Exception e) {
-			try {
-				conn.rollback();
-			} catch (Exception ex) {
-				throw new ApplicationException("Exception : findByPk rollback exception " + ex.getMessage());
-			}
 			throw new ApplicationException("Exception in FindByPk Faculty ");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
@@ -233,11 +225,6 @@ public class CompanyModel {
 			}
 
 		} catch (Exception e) {
-			try {
-				conn.rollback();
-			} catch (Exception ex) {
-				throw new ApplicationException("Exception : findByCode rollback exception " + ex.getMessage());
-			}
 			throw new ApplicationException("Exception in FindByCode Faculty ");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
@@ -292,11 +279,6 @@ public class CompanyModel {
 			}
 
 		} catch (Exception e) {
-			try {
-				conn.rollback();
-			} catch (Exception ex) {
-				throw new ApplicationException("Exception : Search rollback exception " + ex.getMessage());
-			}
 			throw new ApplicationException("Exception in searching Faculty ");
 		} finally {
 			JDBCDataSource.closeConnection(conn);

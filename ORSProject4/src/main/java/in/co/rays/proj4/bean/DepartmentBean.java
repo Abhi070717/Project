@@ -1,4 +1,4 @@
-package in.co.rays.proj4.bean;
+  package in.co.rays.proj4.bean;
 
 public class DepartmentBean extends BaseBean {
 

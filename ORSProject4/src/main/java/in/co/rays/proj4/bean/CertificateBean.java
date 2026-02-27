@@ -1,13 +1,13 @@
 package in.co.rays.proj4.bean;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class CertificateBean extends BaseBean {
 
 	private String certificateCode;
 	private String studentName;
 	private String courseName;
-	private LocalDate issueDate;
+	private Date issueDate;
 
 	public String getCertificateCode() {
 		return certificateCode;
@@ -33,11 +33,11 @@ public class CertificateBean extends BaseBean {
 		this.courseName = courseName;
 	}
 
-	public LocalDate getIssueDate() {
+	public Date getIssueDate() {
 		return issueDate;
 	}
 
-	public void setIssueDate(LocalDate issueDate) {
+	public void setIssueDate(Date issueDate) {
 		this.issueDate = issueDate;
 	}
 }

@@ -14,7 +14,7 @@ public class TestCompanyModel {
 
 	public static void main(String[] args) {
 
-//		testNextPK();
+		testNextPK();
 //		testAdd();
 //		testUpdate();
 //		testDelete();

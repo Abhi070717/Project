@@ -14,17 +14,17 @@ import in.co.rays.proj4.util.JDBCDataSource;
 
 public class EventModel {
 
-	public Integer nextPk() throws DatabaseException {
+	public long nextPk() throws DatabaseException {
 
 		Connection conn = null;
-		int pk = 0;
+		long pk = 0;
 
 		try {
 			conn = JDBCDataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement("select max(id) from st_event");
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				pk = rs.getInt(1);
+			pk = rs.getLong(1);
 			}
 			rs.close();
 			pstmt.close();
@@ -40,7 +40,7 @@ public class EventModel {
 	public long add(EventBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
-		int pk = 0;
+		long pk = 0;
 
 		EventBean existBean = findByVenue(bean.getVenue());
 
@@ -56,7 +56,7 @@ public class EventModel {
 			PreparedStatement pstmt = conn
 					.prepareStatement("insert into st_event values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-			pstmt.setInt(1, pk);
+			pstmt.setLong(1, pk);
 			pstmt.setString(2, bean.getTitle());
 			pstmt.setString(3, bean.getDescription());
 			pstmt.setDate(4, new java.sql.Date(bean.getEventDate().getTime()));
