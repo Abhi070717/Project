@@ -113,7 +113,7 @@ public class TestEventModel {
 		}
 	}
 
-	private static void testDelete() {
+	public static void testDelete() {
 
 		EventBean bean = new EventBean();
 
@@ -133,7 +133,7 @@ public class TestEventModel {
 		}
 	}
 
-	private static void testFindByPk() {
+	public static void testFindByPk() {
 
 		EventModel model = new EventModel();
 
@@ -161,7 +161,7 @@ public class TestEventModel {
 		}
 	}
 
-	private static void testFindByVenue() {
+	public static void testFindByVenue() {
 
 		EventModel model = new EventModel();
 
@@ -190,19 +190,19 @@ public class TestEventModel {
 		}
 	}
 
-	private static void testSearch() {
+	public static void testSearch() {
 
 		EventBean bean = new EventBean();
 
 		bean.setTitle("Teacher's Day");
 
-		List list = new ArrayList();
+		List<EventBean> list = new ArrayList<EventBean>();
 
 		try {
 			EventModel model = new EventModel();
 			list = model.search(bean, 0, 0);
 
-			Iterator it = list.iterator();
+			Iterator<EventBean> it = list.iterator();
 
 			while (it.hasNext()) {
 				bean = (EventBean) it.next();

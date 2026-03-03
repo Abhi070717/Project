@@ -240,7 +240,7 @@ public class NotificationModel {
 	public List<NotificationBean> search(NotificationBean bean, int pageNo, int pageSize) throws ApplicationException {
 
 		Connection conn = null;
-		List list = new ArrayList();
+		List<NotificationBean> list = new ArrayList<NotificationBean>();
 
 		StringBuffer sql = new StringBuffer("select * from st_notification where 1 = 1");
 

@@ -173,12 +173,12 @@ public class TestNotificationModel {
 
 		NotificationModel model = new NotificationModel();
 
-		List list = new ArrayList();
+		List<NotificationBean> list = new ArrayList<NotificationBean>();
 
 		try {
 			list = model.search(bean, 0, 0);
 
-			Iterator it = list.iterator();
+			Iterator<NotificationBean> it = list.iterator();
 
 			while (it.hasNext()) {
 				bean = (NotificationBean) it.next();

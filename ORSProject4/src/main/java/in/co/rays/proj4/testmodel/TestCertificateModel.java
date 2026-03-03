@@ -9,11 +9,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import in.co.rays.proj4.bean.CertificateBean;
-import in.co.rays.proj4.bean.DepartmentBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.model.CertificateModel;
-import in.co.rays.proj4.model.DepartmentModel;
 
 public class TestCertificateModel {
 
@@ -23,8 +21,9 @@ public class TestCertificateModel {
 //		testAdd();
 //		testUpdate();
 //		testDelete();
-		testFindByPk();
-		testFindByCode();
+//		testFindByPk();
+//		testFindByCode();
+		testSearch();
 
 	}
 
@@ -114,9 +113,9 @@ public class TestCertificateModel {
 			CertificateBean bean = model.findByPK(1L);
 			System.out.println("ID : " + bean.getId());
 			System.out.println("Certificate_Code : " + bean.getCertificateCode());
-			System.out.println("Student_Name" + bean.getStudentName());
-			System.out.println("Course_Name" + bean.getCourseName());
-			System.out.println("Issue_Date" + bean.getIssueDate());
+			System.out.println("Student_Name : " + bean.getStudentName());
+			System.out.println("Course_Name : " + bean.getCourseName());
+			System.out.println("Issue_Date : " + bean.getIssueDate());
 			System.out.println("CreatedBy : " + bean.getCreatedBy());
 			System.out.println("ModifiedBy : " + bean.getModifiedBy());
 			System.out.println("CreatedDatetime : " + bean.getCreatedDatetime());
@@ -135,9 +134,9 @@ public class TestCertificateModel {
 			CertificateBean bean = model.findByCode("12122026");
 			System.out.println("ID : " + bean.getId());
 			System.out.println("Certificate_Code : " + bean.getCertificateCode());
-			System.out.println("Student_Name" + bean.getStudentName());
-			System.out.println("Course_Name" + bean.getCourseName());
-			System.out.println("Issue_Date" + bean.getIssueDate());
+			System.out.println("Student_Name : " + bean.getStudentName());
+			System.out.println("Course_Name : " + bean.getCourseName());
+			System.out.println("Issue_Date : " + bean.getIssueDate());
 			System.out.println("CreatedBy : " + bean.getCreatedBy());
 			System.out.println("ModifiedBy : " + bean.getModifiedBy());
 			System.out.println("CreatedDatetime : " + bean.getCreatedDatetime());
@@ -148,27 +147,29 @@ public class TestCertificateModel {
 
 	}
 
-	public static void testFindBysearch() {
+	public static void testSearch() throws ParseException {
 
 		CertificateBean bean = new CertificateBean();
-		bean.setStudentName("ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		bean.setStudentName("ss");
+		bean.setIssueDate(sdf.parse("2025-08-19"));
 
 		CertificateModel model = new CertificateModel();
 
-		List list = new ArrayList();
+		List<CertificateBean> list = new ArrayList<CertificateBean>();
 
 		try {
 			list = model.Search(bean, 0, 0);
 
-			Iterator it = list.iterator();
+			Iterator<CertificateBean> it = list.iterator();
 
 			while (it.hasNext()) {
 				bean = (CertificateBean) it.next();
 				System.out.println("ID : " + bean.getId());
 				System.out.println("Certificate_Code : " + bean.getCertificateCode());
-				System.out.println("Student_Name" + bean.getStudentName());
-				System.out.println("Course_Name" + bean.getCourseName());
-				System.out.println("Issue_Date" + bean.getIssueDate());
+				System.out.println("Student_Name : " + bean.getStudentName());
+				System.out.println("Course_Name : " + bean.getCourseName());
+				System.out.println("Issue_Date : " + bean.getIssueDate());
 				System.out.println("CreatedBy : " + bean.getCreatedBy());
 				System.out.println("ModifiedBy : " + bean.getModifiedBy());
 				System.out.println("CreatedDatetime : " + bean.getCreatedDatetime());

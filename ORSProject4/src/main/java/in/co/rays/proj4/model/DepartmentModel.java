@@ -236,7 +236,7 @@ public class DepartmentModel {
 	public List<DepartmentBean> search(DepartmentBean bean, int pageNo, int pageSize) throws ApplicationException {
 
 		Connection conn = null;
-		List list = new ArrayList();
+		List<DepartmentBean> list = new ArrayList<DepartmentBean>();
 
 		StringBuffer sql = new StringBuffer("select * from st_department where 1 = 1");
 

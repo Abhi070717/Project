@@ -159,12 +159,12 @@ public class TestDepartmentModel {
 
 		DepartmentModel model = new DepartmentModel();
 
-		List list = new ArrayList();
+		List<DepartmentBean> list = new ArrayList<DepartmentBean>();
 
 		try {
 			list = model.search(bean, 0, 0);
 
-			Iterator it = list.iterator();
+			Iterator<DepartmentBean> it = list.iterator();
 
 			while (it.hasNext()) {
 				bean = (DepartmentBean) it.next();

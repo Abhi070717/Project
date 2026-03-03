@@ -259,7 +259,7 @@ public class EventModel {
 	public List<EventBean> search(EventBean bean, int pageNo, int pageSize) throws ApplicationException {
 
 		Connection conn = null;
-		List list = new ArrayList();
+		List<EventBean> list = new ArrayList<EventBean>();
 
 		StringBuffer sql = new StringBuffer("select * from st_event where 1 = 1");
 

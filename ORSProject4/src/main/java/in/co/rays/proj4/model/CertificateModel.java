@@ -3,12 +3,10 @@ package in.co.rays.proj4.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import in.co.rays.proj4.bean.CertificateBean;
-import in.co.rays.proj4.bean.CompanyBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.util.JDBCDataSource;
@@ -217,7 +215,7 @@ public class CertificateModel {
 	public List<CertificateBean> Search(CertificateBean bean, int pageNo, int pageSize) throws ApplicationException {
 
 		Connection conn = null;
-		List list = new ArrayList();
+		List<CertificateBean> list = new ArrayList<CertificateBean>();
 
 		StringBuffer sql = new StringBuffer("select * from st_certificate where 1 = 1");
 
@@ -227,6 +225,15 @@ public class CertificateModel {
 			}
 			if (bean.getCertificateCode() != null && bean.getCertificateCode().length() > 0) {
 				sql.append(" and Code like '" + bean.getCertificateCode() + "%'");
+			}
+			if (bean.getStudentName() != null && bean.getStudentName().length() > 0) {
+				sql.append(" and student_name like '" + bean.getStudentName() + "%'");
+			}
+			if (bean.getCourseName() != null && bean.getCourseName().length() > 0) {
+				sql.append(" and course_name like '" + bean.getCourseName() + "%'");
+			}
+			if (bean.getIssueDate() != null && bean.getIssueDate().getTime() > 0) {
+				sql.append(" and date like '" + new java.sql.Date(bean.getIssueDate().getTime()) + "%'");
 			}
 
 			if (pageSize > 0) {
