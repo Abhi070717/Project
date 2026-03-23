@@ -54,10 +54,8 @@ public class ProgressModel {
 			pstmt.setString(5, bean.getLastWeek());
 			pstmt.setString(6, bean.getCurrentWeek());
 			pstmt.setDate(7, new java.sql.Date(bean.getToday().getTime()));
-			int i;
-			i = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 
-			System.out.println("add" + i);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -83,12 +81,54 @@ public class ProgressModel {
 			pstmt.setString(5, bean.getCurrentWeek());
 			pstmt.setDate(6, new java.sql.Date(bean.getToday().getTime()));
 			pstmt.setLong(7, bean.getId());
-			int i = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 
-			System.out.println("data update =" + i);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	public void delete(long id) {
+		Connection conn = null;
+		conn = JDBCDataSource.getConnection();
+
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM ST_PROGRESS WHERE id  = ?");
+
+			pstmt.setLong(1, id);
+			pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public ProgressBean findbypk(long pk) {
+
+		Connection conn = null;
+		ProgressBean bean = null;
+		try {
+			conn = JDBCDataSource.getConnection();
+			PreparedStatement pstmt;
+			pstmt = conn.prepareStatement("SELECT * FROM ST_PROGRESS WHERE ID =?");
+			pstmt.setLong(1, pk);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				bean = new ProgressBean();
+				bean.setId(rs.getInt(1));
+				bean.setDeveloperName(rs.getString(2));
+				bean.setWork(rs.getString(3));
+				bean.setTarget(rs.getString(4));
+				bean.setLastWeek(rs.getString(5));
+				bean.setCurrentWeek(rs.getString(6));
+				bean.setToday(rs.getDate(7));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return bean;
 
 	}
 
@@ -139,48 +179,4 @@ public class ProgressModel {
 		return list;
 
 	}
-
-	public void delete(long id) {
-		Connection conn = null;
-		conn = JDBCDataSource.getConnection();
-
-		try {
-			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM ST_PROGRESS WHERE id  = ?");
-
-			pstmt.setLong(1, id);
-			int i = pstmt.executeUpdate();
-			System.out.println("data delete =" + i);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public ProgressBean findbypk(long pk) {
-
-		Connection conn = null;
-		ProgressBean bean = null;
-		try {
-			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt;
-			pstmt = conn.prepareStatement("SELECT * FROM ST_PROGRESS WHERE ID =?");
-			pstmt.setLong(1, pk);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				bean = new ProgressBean();
-				bean.setId(rs.getInt(1));
-				bean.setDeveloperName(rs.getString(2));
-				bean.setWork(rs.getString(3));
-				bean.setTarget(rs.getString(4));
-				bean.setLastWeek(rs.getString(5));
-				bean.setCurrentWeek(rs.getString(6));
-				bean.setToday(rs.getDate(7));
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return bean;
-
-	}
-
 }

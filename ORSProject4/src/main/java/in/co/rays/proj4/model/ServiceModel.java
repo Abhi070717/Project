@@ -261,7 +261,7 @@ public class ServiceModel {
 			pstmt.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ApplicationException("Exception : Exception in getting Service by PK");
+			throw new ApplicationException("Exception : Exception in getting Service by Search");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}

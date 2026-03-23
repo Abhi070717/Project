@@ -125,7 +125,7 @@ public class CompanyModel {
 			} catch (Exception ex) {
 				throw new ApplicationException("Exception : Update rollback exception " + ex.getMessage());
 			}
-			throw new ApplicationException("Exception in updating Faculty ");
+			throw new ApplicationException("Exception in updating Company ");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
@@ -156,7 +156,7 @@ public class CompanyModel {
 			} catch (Exception ex) {
 				throw new ApplicationException("Exception : Delete rollback exception " + ex.getMessage());
 			}
-			throw new ApplicationException("Exception in Deleting Faculty ");
+			throw new ApplicationException("Exception in Deleting Company ");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
@@ -191,7 +191,7 @@ public class CompanyModel {
 			}
 
 		} catch (Exception e) {
-			throw new ApplicationException("Exception in FindByPk Faculty ");
+			throw new ApplicationException("Exception in FindByPk Company ");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
@@ -228,7 +228,7 @@ public class CompanyModel {
 			}
 
 		} catch (Exception e) {
-			throw new ApplicationException("Exception in FindByCode Faculty ");
+			throw new ApplicationException("Exception in FindByCode Company ");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
@@ -241,20 +241,20 @@ public class CompanyModel {
 		List<CompanyBean> list = new ArrayList<>();
 		Connection conn = null;
 
-		StringBuffer sql = new StringBuffer("SELECT * FROM ST_COMPANY WHERE 1=1");
+		StringBuffer sql = new StringBuffer("select * from st_company where 1=1");
 
 		if (bean != null) {
 
 			if (bean.getCode() != null && bean.getCode().length() > 0) {
-				sql.append(" AND code LIKE '" + bean.getCode() + "%'");
+				sql.append(" and code like '" + bean.getCode() + "%'");
 			}
 
 			if (bean.getName() != null && bean.getName().length() > 0) {
-				sql.append(" AND name LIKE '" + bean.getName() + "%'");
+				sql.append(" and name like '" + bean.getName() + "%'");
 			}
 
 			if (bean.getHead() != null && bean.getHead().length() > 0) {
-				sql.append(" AND head LIKE '" + bean.getHead() + "%'");
+				sql.append(" and head like '" + bean.getHead() + "%'");
 			}
 		}
 
@@ -265,24 +265,22 @@ public class CompanyModel {
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				bean = new CompanyBean();
+				bean.setId(rs.getLong(1));
+				bean.setCode(rs.getString(2));
+				bean.setName(rs.getString(3));
+				bean.setHead(rs.getString(4));
+				bean.setLocation(rs.getString(5));
+				bean.setCreatedBy(rs.getString(6));
+				bean.setModifiedBy(rs.getString(7));
+				bean.setCreatedDatetime(rs.getTimestamp(8));
+				bean.setModifiedDatetime(rs.getTimestamp(9));
 
-				CompanyBean cb = new CompanyBean();
-
-				cb.setId(rs.getLong(1));
-				cb.setCode(rs.getString(2));
-				cb.setName(rs.getString(3));
-				cb.setHead(rs.getString(4));
-				cb.setLocation(rs.getString(5));
-				cb.setCreatedBy(rs.getString(6));
-				cb.setModifiedBy(rs.getString(7));
-				cb.setCreatedDatetime(rs.getTimestamp(8));
-				cb.setModifiedDatetime(rs.getTimestamp(9));
-
-				list.add(cb);
+				list.add(bean);
 			}
 
 		} catch (Exception e) {
-			throw new ApplicationException("Exception in searching Faculty ");
+			throw new ApplicationException("Exception in searching Company ");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}

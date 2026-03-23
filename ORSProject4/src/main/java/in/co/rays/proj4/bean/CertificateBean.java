@@ -40,4 +40,16 @@ public class CertificateBean extends BaseBean {
 	public void setIssueDate(Date issueDate) {
 		this.issueDate = issueDate;
 	}
+
+	@Override
+	public String getKey() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getValue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

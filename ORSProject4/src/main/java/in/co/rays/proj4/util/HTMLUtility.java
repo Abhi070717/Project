@@ -1,7 +1,10 @@
 package in.co.rays.proj4.util;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
+
+import in.co.rays.proj4.bean.DropdownListBean;
 
 public class HTMLUtility {
 
@@ -25,6 +28,65 @@ public class HTMLUtility {
 		}
 		sb.append("\n</select>");
 		return sb.toString();
+	}
+
+	public static String getList(String name, String selectedVal, List<?> list) {
+
+//		Collections.sort(list);
+
+		List<DropdownListBean> dd = (List<DropdownListBean>) list;
+
+		StringBuffer sb = new StringBuffer("<select style=\"width: 169px;text-align-last: center;\"; "
+				+ "class='form-control' name='" + name + "'>");
+
+		sb.append("\n<option selected value=''>-------------Select-------------</option>");
+
+		String key = null;
+		String val = null;
+
+		for (DropdownListBean obj : dd) {
+			key = obj.getKey();
+			val = obj.getValue();
+
+			if (key.trim().equals(selectedVal)) {
+				sb.append("\n<option selected value='" + key + "'>" + val + "</option>");
+			} else {
+				sb.append("\n<option value='" + key + "'>" + val + "</option>");
+			}
+		}
+		sb.append("\n</select>");
+		return sb.toString();
+	}
+
+	public static void testGetListByMap() {
+
+		HashMap<String, String> map = new HashMap<>();
+		map.put("male", "male");
+		map.put("female", "female");
+
+		String selectedValue = "male";
+		String htmlSelectFromMap = HTMLUtility.getList("gender", selectedValue, map);
+
+		System.out.println(htmlSelectFromMap);
+	}
+
+	public static void testGetListByList() throws Exception {
+
+//		List<...bean> list = model.list();
+
+		String selectedValue = null;
+
+//		String htmlSelectFromList = HTMLUtility.getList("Faculty", selectedValue, list);
+
+//		System.out.println(htmlSelectFromList);
+	}
+
+	public static void main(String[] args) throws Exception {
+
+//		testGetListByMap();
+
+		testGetListByList();
+
 	}
 
 }
