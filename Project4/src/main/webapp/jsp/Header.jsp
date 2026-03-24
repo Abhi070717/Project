@@ -10,6 +10,8 @@
 <body>
 	<h3>Hi, Guest</h3>
 
+	<a href="WelcomeCtl"><b>Welcome</b></a>
+	<b>|</b>
 	<a href="RecipeCtl"><b>Add Recipe</b></a>
 	<b>|</b>
 	<a href="BroadcastCtl"><b>Add Broadcast</b></a>
@@ -29,6 +31,10 @@
 	<a href="SupplierCtl"><b>Add Supplier</b></a>
 	<b>|</b>
 	<a href="SupplierListCtl"><b>Supplier List</b></a>
+	<b>|</b>
+	<a href="VaccineCtl"><b>Add Vaccine</b></a>
+	<b>|</b>
+	<a href="VaccineListCtl"><b>Vaccine List</b></a>
 	<b>|</b>
 	<a href=<%=ORSView.MAINTENANCE_CTL%>><b>Add Maintenance</b></a>		<!-- Standard Way to write -->
 	<hr>

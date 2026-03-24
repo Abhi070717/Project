@@ -6,6 +6,9 @@ public interface ORSView {
 
 	public String PAGE_FOLDER = "/jsp";
 
+	public String WELCOME_VIEW = PAGE_FOLDER + "/WelcomeView.jsp";
+	public String WELCOME_CTL = APP_CONTEXT + "/WelcomeCtl";
+
 	public String RECIPE_VIEW = PAGE_FOLDER + "/RecipeView.jsp";
 	public String RECIPE_CTL = APP_CONTEXT + "/RecipeCtl";
 
@@ -35,9 +38,15 @@ public interface ORSView {
 
 	public String SUPPLIER_VIEW = PAGE_FOLDER + "/SupplierView.jsp";
 	public String SUPPLIER_CTL = APP_CONTEXT + "/SupplierCtl";
-	
+
 	public String SUPPLIER_LIST_VIEW = PAGE_FOLDER + "/SupplierListView.jsp";
 	public String SUPPLIER_LIST_CTL = APP_CONTEXT + "/SupplierListCtl";
+
+	public String VACCINE_VIEW = PAGE_FOLDER + "/VaccineView.jsp";
+	public String VACCINE_CTL = APP_CONTEXT + "/VaccineCtl";
+
+	public String VACCINE_LIST_VIEW = PAGE_FOLDER + "/VaccineListView.jsp";
+	public String VACCINE_LIST_CTL = APP_CONTEXT + "/VaccineListCtl";
 
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
