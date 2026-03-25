@@ -42,14 +42,13 @@ public class OtpModel {
 		Connection conn = null;
 		long pk = 0;
 
+		OtpBean existBean = findByOtpCode(bean.getOtpCode());
+
+		if (existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("Otp Name already exists");
+		}
+
 		try {
-
-			OtpBean existBean = findByOtpCode(bean.getOtpCode());
-			if (existBean != null) {
-
-
-			}
-
 			pk = nextPK();
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
@@ -91,14 +90,13 @@ public class OtpModel {
 
 		Connection conn = null;
 
+		OtpBean existBean = findByOtpCode(bean.getOtpCode());
+
+		if (existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("Otp Name already exists");
+		}
+
 		try {
-
-			OtpBean existBean = findByOtpCode(bean.getOtpCode());
-
-			if (existBean != null && existBean.getId() != bean.getId()) {
-				throw new DuplicateRecordException("Otp Name already exists");
-			}
-
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 

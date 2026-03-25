@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.proj4.bean.BaseBean;
 import in.co.rays.proj4.bean.SupplierBean;
+import in.co.rays.proj4.bean.TemplateBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.model.SupplierModel;
 import in.co.rays.proj4.util.DataUtility;
@@ -113,10 +114,11 @@ public class SupplierListCtl extends BaseCtl {
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 
 				String[] ids = request.getParameterValues("ids");
+				SupplierBean deletebean = new SupplierBean();
 
 				if (ids != null) {
 					for (String id : ids) {
-						model.delete(DataUtility.getLong(id));
+						model.delete(deletebean);
 					}
 					ServletUtility.setSuccessMessage("Data deleted successfully", request);
 				} else {

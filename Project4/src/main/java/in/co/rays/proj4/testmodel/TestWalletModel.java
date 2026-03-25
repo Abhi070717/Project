@@ -22,7 +22,7 @@ public class TestWalletModel {
 //		 testDelete();
 //		 testFindByPk();
 //		 testFindByCode();
-		testSearch();
+//		testSearch();
 	}
 
 	public static void testNextPk() {

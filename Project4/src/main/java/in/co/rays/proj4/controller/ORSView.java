@@ -48,6 +48,12 @@ public interface ORSView {
 	public String VACCINE_LIST_VIEW = PAGE_FOLDER + "/VaccineListView.jsp";
 	public String VACCINE_LIST_CTL = APP_CONTEXT + "/VaccineListCtl";
 
+	public String TEMPLATE_VIEW = PAGE_FOLDER + "/TemplateView.jsp";
+	public String TEMPLATE_CTL = APP_CONTEXT + "/TemplateCtl";
+	
+	public String TEMPLATE_LIST_VIEW = PAGE_FOLDER + "/TemplateListView.jsp";
+	public String TEMPLATE_LIST_CTL = APP_CONTEXT + "/TemplateListCtl";
+
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
 }

@@ -130,7 +130,7 @@ public class SupplierModel {
 		}
 	}
 
-	public void delete(long id) throws ApplicationException, RecordNotFoundException {
+	public void delete(SupplierBean bean) throws ApplicationException, RecordNotFoundException {
 
 		Connection conn = null;
 
@@ -141,7 +141,7 @@ public class SupplierModel {
 
 			PreparedStatement pstmt = conn.prepareStatement("delete from st_supplier where id = ?");
 
-			pstmt.setLong(1, id);
+			pstmt.setLong(1, bean.getId());
 
 			pstmt.executeUpdate();
 			conn.commit();
@@ -256,6 +256,10 @@ public class SupplierModel {
 			if (bean.getPaymentTerm() != null && bean.getPaymentTerm() > 0) {
 				sql.append(" and payment_term like '" + bean.getPaymentTerm() + "%'");
 			}
+		}
+		if (pageSize > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			sql.append(" limit " + pageNo + ", " + pageSize);
 		}
 
 		try {

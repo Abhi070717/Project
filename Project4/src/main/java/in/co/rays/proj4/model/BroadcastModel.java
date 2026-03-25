@@ -41,11 +41,11 @@ public class BroadcastModel {
 		Connection conn = null;
 		long pk = 0;
 		
-//		Broadcastbean existBean = findByCode(bean.getBroadcastCode());
-//
-//		if (existBean != null) {
-//			throw new DuplicateRecordException("Broadcast Already Exist");
-//		}
+		BroadcastBean existBean = findByCode(bean.getBroadcastCode());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("Broadcast Already Exist");
+		}
 		
 		try {
 			conn = JDBCDataSource.getConnection();

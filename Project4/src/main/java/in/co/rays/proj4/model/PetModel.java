@@ -127,7 +127,7 @@ public class PetModel {
 		}
 	}
 
-	public void delete(long id) throws ApplicationException, RecordNotFoundException {
+	public void delete(PetBean bean) throws ApplicationException, RecordNotFoundException {
 
 		Connection conn = null;
 
@@ -138,7 +138,7 @@ public class PetModel {
 
 			PreparedStatement pstmt = conn.prepareStatement("delete from st_pet where id = ?");
 
-			pstmt.setLong(1, id);
+			pstmt.setLong(1, bean.getId());
 
 			pstmt.executeUpdate();
 			conn.commit();

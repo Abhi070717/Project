@@ -36,6 +36,10 @@
 	<b>|</b>
 	<a href="VaccineListCtl"><b>Vaccine List</b></a>
 	<b>|</b>
+	<a href="TemplateCtl"><b>Add Template</b></a>
+	<b>|</b>
+	<a href="TemplateListCtl"><b>Template List</b></a>
+	<b>|</b>
 	<a href=<%=ORSView.MAINTENANCE_CTL%>><b>Add Maintenance</b></a>		<!-- Standard Way to write -->
 	<hr>
 </body>

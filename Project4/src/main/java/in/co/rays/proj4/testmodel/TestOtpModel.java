@@ -16,7 +16,7 @@ public class TestOtpModel {
 //		testDelete();
 //		testFindByPK();
 //		testFindByOtpCode();
-		testSearch();
+//		testSearch();
 	}
 
 	// ------------------- ADD -------------------

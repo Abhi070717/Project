@@ -59,8 +59,9 @@ public class TestPetModel {
 	public static void testDelete() throws Exception {
 
 		PetModel model = new PetModel();
-
-		model.delete(3); // existing ID
+		PetBean bean = new PetBean();
+		bean.setId(3);
+		model.delete(bean); // existing ID
 
 		System.out.println("Pet Deleted Successfully");
 	}
