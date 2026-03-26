@@ -54,6 +54,12 @@ public interface ORSView {
 	public String TEMPLATE_LIST_VIEW = PAGE_FOLDER + "/TemplateListView.jsp";
 	public String TEMPLATE_LIST_CTL = APP_CONTEXT + "/TemplateListCtl";
 
+	public String SALARY_VIEW = PAGE_FOLDER + "/SalaryView.jsp";
+	public String SALARY_CTL = APP_CONTEXT + "/SalaryCtl";
+	
+	public String SALARY_LIST_VIEW = PAGE_FOLDER + "/SalaryListView.jsp";
+	public String SALARY_LIST_CTL = APP_CONTEXT + "/SalaryListCtl";
+
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
 }

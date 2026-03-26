@@ -24,10 +24,10 @@ public class TemplateListCtl extends BaseCtl {
 
 	@Override
 	protected void preload(HttpServletRequest request) {
-		RecipeModel Model = new RecipeModel();
+		TemplateModel Model = new TemplateModel();
 		try {
-			List<RecipeBean> list = Model.list();
-			request.setAttribute("ingredientsList", list);
+			List<TemplateBean> list = Model.list();
+			request.setAttribute("nameList", list);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
