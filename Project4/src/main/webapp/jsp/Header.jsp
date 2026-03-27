@@ -44,6 +44,10 @@
 	<b>|</b>
 	<a href="SalaryListCtl"><b>Salary List</b></a>
 	<b>|</b>
+	<a href="AttendanceCtl"><b>Add Attendance</b></a>
+	<b>|</b>
+	<a href="AttendanceListCtl"><b>Attendance List</b></a>
+	<b>|</b>
 	<a href=<%=ORSView.MAINTENANCE_CTL%>><b>Add Maintenance</b></a>		<!-- Standard Way to write -->
 	<hr>
 </body>

@@ -1,20 +1,19 @@
 package in.co.rays.proj4.model;
 
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.co.rays.proj4.bean.OtpBean;
+import in.co.rays.proj4.bean.AttendanceBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.exception.RecordNotFoundException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
-public class OtpModel {
+public class AttendanceModel {
 	public long nextPK() throws DatabaseException {
 
 		long pk = 0;
@@ -22,7 +21,7 @@ public class OtpModel {
 
 		try {
 			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("select max(id) from st_otp");
+			PreparedStatement pstmt = conn.prepareStatement("select max(id) from st_attendance");
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -38,15 +37,15 @@ public class OtpModel {
 		return pk + 1;
 	}
 
-	public long add(OtpBean bean) throws ApplicationException, DuplicateRecordException {
+	public long add(AttendanceBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
 		long pk = 0;
 
-		OtpBean existBean = findByOtpCode(bean.getOtpCode());
+		AttendanceBean existBean = findByAttendanceCode(bean.getAttendanceCode());
 
 		if (existBean != null && existBean.getId() != bean.getId()) {
-			throw new DuplicateRecordException("Otp Name already exists");
+			throw new DuplicateRecordException("Employee Code already exists");
 		}
 
 		try {
@@ -54,13 +53,14 @@ public class OtpModel {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 
-			PreparedStatement pstmt = conn.prepareStatement("insert into st_otp values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement pstmt = conn
+					.prepareStatement("insert into st_attendance values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 			pstmt.setLong(1, pk);
-			pstmt.setString(2, bean.getOtpCode());
-			pstmt.setString(3, bean.getMobileNumber());
-			pstmt.setDate(4, new java.sql.Date(bean.getExpiryTime().getTime()));
-			pstmt.setString(5, bean.getOtpStatus());
+			pstmt.setString(2, bean.getAttendanceCode());
+			pstmt.setString(3, bean.getEmployeeName());
+			pstmt.setDate(4, new java.sql.Date(bean.getDate().getTime()));
+			pstmt.setString(5, bean.getStatus());
 			pstmt.setString(6, bean.getCreatedBy());
 			pstmt.setString(7, bean.getModifiedBy());
 			pstmt.setTimestamp(8, bean.getCreatedDatetime());
@@ -78,7 +78,7 @@ public class OtpModel {
 				throw new ApplicationException("Exception : add rollback exception " + ex.getMessage());
 			}
 
-			throw new ApplicationException("Exception : Exception in adding Otp");
+			throw new ApplicationException("Exception : Exception in adding Attendance");
 
 		} finally {
 			JDBCDataSource.closeConnection(conn);
@@ -87,14 +87,14 @@ public class OtpModel {
 		return pk;
 	}
 
-	public void update(OtpBean bean) throws ApplicationException, DuplicateRecordException {
+	public void update(AttendanceBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
 
-		OtpBean existBean = findByOtpCode(bean.getOtpCode());
+		AttendanceBean existBean = findByAttendanceCode(bean.getAttendanceCode());
 
 		if (existBean != null && existBean.getId() != bean.getId()) {
-			throw new DuplicateRecordException("Otp Name already exists");
+			throw new DuplicateRecordException("Employee Code already exists");
 		}
 
 		try {
@@ -102,12 +102,12 @@ public class OtpModel {
 			conn.setAutoCommit(false);
 
 			PreparedStatement pstmt = conn.prepareStatement(
-					"update st_otp set code = ?, number = ?, time = ?, status = ?, created_by = ?, modified_By = ?, created_datetime = ?, modified_Datetime = ? where id = ?");
+					"update st_attendance set attendanceCode = ?, name = ?, date = ?, status = ?, created_by = ?, modified_By = ?, created_datetime = ?, modified_Datetime = ? where id = ?");
 
-			pstmt.setString(1, bean.getOtpCode());
-			pstmt.setString(2, bean.getMobileNumber());
-			pstmt.setDate(3, new java.sql.Date(bean.getExpiryTime().getTime()));
-			pstmt.setString(4, bean.getOtpStatus());
+			pstmt.setString(1, bean.getAttendanceCode());
+			pstmt.setString(2, bean.getEmployeeName());
+			pstmt.setDate(3, new java.sql.Date(bean.getDate().getTime()));
+			pstmt.setString(4, bean.getStatus());
 			pstmt.setString(5, bean.getCreatedBy());
 			pstmt.setString(6, bean.getModifiedBy());
 			pstmt.setTimestamp(7, bean.getCreatedDatetime());
@@ -122,13 +122,13 @@ public class OtpModel {
 			} catch (Exception ex) {
 				throw new ApplicationException("Exception : Update rollback exception " + ex.getMessage());
 			}
-			throw new ApplicationException("Exception in updating Otp");
+			throw new ApplicationException("Exception in updating Attendance");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
 	}
 
-	public void delete(long id) throws ApplicationException, RecordNotFoundException {
+	public void delete(AttendanceBean bean) throws ApplicationException, RecordNotFoundException {
 
 		Connection conn = null;
 
@@ -137,9 +137,9 @@ public class OtpModel {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 
-			PreparedStatement pstmt = conn.prepareStatement("delete from st_otp where id = ?");
+			PreparedStatement pstmt = conn.prepareStatement("delete from st_attendance where id = ?");
 
-			pstmt.setLong(1, id);
+			pstmt.setLong(1, bean.getId());
 
 			pstmt.executeUpdate();
 			conn.commit();
@@ -150,34 +150,34 @@ public class OtpModel {
 			} catch (Exception ex) {
 				throw new ApplicationException("Exception : Delete rollback exception " + ex.getMessage());
 			}
-			throw new ApplicationException("Exception in Deleting Otp");
+			throw new ApplicationException("Exception in Deleting Attendance");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
 	}
 
-	public OtpBean findByPK(long pk) throws ApplicationException {
+	public AttendanceBean findByPk(long pk) throws ApplicationException {
 
-		OtpBean bean = null;
+		AttendanceBean bean = null;
 		Connection conn = null;
 
 		try {
 
 			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("select * from st_otp where id=?");
+			PreparedStatement pstmt = conn.prepareStatement("select * from st_attendance where id=?");
 
 			pstmt.setLong(1, pk);
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 
-				bean = new OtpBean();
+				bean = new AttendanceBean();
 
 				bean.setId(rs.getLong(1));
-				bean.setOtpCode(rs.getString(2));
-				bean.setMobileNumber(rs.getString(3));
-				bean.setExpiryTime(rs.getDate(4));
-				bean.setOtpStatus(rs.getString(5));
+				bean.setAttendanceCode(rs.getString(2));
+				bean.setEmployeeName(rs.getString(3));
+				bean.setDate(rs.getDate(4));
+				bean.setStatus(rs.getString(5));
 				bean.setCreatedBy(rs.getString(6));
 				bean.setModifiedBy(rs.getString(7));
 				bean.setCreatedDatetime(rs.getTimestamp(8));
@@ -185,7 +185,7 @@ public class OtpModel {
 			}
 
 		} catch (Exception e) {
-			throw new ApplicationException("Exception in FindByPk Otp ");
+			throw new ApplicationException("Exception in FindByPk Attendance ");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
@@ -193,28 +193,28 @@ public class OtpModel {
 		return bean;
 	}
 
-	public OtpBean findByOtpCode(String OtpName) throws ApplicationException {
+	public AttendanceBean findByAttendanceCode(String AttendanceName) throws ApplicationException {
 
-		OtpBean bean = null;
+		AttendanceBean bean = null;
 		Connection conn = null;
 
 		try {
 
 			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("select * from st_otp where code = ?");
+			PreparedStatement pstmt = conn.prepareStatement("select * from st_attendance where attendanceCode = ?");
 
-			pstmt.setString(1, OtpName);
+			pstmt.setString(1, AttendanceName);
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 
-				bean = new OtpBean();
+				bean = new AttendanceBean();
 
 				bean.setId(rs.getLong(1));
-				bean.setOtpCode(rs.getString(2));
-				bean.setMobileNumber(rs.getString(3));
-				bean.setExpiryTime(rs.getDate(4));
-				bean.setOtpStatus(rs.getString(5));
+				bean.setAttendanceCode(rs.getString(2));
+				bean.setEmployeeName(rs.getString(3));
+				bean.setDate(rs.getDate(4));
+				bean.setStatus(rs.getString(5));
 				bean.setCreatedBy(rs.getString(6));
 				bean.setModifiedBy(rs.getString(7));
 				bean.setCreatedDatetime(rs.getTimestamp(8));
@@ -222,7 +222,7 @@ public class OtpModel {
 			}
 
 		} catch (Exception e) {
-			throw new ApplicationException("Exception in FindByOtpCode Otp");
+			throw new ApplicationException("Exception in FindByAttendanceCode Attendance");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
@@ -230,30 +230,33 @@ public class OtpModel {
 		return bean;
 	}
 
-	public List<OtpBean> list() throws ApplicationException {
+	public List<AttendanceBean> list() throws ApplicationException {
 		return search(null, 0, 0);
 	}
 
-	public List<OtpBean> search(OtpBean bean, int pageNo, int pageSize) throws ApplicationException {
+	public List<AttendanceBean> search(AttendanceBean bean, int pageNo, int pageSize) throws ApplicationException {
 
-		List<OtpBean> list = new ArrayList<OtpBean>();
+		List<AttendanceBean> list = new ArrayList<AttendanceBean>();
 		Connection conn = null;
 
-		StringBuffer sql = new StringBuffer("select * from st_otp where 1=1");
+		StringBuffer sql = new StringBuffer("select * from st_attendance where 1=1");
 
 		if (bean != null) {
 
-			if (bean.getOtpCode() != null && bean.getOtpCode().length() > 0) {
-				sql.append(" and code like '" + bean.getOtpCode() + "%'");
+			if (bean.getAttendanceCode() != null && bean.getAttendanceCode().length() > 0) {
+				sql.append(" and attendanceCode like '" + bean.getAttendanceCode() + "%'");
 			}
 
-			if (bean.getMobileNumber() != null && bean.getMobileNumber().length() > 0) {
-				sql.append(" and time like '" + bean.getMobileNumber() + "%'");
+			if (bean.getEmployeeName() != null && bean.getEmployeeName().length() > 0) {
+				sql.append(" and name like '" + bean.getEmployeeName() + "%'");
 			}
 
-			if (bean.getOtpStatus() != null && bean.getOtpStatus().length() > 0) {
-				sql.append(" and status like '" + bean.getOtpStatus() + "%'");
+			if (bean.getStatus() != null && bean.getStatus().length() > 0) {
+				sql.append(" and status like '" + bean.getStatus() + "%'");
 			}
+		}
+		if (pageSize > 0) {
+			sql.append(" limit " + ((pageNo - 1) * pageSize) + ", " + pageSize);
 		}
 
 		try {
@@ -264,13 +267,13 @@ public class OtpModel {
 
 			while (rs.next()) {
 
-				OtpBean rb = new OtpBean();
+				AttendanceBean rb = new AttendanceBean();
 
 				rb.setId(rs.getLong(1));
-				rb.setOtpCode(rs.getString(2));
-				rb.setMobileNumber(rs.getString(3));
-				rb.setExpiryTime(rs.getDate(4));
-				rb.setOtpStatus(rs.getString(5));
+				rb.setAttendanceCode(rs.getString(2));
+				rb.setEmployeeName(rs.getString(3));
+				rb.setDate(rs.getDate(4));
+				rb.setStatus(rs.getString(5));
 				rb.setCreatedBy(rs.getString(6));
 				rb.setModifiedBy(rs.getString(7));
 				rb.setCreatedDatetime(rs.getTimestamp(8));
@@ -280,7 +283,7 @@ public class OtpModel {
 			}
 
 		} catch (Exception e) {
-			throw new ApplicationException("Exception in searching  Otp");
+			throw new ApplicationException("Exception in searching  Attendance");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}

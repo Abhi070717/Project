@@ -59,7 +59,7 @@ public class SupplierCtl extends BaseCtl {
 		bean.setName(DataUtility.getString(request.getParameter("name")));
 		bean.setCategory(DataUtility.getString(request.getParameter("category")));
 		bean.setDob(DataUtility.getDate(request.getParameter("dob")));
-		bean.setPaymentTerm(DataUtility.getInteger(request.getParameter("paymentTerm")));
+		bean.setPaymentTerm(DataUtility.getInt(request.getParameter("paymentTerm")));
 		return bean;
 	}
 

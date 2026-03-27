@@ -16,55 +16,47 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>
-				mysql</groupId>
+			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.28</version>
 		</dependency>
 		<dependency>
-			<groupId>
-				javax.servlet</groupId>
+			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>
-				log4j</groupId>
+			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
 		<dependency>
-			<groupId>
-				javax.mail</groupId>
+			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
 		<dependency>
-			<groupId>
-				c3p0</groupId>
+			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>0.9.1.2</version>
 		</dependency>
 		<dependency>
-			<groupId>
-				com.mchange</groupId>
+			<groupId>com.mchange</groupId>
 			<artifactId>mchange-commons-java</artifactId>
 			<version>0.2.12</version>
 		</dependency>
 	</dependencies>
+
 	<properties>
-		<maven.compiler.source>
-			11</maven.compiler.source>
+		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
 	<build>
-		<finalName>
-			spring-mvc-simple</finalName>
+		<finalName>ORSProject-04</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>
-					maven-war-plugin</artifactId>
+				<artifactId>maven-war-plugin</artifactId>
 				<version>3.3.2</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>

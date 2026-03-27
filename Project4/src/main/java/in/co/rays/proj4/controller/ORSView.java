@@ -60,6 +60,12 @@ public interface ORSView {
 	public String SALARY_LIST_VIEW = PAGE_FOLDER + "/SalaryListView.jsp";
 	public String SALARY_LIST_CTL = APP_CONTEXT + "/SalaryListCtl";
 
+	public String ATTENDANCE_VIEW = PAGE_FOLDER + "/AttendanceView.jsp";
+	public String ATTENDANCE_CTL = APP_CONTEXT + "/AttendanceCtl";
+	
+	public String ATTENDANCE_LIST_VIEW = PAGE_FOLDER + "/AttendanceListView.jsp";
+	public String ATTENDANCE_LIST_CTL = APP_CONTEXT + "/AttendanceListCtl";
+
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
 }
