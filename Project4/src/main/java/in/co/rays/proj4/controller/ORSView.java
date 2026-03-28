@@ -12,9 +12,6 @@ public interface ORSView {
 	public String RECIPE_VIEW = PAGE_FOLDER + "/RecipeView.jsp";
 	public String RECIPE_CTL = APP_CONTEXT + "/RecipeCtl";
 
-	public String MAINTENANCE_VIEW = PAGE_FOLDER + "/MaintenanceView.jsp";
-	public String MAINTENANCE_CTL = APP_CONTEXT + "/MaintenanceCtl";
-
 	public String BROADCAST_VIEW = PAGE_FOLDER + "/BroadcastView.jsp";
 	public String BROADCAST_CTL = APP_CONTEXT + "/BroadcastCtl";
 
@@ -50,21 +47,30 @@ public interface ORSView {
 
 	public String TEMPLATE_VIEW = PAGE_FOLDER + "/TemplateView.jsp";
 	public String TEMPLATE_CTL = APP_CONTEXT + "/TemplateCtl";
-	
+
 	public String TEMPLATE_LIST_VIEW = PAGE_FOLDER + "/TemplateListView.jsp";
 	public String TEMPLATE_LIST_CTL = APP_CONTEXT + "/TemplateListCtl";
 
 	public String SALARY_VIEW = PAGE_FOLDER + "/SalaryView.jsp";
 	public String SALARY_CTL = APP_CONTEXT + "/SalaryCtl";
-	
+
 	public String SALARY_LIST_VIEW = PAGE_FOLDER + "/SalaryListView.jsp";
 	public String SALARY_LIST_CTL = APP_CONTEXT + "/SalaryListCtl";
 
 	public String ATTENDANCE_VIEW = PAGE_FOLDER + "/AttendanceView.jsp";
 	public String ATTENDANCE_CTL = APP_CONTEXT + "/AttendanceCtl";
-	
+
 	public String ATTENDANCE_LIST_VIEW = PAGE_FOLDER + "/AttendanceListView.jsp";
 	public String ATTENDANCE_LIST_CTL = APP_CONTEXT + "/AttendanceListCtl";
+
+	public String MAINTENANCE_VIEW = PAGE_FOLDER + "/MaintenanceView.jsp";
+	public String MAINTENANCE_CTL = APP_CONTEXT + "/MaintenanceCtl";
+
+	public String BANK_VIEW = PAGE_FOLDER + "/BankView.jsp";
+	public String BANK_CTL = APP_CONTEXT + "/BankCtl";
+
+	public String BANK_LIST_VIEW = PAGE_FOLDER + "/BankListView.jsp";
+	public String BANK_LIST_CTL = APP_CONTEXT + "/BankListCtl";
 
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";

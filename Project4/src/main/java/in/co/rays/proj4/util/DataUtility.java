@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class DataUtility {
 
 	public static final String APP_DATE_FORMAT = "dd-MM-yyyy";
@@ -45,6 +44,20 @@ public class DataUtility {
 		} else {
 			return 0;
 		}
+	}
+
+	public static double getDouble(String val) {
+		double i = 0;
+
+		if (val != null && val.trim().length() > 0) {
+			try {
+				i = Double.parseDouble(val);
+			} catch (NumberFormatException e) {
+				i = 0;
+			}
+		}
+
+		return i;
 	}
 
 	public static Date getDate(String val) {

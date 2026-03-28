@@ -48,7 +48,11 @@
 	<b>|</b>
 	<a href="AttendanceListCtl"><b>Attendance List</b></a>
 	<b>|</b>
-	<a href=<%=ORSView.MAINTENANCE_CTL%>><b>Add Maintenance</b></a>		<!-- Standard Way to write -->
+	<a href=<%=ORSView.MAINTENANCE_CTL%>><b>Add Maintenance</b></a>			<!-- Standard Way to write -->
+	<b>|</b>
+	<a href=<%=ORSView.BANK_CTL%>><b>Add Bank Account</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.BANK_LIST_CTL%>><b>Bank Account List</b></a>
 	<hr>
 </body>
 </html>
