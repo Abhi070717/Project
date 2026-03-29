@@ -90,11 +90,11 @@ public class MaintenanceModel {
 
 		Connection conn = null;
 
-//		MaintenanceBean existBean = findByMaintenanceName(bean.getRequestName());
-//
-//		if (existBean != null && existBean.getId() != bean.getId()) {
-//			throw new DuplicateRecordException("Maintenance Name already exists");
-//		}
+		MaintenanceBean existBean = findByMaintenanceName(bean.getRequestName());
+
+		if (existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("Maintenance Name already exists");
+		}
 		try {
 
 			conn = JDBCDataSource.getConnection();
@@ -127,7 +127,7 @@ public class MaintenanceModel {
 		}
 	}
 
-	public void delete(long id) throws ApplicationException, RecordNotFoundException {
+	public void delete(MaintenanceBean bean) throws ApplicationException, RecordNotFoundException {
 
 		Connection conn = null;
 
@@ -138,7 +138,7 @@ public class MaintenanceModel {
 
 			PreparedStatement pstmt = conn.prepareStatement("delete from st_maintenance where id = ?");
 
-			pstmt.setLong(1, id);
+			pstmt.setLong(1, bean.getId());
 
 			pstmt.executeUpdate();
 			conn.commit();

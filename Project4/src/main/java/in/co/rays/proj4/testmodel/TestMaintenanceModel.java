@@ -5,7 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 
+import in.co.rays.proj4.bean.FeedbackBean;
 import in.co.rays.proj4.bean.MaintenanceBean;
+import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.model.FeedbackModel;
 import in.co.rays.proj4.model.MaintenanceModel;
 
 public class TestMaintenanceModel {
@@ -14,7 +17,7 @@ public class TestMaintenanceModel {
 
 //		testAdd();
 //		testUpdate();
-//		testDelete();
+		testDelete();
 //		testFindByPK();
 //		testFindByName();
 //		testSearch();
@@ -63,11 +66,16 @@ public class TestMaintenanceModel {
 
 	public static void testDelete() throws Exception {
 
+		MaintenanceBean bean = new MaintenanceBean();
+		bean.setId(3);
+
 		MaintenanceModel model = new MaintenanceModel();
-
-		model.delete(4);
-
-		System.out.println("Record Deleted");
+		try {
+			model.delete(bean);
+			System.out.println("Record Deleted");
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void testFindByPK() throws Exception {

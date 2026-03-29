@@ -66,6 +66,9 @@ public interface ORSView {
 	public String MAINTENANCE_VIEW = PAGE_FOLDER + "/MaintenanceView.jsp";
 	public String MAINTENANCE_CTL = APP_CONTEXT + "/MaintenanceCtl";
 
+	public String MAINTENANCE_LIST_VIEW = PAGE_FOLDER + "/MaintenanceListView.jsp";
+	public String MAINTENANCE_LIST_CTL = APP_CONTEXT + "/MaintenanceListCtl";
+
 	public String BANK_VIEW = PAGE_FOLDER + "/BankView.jsp";
 	public String BANK_CTL = APP_CONTEXT + "/BankCtl";
 

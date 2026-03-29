@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import in.co.rays.proj4.bean.BankBean;
 import in.co.rays.proj4.bean.BaseBean;
 import in.co.rays.proj4.bean.MaintenanceBean;
 import in.co.rays.proj4.exception.ApplicationException;
@@ -99,6 +100,26 @@ public class MaintenanceCtl extends BaseCtl {
 				ServletUtility.handleException(e, request, response);
 				return;
 			}
+		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			MaintenanceBean bean = (MaintenanceBean) populateBean(request);
+			try {
+				if (id > 0) {
+					model.update(bean);
+				}
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setSuccessMessage("Data is successfully updated", request);
+			} catch (DuplicateRecordException e) {
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setErrorMessage("Maintenance Name already exists", request);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, request, response);
+				return;
+			}
+		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
+			ServletUtility.redirect(ORSView.MAINTENANCE_LIST_CTL, request, response);
+			return;
+
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.MAINTENANCE_CTL, request, response);
 			return;

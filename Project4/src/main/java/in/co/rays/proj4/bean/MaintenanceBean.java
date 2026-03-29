@@ -43,7 +43,7 @@ public class MaintenanceBean extends BaseBean {
 
 	@Override
 	public String getKey() {
-		return id + "";
+		return requestName;
 	}
 
 	@Override
