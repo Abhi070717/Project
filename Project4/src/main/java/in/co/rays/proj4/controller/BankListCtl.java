@@ -89,6 +89,9 @@ public class BankListCtl extends BaseCtl {
 		BankBean bean = (BankBean) populateBean(request);
 		BankModel model = new BankModel();
 
+		String[] ids = request.getParameterValues("ids");
+		BankBean deletebean = new BankBean();
+
 		String op = request.getParameter("operation");
 
 		try {
@@ -111,12 +114,11 @@ public class BankListCtl extends BaseCtl {
 				return;
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
+				pageNo = 1;
 
-				String[] ids = request.getParameterValues("ids");
-				BankBean deletebean = new BankBean();
-
-				if (ids != null) {
+				if (ids != null && ids.length > 0) {
 					for (String id : ids) {
+						System.out.println("dlete");
 						model.delete(deletebean);
 					}
 					ServletUtility.setSuccessMessage("Bank deleted successfully", request);

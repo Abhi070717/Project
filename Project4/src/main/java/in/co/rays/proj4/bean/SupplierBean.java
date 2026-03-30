@@ -43,7 +43,7 @@ public class SupplierBean extends BaseBean {
 
 	@Override
 	public String getKey() {
-		return id + "";
+		return name;
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class TemplateBean extends BaseBean {
 
 	@Override
 	public String getKey() {
-		return id + "";
+		return templateName;
 	}
 
 	@Override

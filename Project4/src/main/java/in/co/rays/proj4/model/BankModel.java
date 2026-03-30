@@ -146,9 +146,8 @@ public class BankModel {
 
 			int i = pstmt.executeUpdate();
 			conn.commit();
-
-			System.out.println(i + " Query OK, The rows affected (0.02 sec)" + "\n"
-					+ "Records: Deleted successfully Duplicates: 0  Warnings: 0");
+     System.out.println(bean.getId());
+			System.out.println(i + " Query OK, The rows affected (0.02 sec)" + "\n"+ "Records: Deleted successfully Duplicates: 0  Warnings: 0");
 			pstmt.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -162,7 +161,7 @@ public class BankModel {
 			JDBCDataSource.closeConnection(conn);
 		}
 	}
-
+	
 	public BankBean findByPk(long pk) throws ApplicationException {
 
 		Connection conn = null;

@@ -11,12 +11,11 @@
 		<%@ include file="Header.jsp"%>
 		<br> <br> <br>
 		<h1 align="center">
-			<font size="10px" color="navy">Welcome to Project4</font>
+			<br> <br> <br> <br> <font
+				size="10px" color="navy">Welcome to Project 4</font>
 		</h1>
 
-		<h2 align="Center">
-			<a style="color: maroon" href="#">Click here to see Project4 </a>
-		</h2>
+
 
 	</form>
 </body>

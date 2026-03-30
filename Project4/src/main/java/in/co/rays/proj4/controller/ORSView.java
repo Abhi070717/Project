@@ -75,6 +75,12 @@ public interface ORSView {
 	public String BANK_LIST_VIEW = PAGE_FOLDER + "/BankListView.jsp";
 	public String BANK_LIST_CTL = APP_CONTEXT + "/BankListCtl";
 
+	public String BLOOD_BANK_VIEW = PAGE_FOLDER + "/BloodBankView.jsp";
+	public String BLOOD_BANK_CTL = APP_CONTEXT + "/BloodBankCtl";
+
+	public String BLOOD_BANK_LIST_VIEW = PAGE_FOLDER + "/BloodBankListView.jsp";
+	public String BLOOD_BANK_LIST_CTL = APP_CONTEXT + "/BloodBankListCtl";
+	
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
 }

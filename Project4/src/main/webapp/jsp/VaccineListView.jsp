@@ -43,7 +43,7 @@
 			int index = ((pageNo - 1) * pageSize) + 1;
 			int nextListSize = DataUtility.getInt(request.getAttribute("nextListSize").toString());
 
-			
+			List<VaccineBean> nameList = (List<VaccineBean>) request.getAttribute("nameList");
 
 			List<VaccineBean> list = (List<VaccineBean>) ServletUtility.getList(request);
 			Iterator<VaccineBean> it = list.iterator();
@@ -56,9 +56,8 @@
 			<table style="width: 100%">
 				<tr>
 					<td align="center">
-					<label><b>Name:</b></label><input type="text"
-						name="name" placeholder="Enter Name"
-						value="<%=ServletUtility.getParameter("name", request)%>">
+					<label><b>Vaccine Name:</b></label><%=HTMLUtility.getList("name", String.valueOf(bean.getVaccineName()), nameList)%>&emsp;
+
 						&nbsp; <label><b>Manufacturer:</b></label><input type="text"
 						name="manufacturer" placeholder="Enter Manufacturer"
 						value="<%=ServletUtility.getParameter("manufacturer", request)%>">&emsp;

@@ -9,22 +9,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.proj4.bean.BaseBean;
-import in.co.rays.proj4.bean.SalaryBean;
+import in.co.rays.proj4.bean.BloodBankBean;
 import in.co.rays.proj4.exception.ApplicationException;
-import in.co.rays.proj4.model.SalaryModel;
+import in.co.rays.proj4.model.BloodBankModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet(name = "SalaryListCtl", urlPatterns = { "/SalaryListCtl" })
-public class SalaryListCtl extends BaseCtl {
+@WebServlet(name = "BloodBankListCtl", urlPatterns = { "/BloodBankListCtl" })
+public class BloodBankListCtl extends BaseCtl {
 
 	@Override
 	protected void preload(HttpServletRequest request) {
-		SalaryModel Model = new SalaryModel();
+		BloodBankModel model = new BloodBankModel();
 		try {
-			List<SalaryBean> statusList = Model.list();
-			request.setAttribute("statusList", statusList);
+			List<BloodBankBean> list = model.list();
+			request.setAttribute("bloodBankList", list);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
@@ -33,13 +33,12 @@ public class SalaryListCtl extends BaseCtl {
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
-		SalaryBean bean = new SalaryBean();
+		BloodBankBean bean = new BloodBankBean();
 
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
-		bean.setSalaryCode(DataUtility.getString(request.getParameter("salaryCode")));
-		bean.setEmployeeName(DataUtility.getString(request.getParameter("employeeName")));
-		bean.setAmount(DataUtility.getLong(request.getParameter("amount")));
-		bean.setStatus(DataUtility.getString(request.getParameter("status")));
+		bean.setbloodGroup(DataUtility.getString(request.getParameter("bloodGroup")));
+		bean.setunitsAvailable(DataUtility.getInt(request.getParameter("unitsAvailable")));
+		bean.setLocation(DataUtility.getString(request.getParameter("location")));
 
 		return bean;
 	}
@@ -51,13 +50,13 @@ public class SalaryListCtl extends BaseCtl {
 		int pageNo = 1;
 		int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
 
-		SalaryBean bean = (SalaryBean) populateBean(request);
-		SalaryModel model = new SalaryModel();
+		BloodBankBean bean = (BloodBankBean) populateBean(request);
+		BloodBankModel model = new BloodBankModel();
 
 		try {
 
-			List<SalaryBean> list = model.search(bean, pageNo, pageSize);
-			List<SalaryBean> next = model.search(bean, pageNo + 1, pageSize);
+			List<BloodBankBean> list = model.search(bean, pageNo, pageSize);
+			List<BloodBankBean> next = model.search(bean, pageNo + 1, pageSize);
 
 			if (list == null || list.isEmpty()) {
 				ServletUtility.setErrorMessage("No record found", request);
@@ -86,12 +85,11 @@ public class SalaryListCtl extends BaseCtl {
 		pageNo = (pageNo == 0) ? 1 : pageNo;
 		pageSize = (pageSize == 0) ? DataUtility.getInt(PropertyReader.getValue("page.size")) : pageSize;
 
-		SalaryBean bean = (SalaryBean) populateBean(request);
-		SalaryModel model = new SalaryModel();
+		BloodBankBean bean = (BloodBankBean) populateBean(request);
+		BloodBankModel model = new BloodBankModel();
 
 		String op = request.getParameter("operation");
 		String[] ids = request.getParameterValues("ids");
-		SalaryBean deletebean = new SalaryBean();
 
 		try {
 
@@ -105,38 +103,39 @@ public class SalaryListCtl extends BaseCtl {
 				pageNo--;
 
 			} else if (OP_NEW.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.SALARY_CTL, request, response);
+				ServletUtility.redirect(ORSView.BLOOD_BANK_CTL, request, response);
 				return;
 
 			} else if (OP_RESET.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.SALARY_LIST_CTL, request, response);
+				ServletUtility.redirect(ORSView.BLOOD_BANK_LIST_CTL, request, response);
 				return;
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 				pageNo = 1;
 
+				BloodBankBean deleteBean = new BloodBankBean();
 				if (ids != null && ids.length > 0) {
 					for (String id : ids) {
-						model.delete(deletebean);
+						deleteBean.setId(DataUtility.getLong(id));
+						model.delete(deleteBean);
 					}
-					ServletUtility.setSuccessMessage("Salary deleted successfully", request);
+					ServletUtility.setSuccessMessage("Record deleted successfully", request);
 				} else {
 					ServletUtility.setErrorMessage("Select at least one record", request);
 				}
 			}
 
-			List<SalaryBean> list = model.search(bean, pageNo, pageSize);
-			List<SalaryBean> next = model.search(bean, pageNo + 1, pageSize);
+			List<BloodBankBean> list = model.search(bean, pageNo, pageSize);
+			List<BloodBankBean> next = model.search(bean, pageNo + 1, pageSize);
 
 			if (list == null || list.size() == 0) {
-				ServletUtility.setErrorMessage("No Record Found ", request);
+				ServletUtility.setErrorMessage("No Record Found", request);
 			}
 
+			request.setAttribute("nextListSize", next.size());
 			ServletUtility.setList(list, request);
 			ServletUtility.setPageNo(pageNo, request);
 			ServletUtility.setPageSize(pageSize, request);
-			ServletUtility.setBean(bean, request);
-			request.setAttribute("nextListSize", next.size());
 
 			ServletUtility.forward(getView(), request, response);
 
@@ -148,6 +147,6 @@ public class SalaryListCtl extends BaseCtl {
 
 	@Override
 	protected String getView() {
-		return ORSView.SALARY_LIST_VIEW;
+		return ORSView.BLOOD_BANK_LIST_VIEW;
 	}
 }

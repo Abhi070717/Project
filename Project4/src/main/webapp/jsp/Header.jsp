@@ -55,6 +55,10 @@
 	<a href=<%=ORSView.BANK_CTL%>><b>Add Bank Account</b></a>
 	<b>|</b>
 	<a href=<%=ORSView.BANK_LIST_CTL%>><b>Bank Account List</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.BLOOD_BANK_CTL%>><b>Add Blood Bank</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.BLOOD_BANK_LIST_CTL%>><b>Blood Bank List</b></a>
 	<hr>
 </body>
 </html>

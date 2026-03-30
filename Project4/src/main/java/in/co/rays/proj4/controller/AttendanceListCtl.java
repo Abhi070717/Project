@@ -90,8 +90,7 @@ public class AttendanceListCtl extends BaseCtl {
 		AttendanceModel model = new AttendanceModel();
 
 		String op = request.getParameter("operation");
-		
-		System.out.println(op);
+		String[] ids = request.getParameterValues("ids");
 
 		try {
 
@@ -113,11 +112,11 @@ public class AttendanceListCtl extends BaseCtl {
 				return;
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
+				pageNo = 1;
 
-				String[] ids = request.getParameterValues("ids");
 				AttendanceBean deletebean = new AttendanceBean();
 
-				if (ids != null) {
+				if (ids != null && ids.length > 0) {
 					for (String id : ids) {
 						model.delete(deletebean);
 					}

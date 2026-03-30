@@ -80,6 +80,13 @@
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("location", request)%></font></td>
 				</tr>
 				<tr>
+					<th align="left">Request Date<span style="color: red">*</span></th>
+					<td><input type="text" name="date"
+						placeholder="Enter Request Date"
+						value="<%=DataUtility.getStringData(bean.getRequestDate())%>"></td>
+					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("date", request)%></font></td>
+				</tr>
+				<tr>
 					<th></th>
 					<td></td>
 				</tr>

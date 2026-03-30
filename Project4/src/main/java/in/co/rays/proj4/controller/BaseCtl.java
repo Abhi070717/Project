@@ -82,8 +82,6 @@ public abstract class BaseCtl extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-//		System.out.println("INTO SERVICE DO GET =====>");
-
 		preload(request);
 
 		String op = DataUtility.getString(request.getParameter("operation"));
@@ -98,8 +96,6 @@ public abstract class BaseCtl extends HttpServlet {
 				return;
 			}
 		}
-		
-//		System.out.println("INTO SERVICE DO GET1 =====>");
 		super.service(request, response);
 	}	
 

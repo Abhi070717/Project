@@ -126,7 +126,7 @@ public class VaccineModel {
 		}
 	}
 
-	public void delete(long id) throws ApplicationException, RecordNotFoundException {
+	public void delete(VaccineBean bean) throws ApplicationException, RecordNotFoundException {
 
 		Connection conn = null;
 
@@ -137,11 +137,11 @@ public class VaccineModel {
 
 			PreparedStatement pstmt = conn.prepareStatement("delete from st_vaccine where id = ?");
 
-			pstmt.setLong(1, id);
+			pstmt.setLong(1, bean.getId());
 
 			pstmt.executeUpdate();
 			conn.commit();
-
+			pstmt.close();
 		} catch (Exception e) {
 			try {
 				conn.rollback();
@@ -253,6 +253,11 @@ public class VaccineModel {
 			if (bean.getExpiryDate() != null) {
 				sql.append(" and expiry_date = '" + new java.sql.Date(bean.getExpiryDate().getTime()) + "'");
 			}
+		}
+
+		if (pageSize > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			sql.append(" limit " + pageNo + ", " + pageSize);
 		}
 
 		try {

@@ -36,10 +36,8 @@ public class MaintenanceListCtl extends BaseCtl {
 
 		MaintenanceBean bean = new MaintenanceBean();
 
-		bean.setId(DataUtility.getLong(request.getParameter("id")));
 		bean.setRequestName(DataUtility.getString(request.getParameter("name")));
 		bean.setIssueType(DataUtility.getString(request.getParameter("type")));
-		bean.setLocation(DataUtility.getString(request.getParameter("location")));
 
 		return bean;
 	}
@@ -90,6 +88,7 @@ public class MaintenanceListCtl extends BaseCtl {
 		MaintenanceModel model = new MaintenanceModel();
 
 		String op = request.getParameter("operation");
+		String[] ids = request.getParameterValues("ids");
 
 		try {
 
@@ -111,11 +110,11 @@ public class MaintenanceListCtl extends BaseCtl {
 				return;
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
+				pageNo = 1;
 
-				String[] ids = request.getParameterValues("ids");
 				MaintenanceBean deletebean = new MaintenanceBean();
 
-				if (ids != null) {
+				if (ids != null && ids.length > 0) {
 					for (String id : ids) {
 						model.delete(deletebean);
 					}
@@ -133,6 +132,7 @@ public class MaintenanceListCtl extends BaseCtl {
 			}
 
 			request.setAttribute("nextListSize", next.size());
+			System.out.println("next Page" + next.size());
 			ServletUtility.setList(list, request);
 			ServletUtility.setPageNo(pageNo, request);
 			ServletUtility.setPageSize(pageSize, request);

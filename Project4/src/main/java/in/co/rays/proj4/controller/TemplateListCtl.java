@@ -21,13 +21,12 @@ import in.co.rays.proj4.util.ServletUtility;
 @WebServlet(name = "TemplateListCtl", urlPatterns = { "/TemplateListCtl" })
 public class TemplateListCtl extends BaseCtl {
 
-
 	@Override
 	protected void preload(HttpServletRequest request) {
 		TemplateModel Model = new TemplateModel();
 		try {
 			List<TemplateBean> list = Model.list();
-			request.setAttribute("nameList", list);
+			request.setAttribute("templateList", list);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
@@ -92,6 +91,7 @@ public class TemplateListCtl extends BaseCtl {
 		TemplateModel model = new TemplateModel();
 
 		String op = request.getParameter("operation");
+		String[] ids = request.getParameterValues("ids");
 
 		try {
 
@@ -113,11 +113,10 @@ public class TemplateListCtl extends BaseCtl {
 				return;
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
+				pageNo = 1;
 
-				String[] ids = request.getParameterValues("ids");
 				TemplateBean deletebean = new TemplateBean();
-
-				if (ids != null) {
+				if (ids != null && ids.length > 0) {
 					for (String id : ids) {
 						model.delete(deletebean);
 					}

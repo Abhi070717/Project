@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import in.co.rays.proj4.bean.AttendanceBean;
 import in.co.rays.proj4.bean.BaseBean;
 import in.co.rays.proj4.bean.VaccineBean;
 import in.co.rays.proj4.exception.ApplicationException;
@@ -19,16 +20,16 @@ import in.co.rays.proj4.util.ServletUtility;
 @WebServlet(name = "VaccineListCtl", urlPatterns = { "/VaccineListCtl" })
 public class VaccineListCtl extends BaseCtl {
 
-//	@Override
-//	protected void preload(HttpServletRequest request) {
-//		VaccineModel nameModel = new VaccineModel();
-//		try {
-//			List nameList = nameModel.list();
-//			request.setAttribute("nameList", nameList);
-//		} catch (ApplicationException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	@Override
+	protected void preload(HttpServletRequest request) {
+		VaccineModel nameModel = new VaccineModel();
+		try {
+			List nameList = nameModel.list();
+			request.setAttribute("nameList", nameList);
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
@@ -88,6 +89,7 @@ public class VaccineListCtl extends BaseCtl {
 		VaccineModel model = new VaccineModel();
 
 		String op = request.getParameter("operation");
+		String[] ids = request.getParameterValues("ids");
 
 		try {
 
@@ -113,12 +115,13 @@ public class VaccineListCtl extends BaseCtl {
 				return;
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
+				pageNo = 1;
 
-				String[] ids = request.getParameterValues("ids");
+				VaccineBean deletebean = new VaccineBean();
 
 				if (ids != null) {
 					for (String id : ids) {
-						model.delete(DataUtility.getLong(id));
+						model.delete(deletebean);
 					}
 					ServletUtility.setSuccessMessage("Data deleted successfully", request);
 				} else {

@@ -255,6 +255,11 @@ public class MaintenanceModel {
 			}
 		}
 
+		if (pageSize > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			sql.append(" limit " + pageNo + ", " + pageSize);
+		}
+
 		try {
 
 			conn = JDBCDataSource.getConnection();

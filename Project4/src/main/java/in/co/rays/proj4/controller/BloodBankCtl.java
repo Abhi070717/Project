@@ -1,81 +1,63 @@
 package in.co.rays.proj4.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import in.co.rays.proj4.bean.BankBean;
 import in.co.rays.proj4.bean.BaseBean;
-import in.co.rays.proj4.bean.MaintenanceBean;
-import in.co.rays.proj4.bean.TemplateBean;
+import in.co.rays.proj4.bean.BloodBankBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
-import in.co.rays.proj4.model.MaintenanceModel;
-import in.co.rays.proj4.model.TemplateModel;
+import in.co.rays.proj4.model.BloodBankModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet("/MaintenanceCtl")
-public class MaintenanceCtl extends BaseCtl {
-
-	@Override
-	protected void preload(HttpServletRequest request) {
-		MaintenanceModel model = new MaintenanceModel();
-		try {
-			List list = model.list();
-			request.setAttribute("maintenanceList", list);
-		} catch (ApplicationException e) {
-			e.printStackTrace();
-		}
-	}
+@WebServlet(name = "BloodBankCtl", urlPatterns = { "/BloodBankCtl" })
+public class BloodBankCtl extends BaseCtl {
 
 	@Override
 	protected boolean validate(HttpServletRequest request) {
 
 		boolean pass = true;
 
-		if (DataValidator.isNull(request.getParameter("name"))) {
-			request.setAttribute("name", PropertyReader.getValue("error.require", "Maintenance Name"));
-			pass = false;
-		} else if (!DataValidator.isName(request.getParameter("name"))) {
-			request.setAttribute("name", "Invalid Name");
+		if (DataValidator.isNull(request.getParameter("bloodGroup"))) {
+			request.setAttribute("bloodGroup",
+					PropertyReader.getValue("error.require", "Blood Group"));
 			pass = false;
 		}
-		if (DataValidator.isNull(request.getParameter("type"))) {
-			request.setAttribute("type", PropertyReader.getValue("error.require", "Issue type"));
+
+		if (DataValidator.isNull(request.getParameter("unitsAvailable"))) {
+			request.setAttribute("unitsAvailable",
+					PropertyReader.getValue("error.require", "Units Available"));
+			pass = false;
+		} else if (!DataValidator.isInteger(request.getParameter("unitsAvailable"))) {
+			request.setAttribute("unitsAvailable", "Units must be a number");
 			pass = false;
 		}
+
 		if (DataValidator.isNull(request.getParameter("location"))) {
-			request.setAttribute("location", PropertyReader.getValue("error.require", "Location"));
+			request.setAttribute("location",
+					PropertyReader.getValue("error.require", "Location"));
 			pass = false;
 		}
-		if (DataValidator.isNull(request.getParameter("date"))) {
-			request.setAttribute("date", PropertyReader.getValue("error.require", "Request Date"));
-			pass = false;
-		} else if (!DataValidator.isDate(request.getParameter("date"))) {
-			request.setAttribute("date", "Invalid Date");
-			pass = false;
-		}
+
 		return pass;
 	}
 
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
-		MaintenanceBean bean = new MaintenanceBean();
+		BloodBankBean bean = new BloodBankBean();
 
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
-		bean.setRequestName(DataUtility.getString(request.getParameter("name")));
-		bean.setIssueType(DataUtility.getString(request.getParameter("type")));
+		bean.setbloodGroup(DataUtility.getString(request.getParameter("bloodGroup")));
+		bean.setunitsAvailable(DataUtility.getInt(request.getParameter("unitsAvailable")));
 		bean.setLocation(DataUtility.getString(request.getParameter("location")));
-		bean.setRequestDate(DataUtility.getDate(request.getParameter("date")));
-		populateDTO(bean, request);
 
 		return bean;
 	}
@@ -83,19 +65,21 @@ public class MaintenanceCtl extends BaseCtl {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		long id = DataUtility.getLong(request.getParameter("id"));
 
-		MaintenanceModel model = new MaintenanceModel();
+		BloodBankModel model = new BloodBankModel();
 
 		if (id > 0) {
 			try {
-				MaintenanceBean bean = model.findByPK(id);
+				BloodBankBean bean = model.findByPK(id);
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				ServletUtility.handleException(e, request, response);
 				return;
 			}
 		}
+
 		ServletUtility.forward(getView(), request, response);
 	}
 
@@ -105,46 +89,56 @@ public class MaintenanceCtl extends BaseCtl {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
 
-		MaintenanceModel model = new MaintenanceModel();
+		BloodBankModel model = new BloodBankModel();
 
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		if (OP_SAVE.equalsIgnoreCase(op)) {
-			MaintenanceBean bean = (MaintenanceBean) populateBean(request);
+
+			BloodBankBean bean = (BloodBankBean) populateBean(request);
+
 			try {
 				long pk = model.add(bean);
 				ServletUtility.setBean(bean, request);
-				ServletUtility.setSuccessMessage("Data is successfully saved", request);
+				ServletUtility.setSuccessMessage("Data is Successfully Saved", request);
+
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
-				ServletUtility.setErrorMessage("Maintenance Name already exists", request);
+				ServletUtility.setErrorMessage("Blood Group already exists", request);
+
 			} catch (ApplicationException e) {
-				e.printStackTrace();
 				ServletUtility.handleException(e, request, response);
 				return;
 			}
+
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
-			MaintenanceBean bean = (MaintenanceBean) populateBean(request);
+
+			BloodBankBean bean = (BloodBankBean) populateBean(request);
+
 			try {
 				if (id > 0) {
 					model.update(bean);
 				}
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("Data is successfully updated", request);
+
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
-				ServletUtility.setErrorMessage("Maintenance Name already exists", request);
+				ServletUtility.setErrorMessage("Blood Group already exists", request);
+
 			} catch (ApplicationException e) {
-				e.printStackTrace();
 				ServletUtility.handleException(e, request, response);
 				return;
 			}
+
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
-			ServletUtility.redirect(ORSView.MAINTENANCE_LIST_CTL, request, response);
+
+			ServletUtility.redirect(ORSView.BLOOD_BANK_LIST_CTL, request, response);
 			return;
 
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
-			ServletUtility.redirect(ORSView.MAINTENANCE_CTL, request, response);
+
+			ServletUtility.redirect(ORSView.BLOOD_BANK_CTL, request, response);
 			return;
 		}
 
@@ -153,7 +147,6 @@ public class MaintenanceCtl extends BaseCtl {
 
 	@Override
 	protected String getView() {
-		return ORSView.MAINTENANCE_VIEW;
+		return ORSView.BLOOD_BANK_VIEW;
 	}
-
 }
