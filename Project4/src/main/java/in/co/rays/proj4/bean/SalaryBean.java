@@ -42,7 +42,7 @@ public class SalaryBean extends BaseBean {
 
 	@Override
 	public String getKey() {
-		return id + "";
+		return status;
 	}
 
 	@Override

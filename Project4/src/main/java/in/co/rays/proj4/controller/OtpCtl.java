@@ -69,7 +69,19 @@ public class OtpCtl extends BaseCtl {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		long id = DataUtility.getLong(request.getParameter("id"));
 
+		OtpModel model = new OtpModel();
+
+		if (id > 0) {
+			try {
+				OtpBean bean = model.findByPk(id);
+				ServletUtility.setBean(bean, request);
+			} catch (ApplicationException e) {
+				ServletUtility.handleException(e, request, response);
+				return;
+			}
+		}
 		ServletUtility.forward(getView(), request, response);
 	}
 

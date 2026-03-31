@@ -9,38 +9,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.proj4.bean.BaseBean;
-import in.co.rays.proj4.bean.SupplierBean;
-import in.co.rays.proj4.bean.TemplateBean;
+import in.co.rays.proj4.bean.NoteBean;
 import in.co.rays.proj4.exception.ApplicationException;
-import in.co.rays.proj4.model.SupplierModel;
+import in.co.rays.proj4.model.NoteModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet(name = "SupplierListCtl", urlPatterns = { "/SupplierListCtl" })
-public class SupplierListCtl extends BaseCtl {
-
-	@Override
-	protected void preload(HttpServletRequest request) {
-		SupplierModel nameModel = new SupplierModel();
-		try {
-			List nameList = nameModel.list();
-			request.setAttribute("nameList", nameList);
-		} catch (ApplicationException e) {
-			e.printStackTrace();
-		}
-	}
+@WebServlet(name = "NoteListCtl", urlPatterns = { "/NoteListCtl" })
+public class NoteListCtl extends BaseCtl {
 
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
-		SupplierBean bean = new SupplierBean();
+		NoteBean bean = new NoteBean();
 
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
-		bean.setName(DataUtility.getString(request.getParameter("name")));
-		bean.setCategory(DataUtility.getString(request.getParameter("category")));
-		bean.setDob(DataUtility.getDate(request.getParameter("dob")));
-		bean.setPaymentTerm(DataUtility.getInt(request.getParameter("paymentTerm")));
+		bean.setNotePayableId(DataUtility.getLong(request.getParameter("notePayableId")));
+		bean.setStatus(DataUtility.getString(request.getParameter("status")));
 
 		return bean;
 	}
@@ -52,13 +38,13 @@ public class SupplierListCtl extends BaseCtl {
 		int pageNo = 1;
 		int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
 
-		SupplierBean bean = (SupplierBean) populateBean(request);
-		SupplierModel model = new SupplierModel();
+		NoteBean bean = (NoteBean) populateBean(request);
+		NoteModel model = new NoteModel();
 
 		try {
 
-			List<SupplierBean> list = model.search(bean, pageNo, pageSize);
-			List<SupplierBean> next = model.search(bean, pageNo + 1, pageSize);
+			List<NoteBean> list = model.search(bean, pageNo, pageSize);
+			List<NoteBean> next = model.search(bean, pageNo + 1, pageSize);
 
 			if (list == null || list.isEmpty()) {
 				ServletUtility.setErrorMessage("No record found", request);
@@ -87,8 +73,8 @@ public class SupplierListCtl extends BaseCtl {
 		pageNo = (pageNo == 0) ? 1 : pageNo;
 		pageSize = (pageSize == 0) ? DataUtility.getInt(PropertyReader.getValue("page.size")) : pageSize;
 
-		SupplierBean bean = (SupplierBean) populateBean(request);
-		SupplierModel model = new SupplierModel();
+		NoteBean bean = (NoteBean) populateBean(request);
+		NoteModel model = new NoteModel();
 
 		String op = request.getParameter("operation");
 		String[] ids = request.getParameterValues("ids");
@@ -105,20 +91,21 @@ public class SupplierListCtl extends BaseCtl {
 				pageNo--;
 
 			} else if (OP_NEW.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.SUPPLIER_CTL, request, response);
+				ServletUtility.redirect(ORSView.NOTE_CTL, request, response);
 				return;
 
 			} else if (OP_RESET.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.SUPPLIER_LIST_CTL, request, response);
+				ServletUtility.redirect(ORSView.NOTE_LIST_CTL, request, response);
 				return;
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 
-				SupplierBean deletebean = new SupplierBean();
+				NoteBean deleteBean = new NoteBean();
 
 				if (ids != null) {
 					for (String id : ids) {
-						model.delete(deletebean);
+						deleteBean.setId(DataUtility.getLong(id));
+						model.delete(deleteBean);
 					}
 					ServletUtility.setSuccessMessage("Data deleted successfully", request);
 				} else {
@@ -126,11 +113,11 @@ public class SupplierListCtl extends BaseCtl {
 				}
 			}
 
-			List<SupplierBean> list = model.search(bean, pageNo, pageSize);
-			List<SupplierBean> next = model.search(bean, pageNo + 1, pageSize);
+			List<NoteBean> list = model.search(bean, pageNo, pageSize);
+			List<NoteBean> next = model.search(bean, pageNo + 1, pageSize);
 
 			if (list == null || list.size() == 0) {
-				ServletUtility.setErrorMessage("No Record Found ", request);
+				ServletUtility.setErrorMessage("No Record Found", request);
 			}
 
 			request.setAttribute("nextListSize", next.size());
@@ -148,6 +135,6 @@ public class SupplierListCtl extends BaseCtl {
 
 	@Override
 	protected String getView() {
-		return ORSView.SUPPLIER_LIST_VIEW;
+		return ORSView.NOTE_LIST_VIEW;
 	}
 }

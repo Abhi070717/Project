@@ -9,6 +9,9 @@ public interface ORSView {
 	public String WELCOME_VIEW = PAGE_FOLDER + "/WelcomeView.jsp";
 	public String WELCOME_CTL = APP_CONTEXT + "/WelcomeCtl";
 
+	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
+	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
+
 	public String RECIPE_VIEW = PAGE_FOLDER + "/RecipeView.jsp";
 	public String RECIPE_CTL = APP_CONTEXT + "/RecipeCtl";
 
@@ -80,7 +83,11 @@ public interface ORSView {
 
 	public String BLOOD_BANK_LIST_VIEW = PAGE_FOLDER + "/BloodBankListView.jsp";
 	public String BLOOD_BANK_LIST_CTL = APP_CONTEXT + "/BloodBankListCtl";
+
+	public String NOTE_VIEW = PAGE_FOLDER + "/NoteView.jsp";
+	public String NOTE_CTL = APP_CONTEXT + "/NoteCtl";
 	
-	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
-	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
+	public String NOTE_LIST_VIEW = PAGE_FOLDER + "/NoteListView.jsp";
+	public String NOTE_LIST_CTL = APP_CONTEXT + "/NoteListCtl";
+	
 }

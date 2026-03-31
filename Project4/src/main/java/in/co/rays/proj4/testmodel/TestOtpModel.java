@@ -69,7 +69,7 @@ public class TestOtpModel {
 	// ------------------- FIND BY PK -------------------
 	public static void testFindByPK() throws Exception {
 
-		OtpBean bean = model.findByPK(1);
+		OtpBean bean = model.findByPk(1);
 
 		if (bean != null) {
 			System.out.println("ID: " + bean.getId());

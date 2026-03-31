@@ -156,7 +156,7 @@ public class OtpModel {
 		}
 	}
 
-	public OtpBean findByPK(long pk) throws ApplicationException {
+	public OtpBean findByPk(long pk) throws ApplicationException {
 
 		OtpBean bean = null;
 		Connection conn = null;
