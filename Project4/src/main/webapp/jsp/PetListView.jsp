@@ -43,9 +43,9 @@
 			int index = ((pageNo - 1) * pageSize) + 1;
 			int nextListSize = DataUtility.getInt(request.getAttribute("nextListSize").toString());
 
-			List typeList = (List) request.getAttribute("nameList");
+			List nameList = (List) request.getAttribute("nameList");
 
-			List<PetBean> list = (List<PetBean>) ServletUtility.getList(request);
+			List<PetBean> list = (List) ServletUtility.getList(request);
 			Iterator<PetBean> it = list.iterator();
 
 			if (list.size() != 0) {
@@ -59,7 +59,7 @@
 						type="text" name="type" placeholder="Enter Animal Type"
 						value="<%=ServletUtility.getParameter("type", request)%>">&emsp;
 
-						<label><b>Pet Name: </b></label> <%=HTMLUtility.getList("name", String.valueOf(bean.getPetName()), list)%>
+						<label><b>Pet Name: </b></label> <%=HTMLUtility.getList("name", String.valueOf(bean.getPetName()), nameList)%>
 						&nbsp; <input type="submit" name="operation"
 						value="<%=PetListCtl.OP_SEARCH%>">&nbsp; <input
 						type="submit" name="operation" value="<%=PetListCtl.OP_RESET%>">

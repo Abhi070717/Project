@@ -45,10 +45,8 @@
 			int index = ((pageNo - 1) * pageSize) + 1;
 			int nextListSize = DataUtility.getInt(request.getAttribute("nextListSize").toString());
 
-			List<NoteBean> list = (List<NoteBean>) ServletUtility.getList(request);
+			List<NoteBean> list = (List) ServletUtility.getList(request);
 			Iterator<NoteBean> it = list.iterator();
-
-			List statusList = (List) request.getAttribute("statusList");
 			%>
 
 			<input type="hidden" name="pageNo" value="<%=pageNo%>"> <input
@@ -59,13 +57,12 @@
 					<td align="center"><label><b>Note Payable ID:</b></label> <input
 						type="text" name="notePayableId"
 						placeholder="Enter Note Payable ID"
-						value="<%=ServletUtility.getParameter("notePayableId", request)%>">
-
-						&emsp; <%
- HashMap<String, String> statusMap = new HashMap<String, String>();
- statusMap.put("Active", "Active");
- statusMap.put("Inactive", "Inactive");
- %> <label><b>Status:</b></label> <%=HTMLUtility.getList("status", ServletUtility.getParameter("status", request), statusMap)%>
+						value="<%=ServletUtility.getParameter("notePayableId", request)%>">&emsp;
+						<%
+						HashMap<String, String> statusMap = new HashMap<String, String>();
+						statusMap.put("Active", "Active");
+						statusMap.put("Inactive", "Inactive");
+						%> <label><b>Status:</b></label> <%=HTMLUtility.getList("status", ServletUtility.getParameter("status", request), statusMap)%>
 						<input type="submit" name="operation"
 						value="<%=NoteListCtl.OP_SEARCH%>"> <input type="submit"
 						name="operation" value="<%=NoteListCtl.OP_RESET%>"></td>
@@ -78,7 +75,7 @@
 			if (list != null && list.size() > 0) {
 			%>
 
-			<table border="1" width="100%">
+			<table border="1" style="width: 100%; border: groove;">
 				<tr style="background-color: #e1e6f1e3;">
 					<th><input type="checkbox" id="selectall"></th>
 					<th>S.No</th>

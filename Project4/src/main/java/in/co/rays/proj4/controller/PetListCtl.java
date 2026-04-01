@@ -89,6 +89,7 @@ public class PetListCtl extends BaseCtl {
 		PetModel model = new PetModel();
 
 		String op = request.getParameter("operation");
+		String[] ids = request.getParameterValues("ids");
 
 		try {
 
@@ -110,12 +111,12 @@ public class PetListCtl extends BaseCtl {
 				return;
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
-
-				String[] ids = request.getParameterValues("ids");
+				pageNo = 1;
 				PetBean deletebean = new PetBean();
 
 				if (ids != null) {
 					for (String id : ids) {
+						deletebean.setId(Integer.parseInt(id));
 						model.delete(deletebean);
 					}
 					ServletUtility.setSuccessMessage("Data deleted successfully", request);

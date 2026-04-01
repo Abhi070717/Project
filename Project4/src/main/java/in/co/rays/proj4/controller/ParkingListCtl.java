@@ -98,6 +98,7 @@ public class ParkingListCtl extends BaseCtl {
 		ParkingModel model = new ParkingModel();
 
 		String op = request.getParameter("operation");
+		String[] ids = request.getParameterValues("ids");
 
 		try {
 
@@ -119,11 +120,13 @@ public class ParkingListCtl extends BaseCtl {
 				return;
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
+				pageNo = 1;
+				ParkingBean deletebean = new ParkingBean();
 
-				String[] ids = request.getParameterValues("ids");
 
 				if (ids != null) {
 					for (String id : ids) {
+						deletebean.setId(Integer.parseInt(id));
 						model.delete(DataUtility.getLong(id));
 					}
 					ServletUtility.setSuccessMessage("Data deleted successfully", request);

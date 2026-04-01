@@ -41,7 +41,7 @@ public class PetBean extends BaseBean {
 
 	@Override
 	public String getKey() {
-		return id + "";
+		return petName;
 	}
 
 	@Override

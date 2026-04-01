@@ -63,6 +63,10 @@
 	<a href=<%=ORSView.NOTE_CTL%>><b>Add Note Summary</b></a>
 	<b>|</b>
 	<a href=<%=ORSView.NOTE_LIST_CTL%>><b>Note Summary List</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.WARE_HOUSE_CTL%>><b>Add WareHouse</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.WARE_HOUSE_LIST_CTL%>><b>WareHouse List</b></a>
 	<hr>
 </body>
 </html>

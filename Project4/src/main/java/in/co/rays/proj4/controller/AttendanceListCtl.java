@@ -113,11 +113,11 @@ public class AttendanceListCtl extends BaseCtl {
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 				pageNo = 1;
-
 				AttendanceBean deletebean = new AttendanceBean();
 
 				if (ids != null && ids.length > 0) {
 					for (String id : ids) {
+						deletebean.setId(Integer.parseInt(id));
 						model.delete(deletebean);
 					}
 					ServletUtility.setSuccessMessage("Attendance deleted successfully", request);

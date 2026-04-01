@@ -113,11 +113,12 @@ public class SupplierListCtl extends BaseCtl {
 				return;
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
-
+				pageNo = 1;
 				SupplierBean deletebean = new SupplierBean();
 
 				if (ids != null) {
 					for (String id : ids) {
+						deletebean.setId(Integer.parseInt(id));
 						model.delete(deletebean);
 					}
 					ServletUtility.setSuccessMessage("Data deleted successfully", request);

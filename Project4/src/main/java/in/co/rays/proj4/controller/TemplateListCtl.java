@@ -9,10 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.proj4.bean.BaseBean;
-import in.co.rays.proj4.bean.RecipeBean;
 import in.co.rays.proj4.bean.TemplateBean;
 import in.co.rays.proj4.exception.ApplicationException;
-import in.co.rays.proj4.model.RecipeModel;
 import in.co.rays.proj4.model.TemplateModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
@@ -114,10 +112,11 @@ public class TemplateListCtl extends BaseCtl {
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 				pageNo = 1;
-
 				TemplateBean deletebean = new TemplateBean();
+
 				if (ids != null && ids.length > 0) {
 					for (String id : ids) {
+						deletebean.setId(Integer.parseInt(id));
 						model.delete(deletebean);
 					}
 					ServletUtility.setSuccessMessage("Template deleted successfully", request);

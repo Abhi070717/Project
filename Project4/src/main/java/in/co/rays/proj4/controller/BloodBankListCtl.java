@@ -112,8 +112,8 @@ public class BloodBankListCtl extends BaseCtl {
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 				pageNo = 1;
-
 				BloodBankBean deleteBean = new BloodBankBean();
+
 				if (ids != null && ids.length > 0) {
 					for (String id : ids) {
 						deleteBean.setId(DataUtility.getLong(id));

@@ -111,11 +111,11 @@ public class MaintenanceListCtl extends BaseCtl {
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 				pageNo = 1;
-
 				MaintenanceBean deletebean = new MaintenanceBean();
 
 				if (ids != null && ids.length > 0) {
 					for (String id : ids) {
+						deletebean.setId(Integer.parseInt(id));
 						model.delete(deletebean);
 					}
 					ServletUtility.setSuccessMessage("Data deleted successfully", request);

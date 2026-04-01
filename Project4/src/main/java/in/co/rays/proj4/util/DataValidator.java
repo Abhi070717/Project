@@ -44,6 +44,19 @@ public class DataValidator {
 		}
 	}
 
+	public static boolean isDouble(String val) {
+		if (isNotNull(val)) {
+			try {
+				Double.parseDouble(val);
+				return true;
+			} catch (NumberFormatException e) {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
 	public static boolean isEmail(String val) {
 
 		String emailreg = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -61,7 +74,7 @@ public class DataValidator {
 	}
 
 	public static boolean isUpperCase(String val) {
-		
+
 		String upperreg = "^[A-Z0-9]+$";
 		if (isNotNull(val)) {
 			try {
@@ -69,14 +82,14 @@ public class DataValidator {
 			} catch (NumberFormatException e) {
 				return false;
 			}
-			
+
 		} else {
 			return false;
 		}
 	}
 
 	public static boolean isLowereCase(String val) {
-		
+
 		String lowerreg = "^[a-z]+$";
 		if (isNotNull(val)) {
 			try {
@@ -84,7 +97,7 @@ public class DataValidator {
 			} catch (NumberFormatException e) {
 				return false;
 			}
-			
+
 		} else {
 			return false;
 		}

@@ -89,5 +89,11 @@ public interface ORSView {
 	
 	public String NOTE_LIST_VIEW = PAGE_FOLDER + "/NoteListView.jsp";
 	public String NOTE_LIST_CTL = APP_CONTEXT + "/NoteListCtl";
+
+	public String WARE_HOUSE_VIEW = PAGE_FOLDER + "/WareHouseView.jsp";
+	public String WARE_HOUSE_CTL = APP_CONTEXT + "/WareHouseCtl";
+	
+	public String WARE_HOUSE_LIST_VIEW = PAGE_FOLDER + "/WareHouseListView.jsp";
+	public String WARE_HOUSE_LIST_CTL = APP_CONTEXT + "/WareHouseListCtl";
 	
 }

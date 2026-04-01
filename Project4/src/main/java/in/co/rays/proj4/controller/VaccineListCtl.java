@@ -116,11 +116,11 @@ public class VaccineListCtl extends BaseCtl {
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 				pageNo = 1;
-
 				VaccineBean deletebean = new VaccineBean();
 
 				if (ids != null) {
 					for (String id : ids) {
+						deletebean.setId(Integer.parseInt(id));
 						model.delete(deletebean);
 					}
 					ServletUtility.setSuccessMessage("Data deleted successfully", request);

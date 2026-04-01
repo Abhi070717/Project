@@ -99,7 +99,7 @@ public class NoteListCtl extends BaseCtl {
 				return;
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
-
+				pageNo = 1;
 				NoteBean deleteBean = new NoteBean();
 
 				if (ids != null) {
