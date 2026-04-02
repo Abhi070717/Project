@@ -96,4 +96,9 @@ public interface ORSView {
 	public String WARE_HOUSE_LIST_VIEW = PAGE_FOLDER + "/WareHouseListView.jsp";
 	public String WARE_HOUSE_LIST_CTL = APP_CONTEXT + "/WareHouseListCtl";
 	
+	public String PRESS_VIEW = PAGE_FOLDER + "/PressView.jsp";
+	public String PRESS_CTL = APP_CONTEXT + "/PressCtl";
+	
+	public String PRESS_LIST_VIEW = PAGE_FOLDER + "/PressListView.jsp";
+	public String PRESS_LIST_CTL = APP_CONTEXT + "/PressListCtl";
 }

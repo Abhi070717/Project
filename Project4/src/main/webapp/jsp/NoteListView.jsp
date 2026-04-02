@@ -27,7 +27,6 @@
 
 		<h1 style="color: navy;">Note List</h1>
 
-		<!-- Messages -->
 		<div style="margin-bottom: 12px">
 			<h3>
 				<font color="red"><%=ServletUtility.getErrorMessage(request)%></font>
@@ -146,6 +145,5 @@
 
 		</form>
 	</div>
-
 </body>
 </html>

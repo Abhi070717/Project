@@ -3,25 +3,24 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="in.co.rays.proj4.util.DataUtility"%>
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
-<%@page import="in.co.rays.proj4.controller.BloodBankCtl"%>
+<%@page import="in.co.rays.proj4.controller.PressCtl"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Add Blood Bank</title>
+<title>Add Press Release</title>
 <link rel="icon" type="image/png"
 	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
 </head>
 <body>
 
-	<form action="<%=ORSView.BLOOD_BANK_CTL%>" method="post">
+	<form action="<%=ORSView.PRESS_CTL%>" method="post">
 
 		<%@ include file="Header.jsp"%>
 
-		<jsp:useBean id="bean" class="in.co.rays.proj4.bean.BloodBankBean"
+		<jsp:useBean id="bean" class="in.co.rays.proj4.bean.PressBean"
 			scope="request"></jsp:useBean>
 
 		<div align="center">
@@ -33,7 +32,7 @@
 				%>Add<%
 				}
 				%>
-				Blood Bank
+				Press Release
 			</h1>
 
 			<div style="height: 15px; margin-bottom: 12px">
@@ -57,34 +56,31 @@
 				value="<%=DataUtility.getTimestamp(bean.getModifiedDatetime())%>">
 
 			<table>
-
 				<tr>
-					<th align="left">Blood Group<span style="color: red">*</span></th>
-					<td><input type="text" name="bloodGroup"
-						placeholder="Enter Blood Group"
-						value="<%=DataUtility.getStringData(bean.getbloodGroup())%>">
-					</td>
-					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("bloodGroup", request)%>
+					<th align="left">Title<span style="color: red">*</span></th>
+					<td><input type="text" name="title" placeholder="Enter Title"
+						value="<%=DataUtility.getStringData(bean.getTitle())%>"></td>
+					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("title", request)%>
 					</font></td>
 				</tr>
 
 				<tr>
-					<th align="left">Units Available<span style="color: red">*</span></th>
-					<td><input type="text" name="unitsAvailable"
-						placeholder="Enter Units Available"
-						value="<%=DataUtility.getStringData(bean.getunitsAvailable())%>">
+					<th align="left">Release Date<span style="color: red">*</span></th>
+					<td><input type="text" name="releaseDate"
+						placeholder="Enter Release Date"
+						value="<%=DataUtility.getDateString(bean.getReleaseDate())%>">
 					</td>
-					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("unitsAvailable", request)%>
+					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("releaseDate", request)%>
 					</font></td>
 				</tr>
 
 				<tr>
-					<th align="left">Location<span style="color: red">*</span></th>
-					<td><input type="text" name="location"
-						placeholder="Enter Location"
-						value="<%=DataUtility.getStringData(bean.getLocation())%>">
+					<th align="left">Author<span style="color: red">*</span></th>
+					<td><input type="text" name="author"
+						placeholder="Enter Author Name"
+						value="<%=DataUtility.getStringData(bean.getAuthor())%>">
 					</td>
-					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("location", request)%>
+					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("author", request)%>
 					</font></td>
 				</tr>
 
@@ -95,26 +91,24 @@
 
 				<tr>
 					<th></th>
-
 					<%
 					if (bean != null && bean.getId() > 0) {
 					%>
 					<td align="left" colspan="2"><input type="submit"
-						name="operation" value="<%=BloodBankCtl.OP_UPDATE%>"> <input
-						type="submit" name="operation" value="<%=BloodBankCtl.OP_CANCEL%>">
+						name="operation" value="<%=PressCtl.OP_UPDATE%>"> <input
+						type="submit" name="operation" value="<%=PressCtl.OP_CANCEL%>">
 					</td>
 					<%
 					} else {
 					%>
 					<td align="left" colspan="2"><input type="submit"
-						name="operation" value="<%=BloodBankCtl.OP_SAVE%>"> <input
-						type="submit" name="operation" value="<%=BloodBankCtl.OP_RESET%>">
+						name="operation" value="<%=PressCtl.OP_SAVE%>"> <input
+						type="submit" name="operation" value="<%=PressCtl.OP_RESET%>">
 					</td>
 					<%
 					}
 					%>
 				</tr>
-
 			</table>
 		</div>
 	</form>

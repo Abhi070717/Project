@@ -3,5 +3,21 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+	<display-name>Archetype Created Web Application</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/jsp/ErrorView.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>com.mysql.cj.exceptions.CJCommunicationsException</exception-type>
+		<location>/ErrorCtl</location>
+	</error-page>
+	<error-page>
+		<exception-type>in.co.rays.project_3.exception.DatabaseDownException</exception-type>
+		<location>/ErrorCtl</location>
+	</error-page>
 </web-app>

@@ -67,6 +67,12 @@
 	<a href=<%=ORSView.WARE_HOUSE_CTL%>><b>Add WareHouse</b></a>
 	<b>|</b>
 	<a href=<%=ORSView.WARE_HOUSE_LIST_CTL%>><b>WareHouse List</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.PRESS_CTL%>><b>Add Press Release</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.PRESS_LIST_CTL%>><b>Press Release List</b></a>
 	<hr>
+	
+	<%@include file = "Footer.jsp" %>
 </body>
 </html>

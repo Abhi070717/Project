@@ -114,7 +114,6 @@
 				</tr>
 			</table>
 		</div>
-		<%@ include file="Footer.jsp"%>
 	</form>
 </body>
 </html>
