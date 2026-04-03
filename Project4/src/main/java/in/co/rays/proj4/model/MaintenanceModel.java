@@ -155,7 +155,7 @@ public class MaintenanceModel {
 		}
 	}
 
-	public MaintenanceBean findByPK(long pk) throws ApplicationException {
+	public MaintenanceBean findByPk(long pk) throws ApplicationException {
 
 		MaintenanceBean bean = null;
 		Connection conn = null;

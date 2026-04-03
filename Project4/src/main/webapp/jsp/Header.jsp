@@ -10,43 +10,43 @@
 <body>
 	<h3>Hi, Guest</h3>
 
-	<a href="WelcomeCtl"><b>Welcome</b></a>
+	<a href=<%=ORSView.WELCOME_CTL%>><b>Welcome</b></a>
 	<b>|</b>
-	<a href="RecipeCtl"><b>Add Recipe</b></a>
+	<a href=<%=ORSView.RECIPE_CTL%>><b>Add Recipe</b></a>
 	<b>|</b>
-	<a href="BroadcastCtl"><b>Add Broadcast</b></a>
+	<a href=<%=ORSView.BROADCAST_CTL%>><b>Add Broadcast</b></a>
 	<b>|</b>
-	<a href="WalletCtl"><b>Add Wallet</b></a>
+	<a href=<%=ORSView.WALLET_CTL%>><b>Add Wallet</b></a>
 	<b>|</b>
-	<a href="OtpCtl"><b>Add Otp</b></a>
+	<a href=<%=ORSView.OTP_CTL%>><b>Add Otp</b></a>
 	<b>|</b>
-	<a href="PetCtl"><b>Add Pet</b></a>
+	<a href=<%=ORSView.PET_CTL%>><b>Add Pet</b></a>
 	<b>|</b>
-	<a href="PetListCtl"><b>Pet List</b></a>
+	<a href=<%=ORSView.PET_LIST_CTL%>><b>Pet List</b></a>
 	<b>|</b>
-	<a href="ParkingCtl"><b>Add Parking</b></a>
+	<a href=<%=ORSView.PARKING_CTL%>><b>Add Parking</b></a>
 	<b>|</b>
-	<a href="ParkingListCtl"><b>Parking List</b></a>
+	<a href=<%=ORSView.PARKING_LIST_CTL%>><b>Parking List</b></a>
 	<b>|</b>
-	<a href="SupplierCtl"><b>Add Supplier</b></a>
+	<a href=<%=ORSView.SUPPLIER_CTL%>><b>Add Supplier</b></a>
 	<b>|</b>
-	<a href="SupplierListCtl"><b>Supplier List</b></a>
+	<a href=<%=ORSView.SUPPLIER_LIST_CTL%>><b>Supplier List</b></a>
 	<b>|</b>
-	<a href="VaccineCtl"><b>Add Vaccine</b></a>
+	<a href=<%=ORSView.VACCINE_CTL%>><b>Add Vaccine</b></a>
 	<b>|</b>
-	<a href="VaccineListCtl"><b>Vaccine List</b></a>
+	<a href=<%=ORSView.VACCINE_LIST_CTL%>><b>Vaccine List</b></a>
 	<b>|</b>
-	<a href="TemplateCtl"><b>Add Template</b></a>
+	<a href=<%=ORSView.TEMPLATE_CTL%>><b>Add Template</b></a>
 	<b>|</b>
-	<a href="TemplateListCtl"><b>Template List</b></a>
+	<a href=<%=ORSView.TEMPLATE_LIST_CTL%>><b>Template List</b></a>
 	<b>|</b>
-	<a href="SalaryCtl"><b>Add Salary</b></a>
+	<a href=<%=ORSView.SALARY_CTL%>><b>Add Salary</b></a>
 	<b>|</b>
-	<a href="SalaryListCtl"><b>Salary List</b></a>
+	<a href=<%=ORSView.SALARY_LIST_CTL%>><b>Salary List</b></a>
 	<b>|</b>
-	<a href="AttendanceCtl"><b>Add Attendance</b></a>
+	<a href=<%=ORSView.ATTENDANCE_CTL%>><b>Add Attendance</b></a>
 	<b>|</b>
-	<a href="AttendanceListCtl"><b>Attendance List</b></a>
+	<a href=<%=ORSView.ATTENDANCE_LIST_CTL%>><b>Attendance List</b></a>
 	<b>|</b>
 	<a href=<%=ORSView.MAINTENANCE_CTL%>><b>Add Maintenance</b></a>			<!-- Standard Way to write -->
 	<b>|</b>
@@ -71,8 +71,12 @@
 	<a href=<%=ORSView.PRESS_CTL%>><b>Add Press Release</b></a>
 	<b>|</b>
 	<a href=<%=ORSView.PRESS_LIST_CTL%>><b>Press Release List</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.ASSET_CTL%>><b>Add Asset</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.ASSET_LIST_CTL%>><b>Asset List</b></a>
 	<hr>
-	
-	<%@include file = "Footer.jsp" %>
+
+	<%@include file="Footer.jsp"%>
 </body>
 </html>

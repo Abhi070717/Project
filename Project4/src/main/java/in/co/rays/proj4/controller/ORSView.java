@@ -101,4 +101,11 @@ public interface ORSView {
 	
 	public String PRESS_LIST_VIEW = PAGE_FOLDER + "/PressListView.jsp";
 	public String PRESS_LIST_CTL = APP_CONTEXT + "/PressListCtl";
+
+	public String ASSET_VIEW = PAGE_FOLDER + "/AssetView.jsp";
+	public String ASSET_CTL = APP_CONTEXT + "/AssetCtl";
+	
+	public String ASSET_LIST_VIEW = PAGE_FOLDER + "/AssetListView.jsp";
+	public String ASSET_LIST_CTL = APP_CONTEXT + "/AssetListCtl";
+
 }

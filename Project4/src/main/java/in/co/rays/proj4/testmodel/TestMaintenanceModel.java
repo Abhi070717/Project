@@ -82,7 +82,7 @@ public class TestMaintenanceModel {
 
 		MaintenanceModel model = new MaintenanceModel();
 
-		MaintenanceBean bean = model.findByPK(1);
+		MaintenanceBean bean = model.findByPk(1);
 
 		if (bean != null) {
 

@@ -8,58 +8,41 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import in.co.rays.proj4.bean.BankBean;
+import in.co.rays.proj4.bean.AssetBean;
 import in.co.rays.proj4.bean.BaseBean;
-import in.co.rays.proj4.bean.MaintenanceBean;
-import in.co.rays.proj4.bean.TemplateBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
-import in.co.rays.proj4.model.MaintenanceModel;
-import in.co.rays.proj4.model.TemplateModel;
+import in.co.rays.proj4.model.AssetModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet("/MaintenanceCtl")
-public class MaintenanceCtl extends BaseCtl {
-
-	@Override
-	protected void preload(HttpServletRequest request) {
-		MaintenanceModel model = new MaintenanceModel();
-		try {
-			List list = model.list();
-			request.setAttribute("maintenanceList", list);
-		} catch (ApplicationException e) {
-			e.printStackTrace();
-		}
-	}
+@WebServlet("/AssetCtl")
+public class AssetCtl extends BaseCtl {
 
 	@Override
 	protected boolean validate(HttpServletRequest request) {
 
 		boolean pass = true;
 
+		if (DataValidator.isNull(request.getParameter("documentCode"))) {
+			request.setAttribute("documentCode", PropertyReader.getValue("error.require", "Document Code"));
+			pass = false;
+		}
 		if (DataValidator.isNull(request.getParameter("name"))) {
-			request.setAttribute("name", PropertyReader.getValue("error.require", "Maintenance Name"));
+			request.setAttribute("name", PropertyReader.getValue("error.require", "Document Name"));
 			pass = false;
 		} else if (!DataValidator.isName(request.getParameter("name"))) {
 			request.setAttribute("name", "Invalid Name");
 			pass = false;
 		}
 		if (DataValidator.isNull(request.getParameter("type"))) {
-			request.setAttribute("type", PropertyReader.getValue("error.require", "Issue type"));
+			request.setAttribute("type", PropertyReader.getValue("error.require", "File type"));
 			pass = false;
 		}
-		if (DataValidator.isNull(request.getParameter("location"))) {
-			request.setAttribute("location", PropertyReader.getValue("error.require", "Location"));
-			pass = false;
-		}
-		if (DataValidator.isNull(request.getParameter("date"))) {
-			request.setAttribute("date", PropertyReader.getValue("error.require", "Request Date"));
-			pass = false;
-		} else if (!DataValidator.isDate(request.getParameter("date"))) {
-			request.setAttribute("date", "Invalid Date");
+		if (DataValidator.isNull(request.getParameter("status"))) {
+			request.setAttribute("status", PropertyReader.getValue("error.require", "Status"));
 			pass = false;
 		}
 		return pass;
@@ -68,13 +51,13 @@ public class MaintenanceCtl extends BaseCtl {
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
-		MaintenanceBean bean = new MaintenanceBean();
+		AssetBean bean = new AssetBean();
 
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
-		bean.setRequestName(DataUtility.getString(request.getParameter("name")));
-		bean.setIssueType(DataUtility.getString(request.getParameter("type")));
-		bean.setLocation(DataUtility.getString(request.getParameter("location")));
-		bean.setRequestDate(DataUtility.getDate(request.getParameter("date")));
+		bean.setDocumentCode(DataUtility.getString(request.getParameter("documentCode")));
+		bean.setDocumentName(DataUtility.getString(request.getParameter("name")));
+		bean.setFileType(DataUtility.getString(request.getParameter("type")));
+		bean.setStatus(DataUtility.getString(request.getParameter("status")));
 		populateDTO(bean, request);
 
 		return bean;
@@ -85,11 +68,11 @@ public class MaintenanceCtl extends BaseCtl {
 			throws ServletException, IOException {
 		long id = DataUtility.getLong(request.getParameter("id"));
 
-		MaintenanceModel model = new MaintenanceModel();
+		AssetModel model = new AssetModel();
 
 		if (id > 0) {
 			try {
-				MaintenanceBean bean = model.findByPk(id);
+				AssetBean bean = model.findByPk(id);
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				ServletUtility.handleException(e, request, response);
@@ -105,26 +88,26 @@ public class MaintenanceCtl extends BaseCtl {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
 
-		MaintenanceModel model = new MaintenanceModel();
+		AssetModel model = new AssetModel();
 
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		if (OP_SAVE.equalsIgnoreCase(op)) {
-			MaintenanceBean bean = (MaintenanceBean) populateBean(request);
+			AssetBean bean = (AssetBean) populateBean(request);
 			try {
 				long pk = model.add(bean);
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("Data is successfully saved", request);
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
-				ServletUtility.setErrorMessage("Maintenance Name already exists", request);
+				ServletUtility.setErrorMessage("Document Code already exists", request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				ServletUtility.handleException(e, request, response);
 				return;
 			}
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
-			MaintenanceBean bean = (MaintenanceBean) populateBean(request);
+			AssetBean bean = (AssetBean) populateBean(request);
 			try {
 				if (id > 0) {
 					model.update(bean);
@@ -133,18 +116,18 @@ public class MaintenanceCtl extends BaseCtl {
 				ServletUtility.setSuccessMessage("Data is successfully updated", request);
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
-				ServletUtility.setErrorMessage("Maintenance Name already exists", request);
+				ServletUtility.setErrorMessage("Document Code already exists", request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				ServletUtility.handleException(e, request, response);
 				return;
 			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
-			ServletUtility.redirect(ORSView.MAINTENANCE_LIST_CTL, request, response);
+			ServletUtility.redirect(ORSView.ASSET_LIST_CTL, request, response);
 			return;
 
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
-			ServletUtility.redirect(ORSView.MAINTENANCE_CTL, request, response);
+			ServletUtility.redirect(ORSView.ASSET_CTL, request, response);
 			return;
 		}
 
@@ -153,7 +136,7 @@ public class MaintenanceCtl extends BaseCtl {
 
 	@Override
 	protected String getView() {
-		return ORSView.MAINTENANCE_VIEW;
+		return ORSView.ASSET_VIEW;
 	}
 
 }
