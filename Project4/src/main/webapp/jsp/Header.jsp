@@ -48,7 +48,7 @@
 	<b>|</b>
 	<a href=<%=ORSView.ATTENDANCE_LIST_CTL%>><b>Attendance List</b></a>
 	<b>|</b>
-	<a href=<%=ORSView.MAINTENANCE_CTL%>><b>Add Maintenance</b></a>			<!-- Standard Way to write -->
+	<a href=<%=ORSView.MAINTENANCE_CTL%>><b>Add Maintenance</b></a>				<!-- Standard Way to write -->
 	<b>|</b>
 	<a href=<%=ORSView.MAINTENANCE_LIST_CTL%>><b>Maintenance List</b></a>
 	<b>|</b>
@@ -75,8 +75,15 @@
 	<a href=<%=ORSView.ASSET_CTL%>><b>Add Asset</b></a>
 	<b>|</b>
 	<a href=<%=ORSView.ASSET_LIST_CTL%>><b>Asset List</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.EMPLOYEE_CTL%>><b>Add Employee</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.EMPLOYEE_LIST_CTL%>><b>Employee List</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.PRODUCT_CTL%>><b>Add Product</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.PRODUCT_LIST_CTL%>><b>Product List</b></a>
 	<hr>
-
 	<%@include file="Footer.jsp"%>
 </body>
 </html>

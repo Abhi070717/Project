@@ -107,5 +107,18 @@ public interface ORSView {
 	
 	public String ASSET_LIST_VIEW = PAGE_FOLDER + "/AssetListView.jsp";
 	public String ASSET_LIST_CTL = APP_CONTEXT + "/AssetListCtl";
+	
+	public String EMPLOYEE_VIEW = PAGE_FOLDER + "/EmployeeView.jsp";
+	public String EMPLOYEE_CTL = APP_CONTEXT + "/EmployeeCtl";
+	
+	public String EMPLOYEE_LIST_VIEW = PAGE_FOLDER + "/EmployeeListView.jsp";
+	public String EMPLOYEE_LIST_CTL = APP_CONTEXT + "/EmployeeListCtl";
+
+	public String PRODUCT_VIEW = PAGE_FOLDER + "/ProductView.jsp";
+	public String PRODUCT_CTL = APP_CONTEXT + "/ProductCtl";
+	
+	public String PRODUCT_LIST_VIEW = PAGE_FOLDER + "/ProductListView.jsp";
+	public String PRODUCT_LIST_CTL = APP_CONTEXT + "/ProductListCtl";
+
 
 }

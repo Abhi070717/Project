@@ -95,7 +95,7 @@
 					<td align="center"><input type="checkbox" name="ids"
 						value="<%=bean.getId()%>"></td>
 					<td align="center"><%=index++%></td>
-					<td align="center"><%=bean.getNotePayableId()%></td>
+					<td align="center"><%=bean.getId()%></td>
 					<td align="center"><%=bean.getTotalPrincipal()%></td>
 					<td align="center"><%=bean.getTotalInterestPaid()%></td>
 					<td align="center"><%=bean.getTotalOutstanding()%></td>

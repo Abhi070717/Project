@@ -53,8 +53,7 @@ public class MaintenanceModel {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 
-			PreparedStatement pstmt = conn
-					.prepareStatement("insert into st_maintenance values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement pstmt = conn.prepareStatement("insert into st_maintenance values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 			pstmt.setLong(1, pk);
 			pstmt.setString(2, bean.getRequestName());
@@ -192,7 +191,7 @@ public class MaintenanceModel {
 		return bean;
 	}
 
-	public MaintenanceBean findByMaintenanceName(String RecipeName) throws ApplicationException {
+	public MaintenanceBean findByMaintenanceName(String name) throws ApplicationException {
 
 		MaintenanceBean bean = null;
 		Connection conn = null;
@@ -202,7 +201,7 @@ public class MaintenanceModel {
 			conn = JDBCDataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement("select * from st_maintenance where name = ?");
 
-			pstmt.setString(1, RecipeName);
+			pstmt.setString(1, name);
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -221,7 +220,7 @@ public class MaintenanceModel {
 			}
 
 		} catch (Exception e) {
-			throw new ApplicationException("Exception in FindByMaintenanceName Maintenance");
+			throw new ApplicationException("Exception in FindByMaintenanceName");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}

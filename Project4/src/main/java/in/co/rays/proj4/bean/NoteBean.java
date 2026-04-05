@@ -8,12 +8,12 @@ public class NoteBean extends BaseBean {
 	private Double totalInterestPaid;
 	private Double totalOutstanding;
 
-	public void setNotePayableId(long notePayableId) {
-		this.notePayableId = notePayableId;
+	public long getNotePayableId() {
+		return notePayableId;
 	}
 
-	public Long getNotePayableId() {
-		return notePayableId;
+	public void setNotePayableId(long notePayableId) {
+		this.notePayableId = notePayableId;
 	}
 
 	public String getStatus() {
@@ -22,10 +22,6 @@ public class NoteBean extends BaseBean {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public void setNotePayableId(Long notePayableId) {
-		this.notePayableId = notePayableId;
 	}
 
 	public Double getTotalPrincipal() {

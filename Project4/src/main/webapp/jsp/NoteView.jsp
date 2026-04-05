@@ -72,7 +72,7 @@
 					<th align="left">Note Payable ID<span style="color: red">*</span></th>
 					<td><input type="text" name="notePayableId"
 						placeholder="Enter Note Payable ID"
-						value="<%=DataUtility.getStringData(bean.getNotePayableId())%>">
+						value="<%=DataUtility.getStringData(bean.getId())%>">
 					</td>
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("notePayableId", request)%>
 					</font></td>
