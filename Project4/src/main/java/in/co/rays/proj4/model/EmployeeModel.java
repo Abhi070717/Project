@@ -7,218 +7,255 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.co.rays.proj4.bean.EmployeeBean;
+import in.co.rays.proj4.bean.PhotographerBean;
 import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class EmployeeModel {
 
-    // 🔹 Add Method
-    public long add(EmployeeBean bean) throws ApplicationException {
+	public long nextPk() throws DatabaseException {
 
-        long pk = 0;
+		long pk = 0;
+		Connection conn = null;
 
-        Connection conn = null;
-        try {
-            conn = JDBCDataSource.getConnection();
+		try {
+			conn = JDBCDataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement("select max(id) from st_photographer");
+			ResultSet rs = pstmt.executeQuery();
 
-            PreparedStatement ps = conn.prepareStatement(
-                "insert into st_employee (name, department, salary, status) VALUES (?, ?, ?, ?)"
-            );
+			if (rs.next()) {
+				pk = rs.getLong(1);
+			}
+		} catch (Exception e) {
+			throw new DatabaseException("Exception : Exception in getting Pk");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
 
-            ps.setString(1, bean.getName());
-            ps.setString(2, bean.getDepartment());
-            ps.setDouble(3, bean.getSalary());
-            ps.setString(4, bean.getStatus());
+		return pk + 1;
 
-            ps.executeUpdate();
+	}
 
-            System.out.println("Employee Added Successfully");
+	// 🔹 Add Method
+	public long add(EmployeeBean bean) throws ApplicationException, DuplicateRecordException {
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ApplicationException("Exception in add Employee");
-        } finally {
-            JDBCDataSource.closeConnection(conn);
-        }
+		Connection conn = null;
+		long pk = 0;
 
-        return pk;
-    }
-    
-    // 🔹 Update Method
-    public void update(EmployeeBean bean) throws ApplicationException {
-    	
-    	Connection conn = null;
-    	try {
-    		conn = JDBCDataSource.getConnection();
-    		
-    		PreparedStatement ps = conn.prepareStatement(
-    				"UPDATE ST_EMPLOYEE SET name=?, department=?, salary=?, status=? where id=?"
-    				);
-    		
-    		ps.setString(1, bean.getName());
-    		ps.setString(2, bean.getDepartment());
-    		ps.setDouble(3, bean.getSalary());
-    		ps.setString(4, bean.getStatus());
-    		ps.setLong(5, bean.getId());
-    		
-    		ps.executeUpdate();
-    		
-    		System.out.println("Employee Updated Successfully");
-    		
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    		throw new ApplicationException("Exception in update Employee");
-    	} finally {
-    		JDBCDataSource.closeConnection(conn);
-    	}
-    }
+		EmployeeBean existBean = findByName(bean.getName());
 
-    // 🔹 Delete Method
-    public void delete(long id) throws ApplicationException {
+		if (existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("Name already exists");
+		}
+		try {
+			conn = JDBCDataSource.getConnection();
 
-        Connection conn = null;
-        try {
-            conn = JDBCDataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement("insert into st_employee VALUES (?, ?, ?, ?, ?)");
 
-            PreparedStatement ps = conn.prepareStatement(
-                "DELETE FROM ST_EMPLOYEE WHERE id=?"
-            );
+			ps.setLong(1, pk);
+			ps.setString(2, bean.getName());
+			ps.setString(3, bean.getDepartment());
+			ps.setDouble(4, bean.getSalary());
+			ps.setString(5, bean.getStatus());
 
-            ps.setLong(1, id);
-            ps.executeUpdate();
+			ps.executeUpdate();
 
-            System.out.println("Employee Deleted Successfully");
+			System.out.println("Employee Added Successfully");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ApplicationException("Exception in delete Employee");
-        } finally {
-            JDBCDataSource.closeConnection(conn);
-        }
-    }
-    // 🔹 Find By PK
-    public EmployeeBean findByPk(long id) throws ApplicationException {
-    	
-    	EmployeeBean bean = null;
-    	
-    	Connection conn = null;
-    	try {
-    		conn = JDBCDataSource.getConnection();
-    		
-    		PreparedStatement ps = conn.prepareStatement(
-    				"SELECT * FROM ST_EMPLOYEE WHERE id=?"
-    				);
-    		
-    		ps.setLong(1, id);
-    		
-    		ResultSet rs = ps.executeQuery();
-    		
-    		if (rs.next()) {
-    			bean = new EmployeeBean();
-    			bean.setId(rs.getLong("id"));
-    			bean.setName(rs.getString("name"));
-    			bean.setDepartment(rs.getString("department"));
-    			bean.setSalary(rs.getDouble("salary"));
-    			bean.setStatus(rs.getString("status"));
-    		}
-    		
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    		throw new ApplicationException("Exception in findByPk");
-    	} finally {
-    		JDBCDataSource.closeConnection(conn);
-    	}
-    	
-    	return bean;
-    }
-    
-    public EmployeeBean findByName(String name) throws ApplicationException {
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException("Exception in add Employee");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
 
-        EmployeeBean bean = null;
-        Connection conn = null;
+		return pk;
+	}
 
-        try {
-            conn = JDBCDataSource.getConnection();
+	// 🔹 Update Method
+	public void update(EmployeeBean bean) throws ApplicationException, DuplicateRecordException {
 
-            PreparedStatement ps = conn.prepareStatement(
-                "SELECT * FROM ST_EMPLOYEE WHERE name=?"
-            );
+		Connection conn = null;
+		EmployeeBean existBean = findByName(bean.getName());
 
-            ps.setString(1, name);
+		if (existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("Name already exists");
+		}
+		try {
+			conn = JDBCDataSource.getConnection();
 
-            ResultSet rs = ps.executeQuery();
+			PreparedStatement ps = conn
+					.prepareStatement("UPDATE ST_EMPLOYEE SET name=?, department=?, salary=?, status=? where id=?");
 
-            if (rs.next()) {
-                bean = new EmployeeBean();
-                bean.setId(rs.getLong("id"));
-                bean.setName(rs.getString("name"));
-                bean.setDepartment(rs.getString("department"));
-                bean.setSalary(rs.getDouble("salary"));
-                bean.setStatus(rs.getString("status"));
-            }
+			ps.setString(1, bean.getName());
+			ps.setString(2, bean.getDepartment());
+			ps.setDouble(3, bean.getSalary());
+			ps.setString(4, bean.getStatus());
+			ps.setLong(5, bean.getId());
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ApplicationException("Exception in findByName");
-        } finally {
-            JDBCDataSource.closeConnection(conn);
-        }
+			ps.executeUpdate();
 
-        return bean;
-    }
-    
-    public List<EmployeeBean> list() throws ApplicationException{
+			System.out.println("Employee Updated Successfully");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException("Exception in update Employee");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+	}
+
+	// 🔹 Delete Method
+	public void delete(EmployeeBean bean) throws ApplicationException {
+
+		Connection conn = null;
+		try {
+			conn = JDBCDataSource.getConnection();
+
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM ST_EMPLOYEE WHERE id=?");
+
+			ps.setLong(1, bean.getId());
+			ps.executeUpdate();
+
+			System.out.println("Employee Deleted Successfully");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException("Exception in delete Employee");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+	}
+
+	// 🔹 Find By PK
+	public EmployeeBean findByPk(long id) throws ApplicationException {
+
+		EmployeeBean bean = null;
+
+		Connection conn = null;
+		try {
+			conn = JDBCDataSource.getConnection();
+
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM ST_EMPLOYEE WHERE id=?");
+
+			ps.setLong(1, id);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				bean = new EmployeeBean();
+				bean.setId(rs.getLong("id"));
+				bean.setName(rs.getString("name"));
+				bean.setDepartment(rs.getString("department"));
+				bean.setSalary(rs.getDouble("salary"));
+				bean.setStatus(rs.getString("status"));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException("Exception in findByPk");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+
+		return bean;
+	}
+
+	public EmployeeBean findByName(String name) throws ApplicationException {
+
+		EmployeeBean bean = null;
+		Connection conn = null;
+
+		try {
+			conn = JDBCDataSource.getConnection();
+
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM ST_EMPLOYEE WHERE name=?");
+
+			ps.setString(1, name);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				bean = new EmployeeBean();
+				bean.setId(rs.getLong("id"));
+				bean.setName(rs.getString("name"));
+				bean.setDepartment(rs.getString("department"));
+				bean.setSalary(rs.getDouble("salary"));
+				bean.setStatus(rs.getString("status"));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException("Exception in findByName");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+
+		return bean;
+	}
+
+	public List<EmployeeBean> list() throws ApplicationException {
 		return search(null, 0, 0);
-    	
-    }
-    
-    public List search(EmployeeBean bean, int pageNo, int pageSize) throws ApplicationException {
 
-        List list = new ArrayList();
-        Connection conn = null;
+	}
 
-        StringBuffer sql = new StringBuffer("SELECT * FROM ST_EMPLOYEE WHERE 1=1");
+	public List<EmployeeBean> search(EmployeeBean bean, int pageNo, int pageSize) throws ApplicationException {
 
-        if (bean != null) {
+		List<EmployeeBean> list = new ArrayList<EmployeeBean>();
+		Connection conn = null;
 
-            if (bean.getName() != null && bean.getName().length() > 0) {
-                sql.append(" AND name like '" + bean.getName() + "%'");
-            }
+		StringBuffer sql = new StringBuffer("SELECT * FROM ST_EMPLOYEE WHERE 1=1");
 
-            if (bean.getDepartment() != null && bean.getDepartment().length() > 0) {
-                sql.append(" AND department like '" + bean.getDepartment() + "%'");
-            }
+		if (bean != null) {
 
-            if (bean.getStatus() != null && bean.getStatus().length() > 0) {
-                sql.append(" AND status = '" + bean.getStatus() + "'");
-            }
-        }
+			if (bean.getName() != null && bean.getName().length() > 0) {
+				sql.append(" AND name like '" + bean.getName() + "%'");
+			}
 
-        try {
-            conn = JDBCDataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql.toString());
+			if (bean.getDepartment() != null && bean.getDepartment().length() > 0) {
+				sql.append(" AND department like '" + bean.getDepartment() + "%'");
+			}
 
-            ResultSet rs = ps.executeQuery();
+			if (bean.getStatus() != null && bean.getStatus().length() > 0) {
+				sql.append(" AND status like '" + bean.getStatus() + "%'");
+			}
+			if (bean.getSalary() > 0) {
+				sql.append(" and salary like '" + bean.getSalary() + "%'");
+			}
+		}
 
-            while (rs.next()) {
-                bean = new EmployeeBean();
+		if (pageSize > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			sql.append(" limit " + pageNo + "," + pageSize);
+		}
 
-                bean.setId(rs.getLong("id"));
-                bean.setName(rs.getString("name"));
-                bean.setDepartment(rs.getString("department"));
-                bean.setSalary(rs.getDouble("salary"));
-                bean.setStatus(rs.getString("status"));
+		try {
+			conn = JDBCDataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql.toString());
 
-                list.add(bean);
-            }
+			ResultSet rs = ps.executeQuery();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ApplicationException("Exception in search");
-        } finally {
-            JDBCDataSource.closeConnection(conn);
-        }
+			while (rs.next()) {
+				bean = new EmployeeBean();
 
-        return list;
-    }
+				bean.setId(rs.getLong("id"));
+				bean.setName(rs.getString("name"));
+				bean.setDepartment(rs.getString("department"));
+				bean.setSalary(rs.getDouble("salary"));
+				bean.setStatus(rs.getString("status"));
+
+				list.add(bean);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException("Exception in search");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+
+		return list;
+	}
 }

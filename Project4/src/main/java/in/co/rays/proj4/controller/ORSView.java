@@ -120,5 +120,10 @@ public interface ORSView {
 	public String PRODUCT_LIST_VIEW = PAGE_FOLDER + "/ProductListView.jsp";
 	public String PRODUCT_LIST_CTL = APP_CONTEXT + "/ProductListCtl";
 
+	public String PHOTOGRAPER_VIEW = PAGE_FOLDER + "/PhotographerView.jsp";
+	public String PHOTOGRAPER_CTL = APP_CONTEXT + "/PhotographerCtl";
+
+	public String PHOTOGRAPER_LIST_VIEW = PAGE_FOLDER + "/PhotographerListView.jsp";
+	public String PHOTOGRAPER_LIST_CTL = APP_CONTEXT + "/PhotographerListCtl";
 
 }

@@ -8,20 +8,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import in.co.rays.proj4.bean.PhotographerBean;
 import in.co.rays.proj4.bean.BaseBean;
-import in.co.rays.proj4.bean.EmployeeBean;
 import in.co.rays.proj4.exception.ApplicationException;
-import in.co.rays.proj4.model.EmployeeModel;
+import in.co.rays.proj4.model.PhotographerModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet(name = "EmployeeListCtl", urlPatterns = { "/EmployeeListCtl" })
-public class EmployeeListCtl extends BaseCtl {
+@WebServlet(name = "PhotographerListCtl", urlPatterns = { "/PhotographerListCtl" })
+public class PhotographerListCtl extends BaseCtl {
 
 	@Override
 	protected void preload(HttpServletRequest request) {
-		EmployeeModel nameModel = new EmployeeModel();
+		PhotographerModel nameModel = new PhotographerModel();
 		try {
 			List nameList = nameModel.list();
 			request.setAttribute("nameList", nameList);
@@ -33,13 +33,11 @@ public class EmployeeListCtl extends BaseCtl {
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
-		EmployeeBean bean = new EmployeeBean();
+		PhotographerBean bean = new PhotographerBean();
 
-		bean.setId(DataUtility.getLong(request.getParameter("id")));
-		bean.setName(DataUtility.getString(request.getParameter("name")));
-		bean.setDepartment(DataUtility.getString(request.getParameter("department")));
-		bean.setSalary(DataUtility.getLong(request.getParameter("salary")));
-		bean.setStatus(DataUtility.getString(request.getParameter("status")));
+		bean.setPhotographerName(DataUtility.getString(request.getParameter("name")));
+		bean.setEventType(DataUtility.getString(request.getParameter("type")));
+		bean.setCharges(DataUtility.getLong(request.getParameter("charge")));
 
 		return bean;
 	}
@@ -51,14 +49,14 @@ public class EmployeeListCtl extends BaseCtl {
 		int pageNo = 1;
 		int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
 
-		EmployeeBean bean = (EmployeeBean) populateBean(request);
-		EmployeeModel model = new EmployeeModel();
+		PhotographerBean bean = (PhotographerBean) populateBean(request);
+		PhotographerModel model = new PhotographerModel();
 
 		try {
 
-			List<EmployeeBean> list = model.search(bean, pageNo, pageSize);
-			List<EmployeeBean> next = model.search(bean, pageNo + 1, pageSize);
-
+			List<PhotographerBean> list = model.search(bean, pageNo, pageSize);
+			List<PhotographerBean> next = model.search(bean, pageNo + 1, pageSize);
+			
 			if (list == null || list.isEmpty()) {
 				ServletUtility.setErrorMessage("No record found", request);
 			}
@@ -66,6 +64,7 @@ public class EmployeeListCtl extends BaseCtl {
 			ServletUtility.setList(list, request);
 			ServletUtility.setPageNo(pageNo, request);
 			ServletUtility.setPageSize(pageSize, request);
+			ServletUtility.setBean(bean, request);
 			request.setAttribute("nextListSize", next.size());
 
 			ServletUtility.forward(getView(), request, response);
@@ -86,8 +85,8 @@ public class EmployeeListCtl extends BaseCtl {
 		pageNo = (pageNo == 0) ? 1 : pageNo;
 		pageSize = (pageSize == 0) ? DataUtility.getInt(PropertyReader.getValue("page.size")) : pageSize;
 
-		EmployeeBean bean = (EmployeeBean) populateBean(request);
-		EmployeeModel model = new EmployeeModel();
+		PhotographerBean bean = (PhotographerBean) populateBean(request);
+		PhotographerModel model = new PhotographerModel();
 
 		String op = request.getParameter("operation");
 		String[] ids = request.getParameterValues("ids");
@@ -104,18 +103,18 @@ public class EmployeeListCtl extends BaseCtl {
 				pageNo--;
 
 			} else if (OP_NEW.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.EMPLOYEE_CTL, request, response);
+				ServletUtility.redirect(ORSView.PHOTOGRAPER_CTL, request, response);
 				return;
 
 			} else if (OP_RESET.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.EMPLOYEE_LIST_CTL, request, response);
+				ServletUtility.redirect(ORSView.PHOTOGRAPER_LIST_CTL, request, response);
 				return;
 
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 				pageNo = 1;
-				EmployeeBean deletebean = new EmployeeBean();
+				PhotographerBean deletebean = new PhotographerBean();
 
-				if (ids != null) {
+				if (ids != null && ids.length > 0) {
 					for (String id : ids) {
 						deletebean.setId(Integer.parseInt(id));
 						model.delete(deletebean);
@@ -126,18 +125,18 @@ public class EmployeeListCtl extends BaseCtl {
 				}
 			}
 
-			List<EmployeeBean> list = model.search(bean, pageNo, pageSize);
-			List<EmployeeBean> next = model.search(bean, pageNo + 1, pageSize);
-
+			List<PhotographerBean> list = model.search(bean, pageNo, pageSize);
+			List<PhotographerBean> next = model.search(bean, pageNo + 1, pageSize);
+			
 			if (list == null || list.size() == 0) {
 				ServletUtility.setErrorMessage("No Record Found ", request);
 			}
 
+			request.setAttribute("nextListSize", next.size());
 			ServletUtility.setList(list, request);
 			ServletUtility.setPageNo(pageNo, request);
-			ServletUtility.setPageSize(pageSize, request);
 			ServletUtility.setBean(bean, request);
-			request.setAttribute("nextListSize", next.size());
+			ServletUtility.setPageSize(pageSize, request);
 
 			ServletUtility.forward(getView(), request, response);
 
@@ -149,6 +148,6 @@ public class EmployeeListCtl extends BaseCtl {
 
 	@Override
 	protected String getView() {
-		return ORSView.EMPLOYEE_LIST_VIEW;
+		return ORSView.PHOTOGRAPER_LIST_VIEW;
 	}
 }
