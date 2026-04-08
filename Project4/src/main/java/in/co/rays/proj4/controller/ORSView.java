@@ -126,4 +126,9 @@ public interface ORSView {
 	public String PHOTOGRAPER_LIST_VIEW = PAGE_FOLDER + "/PhotographerListView.jsp";
 	public String PHOTOGRAPER_LIST_CTL = APP_CONTEXT + "/PhotographerListCtl";
 
+	public String THEME_VIEW = PAGE_FOLDER + "/ThemeView.jsp";
+	public String THEME_CTL = APP_CONTEXT + "/ThemeCtl";
+	
+	public String THEME_LIST_VIEW = PAGE_FOLDER + "/ThemeListView.jsp";
+	public String THEME_LIST_CTL = APP_CONTEXT + "/ThemeListCtl";
 }

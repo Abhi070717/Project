@@ -88,6 +88,10 @@
 	<a href=<%=ORSView.PHOTOGRAPER_CTL%>><b>Add Photographer</b></a>
 	<b>|</b>
 	<a href=<%=ORSView.PHOTOGRAPER_LIST_CTL%>><b>Photographer List</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.THEME_CTL%>><b>Add Theme</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.THEME_LIST_CTL%>><b>Theme List</b></a>
 	<hr>
 	<%@include file="Footer.jsp"%>
 </body>
