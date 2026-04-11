@@ -16,11 +16,11 @@
 </head>
 <body>
 	<div id="Footer">
-		<Center>
-			<hr>
-			<h3>All rights reserved by Rays Technologies, SunilOS Infotech
-				Pvt Ltd Copyright © 2026</h3>
-		</Center>
+
+		<hr>
+		<h3>All rights reserved by Rays Technologies, SunilOS Infotech
+			Pvt Ltd Copyright ©] 2026</h3>
+
 
 	</div>
 </body>

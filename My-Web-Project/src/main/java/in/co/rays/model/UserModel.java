@@ -210,7 +210,7 @@ public class UserModel {
 	}
 
 //Search Query Searching User Details
-	public List search(UserBean bean) throws Exception {
+	public List<UserBean> search(UserBean bean) throws Exception {
 
 		Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -232,7 +232,7 @@ public class UserModel {
 
 		ResultSet rs = pstmt.executeQuery();
 
-		List list = new ArrayList();
+		List<UserBean> list = new ArrayList<UserBean>();
 
 		while (rs.next()) {
 			bean = new UserBean();
@@ -255,7 +255,7 @@ public class UserModel {
 	}
 
 // Search query Formating table of user details
-	public List Search1(UserBean bean) throws Exception {
+	public List<UserBean> Search1(UserBean bean) throws Exception {
 
 		Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -266,7 +266,7 @@ public class UserModel {
 		PreparedStatement pstmt = conn.prepareStatement("select * from st_user");
 		ResultSet rs = pstmt.executeQuery();
 
-		List list = new ArrayList();
+		List<UserBean> list = new ArrayList<UserBean>();
 		while (rs.next()) {
 			bean = new UserBean();
 			bean.setId(rs.getInt(1));

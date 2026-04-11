@@ -52,7 +52,6 @@ public class LoginCtl extends HttpServlet {
 				rd.forward(request, response);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
