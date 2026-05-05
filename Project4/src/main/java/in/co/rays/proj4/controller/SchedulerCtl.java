@@ -8,17 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.proj4.bean.BaseBean;
-import in.co.rays.proj4.bean.ThemeBean;
+import in.co.rays.proj4.bean.SchedulerBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
-import in.co.rays.proj4.model.ThemeModel;
+import in.co.rays.proj4.model.SchedulerModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet(name = "ThemeCtl", urlPatterns = { "/ThemeCtl" })
-public class ThemeCtl extends BaseCtl {
+@WebServlet(name = "SchedulerCtl", urlPatterns = { "/SchedulerCtl" })
+
+public class SchedulerCtl extends BaseCtl {
 
 	@Override
 	protected boolean validate(HttpServletRequest request) {
@@ -26,18 +27,18 @@ public class ThemeCtl extends BaseCtl {
 		boolean pass = true;
 
 		if (DataValidator.isNull(request.getParameter("code"))) {
-			request.setAttribute("code", PropertyReader.getValue("error.require", "Theme Code"));
+			request.setAttribute("code", PropertyReader.getValue("error.require", "Job Code"));
 			pass = false;
 		}
 		if (DataValidator.isNull(request.getParameter("name"))) {
-			request.setAttribute("name", PropertyReader.getValue("error.require", "Theme Name"));
+			request.setAttribute("name", PropertyReader.getValue("error.require", "Job Name"));
 			pass = false;
 		} else if (!DataValidator.isName(request.getParameter("name"))) {
-			request.setAttribute("name", "Invalid Theme Name");
+			request.setAttribute("name", "Invalid Job Name");
 			pass = false;
 		}
-		if (DataValidator.isNull(request.getParameter("color"))) {
-			request.setAttribute("color", PropertyReader.getValue("error.require", "Color"));
+		if (DataValidator.isNull(request.getParameter("expression"))) {
+			request.setAttribute("expression", PropertyReader.getValue("error.require", "Cron Expression"));
 			pass = false;
 		}
 		if (DataValidator.isNull(request.getParameter("status"))) {
@@ -50,12 +51,12 @@ public class ThemeCtl extends BaseCtl {
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
-		ThemeBean bean = new ThemeBean();
+		SchedulerBean bean = new SchedulerBean();
 
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
-		bean.setThemeCode(DataUtility.getString(request.getParameter("code")));
-		bean.setThemeName(DataUtility.getString(request.getParameter("name")));
-		bean.setColor(DataUtility.getString(request.getParameter("color")));
+		bean.setJobCode(DataUtility.getString(request.getParameter("code")));
+		bean.setJobName(DataUtility.getString(request.getParameter("name")));
+		bean.setCronExpression(DataUtility.getString(request.getParameter("expression")));
 		bean.setStatus(DataUtility.getString(request.getParameter("status")));
 		populateDTO(bean, request);
 
@@ -67,11 +68,11 @@ public class ThemeCtl extends BaseCtl {
 			throws ServletException, IOException {
 		long id = DataUtility.getLong(request.getParameter("id"));
 
-		ThemeModel model = new ThemeModel();
+		SchedulerModel model = new SchedulerModel();
 
 		if (id > 0) {
 			try {
-				ThemeBean bean = model.findByPk(id);
+				SchedulerBean bean = model.findByPk(id);
 				ServletUtility.setBean(bean, request);
 			} catch (ApplicationException e) {
 				ServletUtility.handleException(e, request, response);
@@ -87,26 +88,26 @@ public class ThemeCtl extends BaseCtl {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
 
-		ThemeModel model = new ThemeModel();
+		SchedulerModel model = new SchedulerModel();
 
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		if (OP_SAVE.equalsIgnoreCase(op)) {
-			ThemeBean bean = (ThemeBean) populateBean(request);
+			SchedulerBean bean = (SchedulerBean) populateBean(request);
 			try {
 				long pk = model.add(bean);
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("Data is successfully saved", request);
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
-				ServletUtility.setErrorMessage("Document Code already exists", request);
+				ServletUtility.setErrorMessage("Job Name already exists", request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				ServletUtility.handleException(e, request, response);
 				return;
 			}
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
-			ThemeBean bean = (ThemeBean) populateBean(request);
+			SchedulerBean bean = (SchedulerBean) populateBean(request);
 			try {
 				if (id > 0) {
 					model.update(bean);
@@ -115,18 +116,18 @@ public class ThemeCtl extends BaseCtl {
 				ServletUtility.setSuccessMessage("Data is successfully updated", request);
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
-				ServletUtility.setErrorMessage("Document Code already exists", request);
+				ServletUtility.setErrorMessage("Job Name already exists", request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				ServletUtility.handleException(e, request, response);
 				return;
 			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
-			ServletUtility.redirect(ORSView.THEME_LIST_CTL, request, response);
+			ServletUtility.redirect(ORSView.SCHEDULER_LIST_CTL, request, response);
 			return;
 
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
-			ServletUtility.redirect(ORSView.THEME_CTL, request, response);
+			ServletUtility.redirect(ORSView.SCHEDULER_CTL, request, response);
 			return;
 		}
 
@@ -135,7 +136,6 @@ public class ThemeCtl extends BaseCtl {
 
 	@Override
 	protected String getView() {
-		return ORSView.THEME_VIEW;
+		return ORSView.SCHEDULER_VIEW;
 	}
-
 }

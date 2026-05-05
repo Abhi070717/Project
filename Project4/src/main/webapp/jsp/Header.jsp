@@ -92,6 +92,10 @@
 	<a href=<%=ORSView.THEME_CTL%>><b>Add Theme</b></a>
 	<b>|</b>
 	<a href=<%=ORSView.THEME_LIST_CTL%>><b>Theme List</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.SCHEDULER_CTL%>><b>Add Scheduler Job</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.SCHEDULER_LIST_CTL%>><b>Scheduler Job List</b></a>
 	<hr>
 	<%@include file="Footer.jsp"%>
 </body>

@@ -131,4 +131,10 @@ public interface ORSView {
 	
 	public String THEME_LIST_VIEW = PAGE_FOLDER + "/ThemeListView.jsp";
 	public String THEME_LIST_CTL = APP_CONTEXT + "/ThemeListCtl";
+
+	public String SCHEDULER_VIEW = PAGE_FOLDER + "/SchedulerView.jsp";
+	public String SCHEDULER_CTL = APP_CONTEXT + "/SchedulerCtl";
+	
+	public String SCHEDULER_LIST_VIEW = PAGE_FOLDER + "/SchedulerListView.jsp";
+	public String SCHEDULER_LIST_CTL = APP_CONTEXT + "/SchedulerListCtl";
 }

@@ -6,14 +6,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.co.rays.proj4.bean.PetBean;
+import in.co.rays.proj4.bean.SchedulerBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.exception.RecordNotFoundException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
-public class PetModel {
+public class SchedulerModel {
 
 	public long nextPK() throws DatabaseException {
 
@@ -22,7 +22,7 @@ public class PetModel {
 
 		try {
 			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("select max(id) from st_pet");
+			PreparedStatement pstmt = conn.prepareStatement("select max(id) from st_scheduler");
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -38,14 +38,14 @@ public class PetModel {
 		return pk + 1;
 	}
 
-	public long add(PetBean bean) throws ApplicationException, DuplicateRecordException {
+	public long add(SchedulerBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
 		long pk = 0;
 
-		PetBean existBean = findByPetName(bean.getPetName());
+		SchedulerBean existBean = findByJobName(bean.getJobName());
 		if (existBean != null) {
-			throw new DuplicateRecordException("Pet Name Already Exists");
+			throw new DuplicateRecordException("Scheduler Name Already Exists");
 		}
 
 		try {
@@ -53,13 +53,13 @@ public class PetModel {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 
-			PreparedStatement pstmt = conn.prepareStatement("insert into st_pet values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement pstmt = conn.prepareStatement("insert into st_scheduler values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 			pstmt.setLong(1, pk);
-			pstmt.setString(2, bean.getPetName());
-			pstmt.setString(3, bean.getAnimalType());
-			pstmt.setString(4, bean.getAge());
-			pstmt.setString(5, bean.getAdoptionStatus());
+			pstmt.setString(2, bean.getJobCode());
+			pstmt.setString(3, bean.getJobName());
+			pstmt.setString(4, bean.getCronExpression());
+			pstmt.setString(5, bean.getStatus());
 			pstmt.setString(6, bean.getCreatedBy());
 			pstmt.setString(7, bean.getModifiedBy());
 			pstmt.setTimestamp(8, bean.getCreatedDatetime());
@@ -76,7 +76,7 @@ public class PetModel {
 				throw new ApplicationException("Exception : add rollback exception " + ex.getMessage());
 			}
 
-			throw new ApplicationException("Exception : Exception in adding Pet");
+			throw new ApplicationException("Exception : Exception in adding Scheduler");
 
 		} finally {
 			JDBCDataSource.closeConnection(conn);
@@ -85,27 +85,27 @@ public class PetModel {
 		return pk;
 	}
 
-	public void update(PetBean bean) throws ApplicationException, DuplicateRecordException {
+	public void update(SchedulerBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
 
-		PetBean existBean = findByPetName(bean.getPetName());
 
-		if (existBean != null && existBean.getId() != bean.getId()) {
-			throw new DuplicateRecordException("Pet Name already exists");
-		}
+		SchedulerBean existBean = findByJobName(bean.getJobName());
+			if (existBean != null && existBean.getId() != bean.getId()) {
+				throw new DuplicateRecordException("Scheduler Name already exists");
+			}
 
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 
 			PreparedStatement pstmt = conn.prepareStatement(
-					"update st_pet set name = ?, type = ?, age = ?, status = ?, created_by = ?, modified_By = ?, created_datetime = ?, modified_Datetime = ? where id = ?");
+					"update st_scheduler set code = ?, name = ?, expression = ?, status = ?, created_by = ?, modified_By = ?, created_datetime = ?, modified_Datetime = ? where id = ?");
 
-			pstmt.setString(1, bean.getPetName());
-			pstmt.setString(2, bean.getAnimalType());
-			pstmt.setString(3, bean.getAge());
-			pstmt.setString(4, bean.getAdoptionStatus());
+			pstmt.setString(1, bean.getJobCode());
+			pstmt.setString(2, bean.getJobName());
+			pstmt.setString(3, bean.getCronExpression());
+			pstmt.setString(4, bean.getStatus());
 			pstmt.setString(5, bean.getCreatedBy());
 			pstmt.setString(6, bean.getModifiedBy());
 			pstmt.setTimestamp(7, bean.getCreatedDatetime());
@@ -120,13 +120,13 @@ public class PetModel {
 			} catch (Exception ex) {
 				throw new ApplicationException("Exception : Update rollback exception " + ex.getMessage());
 			}
-			throw new ApplicationException("Exception in updating Pet");
+			throw new ApplicationException("Exception in updating Scheduler");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
 	}
 
-	public void delete(PetBean bean) throws ApplicationException, RecordNotFoundException {
+	public void delete(SchedulerBean bean) throws ApplicationException, RecordNotFoundException {
 
 		Connection conn = null;
 
@@ -135,7 +135,7 @@ public class PetModel {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 
-			PreparedStatement pstmt = conn.prepareStatement("delete from st_pet where id = ?");
+			PreparedStatement pstmt = conn.prepareStatement("delete from st_scheduler where id = ?");
 
 			pstmt.setLong(1, bean.getId());
 
@@ -148,34 +148,34 @@ public class PetModel {
 			} catch (Exception ex) {
 				throw new ApplicationException("Exception : Delete rollback exception " + ex.getMessage());
 			}
-			throw new ApplicationException("Exception in Deleting Pet");
+			throw new ApplicationException("Exception in Deleting Scheduler");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
 	}
 
-	public PetBean findByPK(long pk) throws ApplicationException {
+	public SchedulerBean findByPk(long pk) throws ApplicationException {
 
-		PetBean bean = null;
+		SchedulerBean bean = null;
 		Connection conn = null;
 
 		try {
 
 			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("select * from st_pet where id=?");
+			PreparedStatement pstmt = conn.prepareStatement("select * from st_scheduler where id=?");
 
 			pstmt.setLong(1, pk);
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 
-				bean = new PetBean();
+				bean = new SchedulerBean();
 
 				bean.setId(rs.getLong(1));
-				bean.setPetName(rs.getString(2));
-				bean.setAnimalType(rs.getString(3));
-				bean.setAge(rs.getString(4));
-				bean.setAdoptionStatus(rs.getString(5));
+				bean.setJobCode(rs.getString(2));
+				bean.setJobName(rs.getString(3));
+				bean.setCronExpression(rs.getString(4));
+				bean.setStatus(rs.getString(5));
 				bean.setCreatedBy(rs.getString(6));
 				bean.setModifiedBy(rs.getString(7));
 				bean.setCreatedDatetime(rs.getTimestamp(8));
@@ -191,28 +191,28 @@ public class PetModel {
 		return bean;
 	}
 
-	public PetBean findByPetName(String PetName) throws ApplicationException {
+	public SchedulerBean findByJobName(String name) throws ApplicationException {
 
-		PetBean bean = null;
+		SchedulerBean bean = null;
 		Connection conn = null;
 
 		try {
 
 			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("select * from st_pet where name = ?");
+			PreparedStatement pstmt = conn.prepareStatement("select * from st_scheduler where name = ?");
 
-			pstmt.setString(1, PetName);
+			pstmt.setString(1, name);
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 
-				bean = new PetBean();
+				bean = new SchedulerBean();
 
 				bean.setId(rs.getLong(1));
-				bean.setPetName(rs.getString(2));
-				bean.setAnimalType(rs.getString(3));
-				bean.setAge(rs.getString(4));
-				bean.setAdoptionStatus(rs.getString(5));
+				bean.setJobCode(rs.getString(2));
+				bean.setJobName(rs.getString(3));
+				bean.setCronExpression(rs.getString(4));
+				bean.setStatus(rs.getString(5));
 				bean.setCreatedBy(rs.getString(6));
 				bean.setModifiedBy(rs.getString(7));
 				bean.setCreatedDatetime(rs.getTimestamp(8));
@@ -220,7 +220,7 @@ public class PetModel {
 			}
 
 		} catch (Exception e) {
-			throw new ApplicationException("Exception in FindByPetName Pet");
+			throw new ApplicationException("Exception in FindByJobName Scheduler");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
@@ -228,29 +228,29 @@ public class PetModel {
 		return bean;
 	}
 
-	public List<PetBean> list() throws ApplicationException {
+	public List<SchedulerBean> list() throws ApplicationException {
 		return search(null, 0, 0);
 	}
 
-	public List<PetBean> search(PetBean bean, int pageNo, int pageSize) throws ApplicationException {
+	public List<SchedulerBean> search(SchedulerBean bean, int pageNo, int pageSize) throws ApplicationException {
 
-		List<PetBean> list = new ArrayList<PetBean>();
+		List<SchedulerBean> list = new ArrayList<SchedulerBean>();
 		Connection conn = null;
 
-		StringBuffer sql = new StringBuffer("select * from st_pet where 1=1");
+		StringBuffer sql = new StringBuffer("select * from st_scheduler where 1=1");
 
 		if (bean != null) {
 
-			if (bean.getPetName() != null && bean.getPetName().length() > 0) {
-				sql.append(" and name like '" + bean.getPetName() + "%'");
+			if (bean.getJobCode() != null && bean.getJobCode().length() > 0) {
+				sql.append(" and code like '" + bean.getJobCode() + "%'");
 			}
 
-			if (bean.getAnimalType() != null && bean.getAnimalType().length() > 0) {
-				sql.append(" and type like '" + bean.getAnimalType() + "%'");
+			if (bean.getJobName() != null && bean.getJobName().length() > 0) {
+				sql.append(" and name like '" + bean.getJobName() + "%'");
 			}
 
-			if (bean.getAdoptionStatus() != null && bean.getAdoptionStatus().length() > 0) {
-				sql.append(" and status like '" + bean.getAdoptionStatus() + "%'");
+			if (bean.getStatus() != null && bean.getStatus().length() > 0) {
+				sql.append(" and status like '" + bean.getStatus() + "%'");
 			}
 		}
 		if (pageSize > 0) {
@@ -266,13 +266,13 @@ public class PetModel {
 
 			while (rs.next()) {
 
-				PetBean rb = new PetBean();
+				SchedulerBean rb = new SchedulerBean();
 
 				rb.setId(rs.getLong(1));
-				rb.setPetName(rs.getString(2));
-				rb.setAnimalType(rs.getString(3));
-				rb.setAge(rs.getString(4));
-				rb.setAdoptionStatus(rs.getString(5));
+				rb.setJobCode(rs.getString(2));
+				rb.setJobName(rs.getString(3));
+				rb.setCronExpression(rs.getString(4));
+				rb.setStatus(rs.getString(5));
 				rb.setCreatedBy(rs.getString(6));
 				rb.setModifiedBy(rs.getString(7));
 				rb.setCreatedDatetime(rs.getTimestamp(8));
@@ -282,7 +282,7 @@ public class PetModel {
 			}
 
 		} catch (Exception e) {
-			throw new ApplicationException("Exception in searching  Pet");
+			throw new ApplicationException("Exception in searching  Scheduler");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
