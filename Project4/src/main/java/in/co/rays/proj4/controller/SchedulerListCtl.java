@@ -114,7 +114,7 @@ public class SchedulerListCtl extends BaseCtl {
                     SchedulerBean deleteBean = new SchedulerBean();
 
                     for (String id : ids) {
-                        deleteBean.setId(Long.parseLong(id));
+                        deleteBean.setId(Integer.parseInt(id));
                         model.delete(deleteBean);
                     }
 

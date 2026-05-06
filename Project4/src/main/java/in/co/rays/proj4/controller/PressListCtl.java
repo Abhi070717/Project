@@ -122,7 +122,7 @@ public class PressListCtl extends BaseCtl {
 
                 if (ids != null) {
                     for (String id : ids) {
-                        deleteBean.setId(Long.parseLong(id));
+                        deleteBean.setId(Integer.parseInt(id));
                         model.delete(deleteBean);
                     }
                     ServletUtility.setSuccessMessage("Data deleted successfully", request);

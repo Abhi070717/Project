@@ -137,4 +137,10 @@ public interface ORSView {
 	
 	public String SCHEDULER_LIST_VIEW = PAGE_FOLDER + "/SchedulerListView.jsp";
 	public String SCHEDULER_LIST_CTL = APP_CONTEXT + "/SchedulerListCtl";
+
+	public String SESSION_VIEW = PAGE_FOLDER + "/SessionView.jsp";
+	public String SESSION_CTL = APP_CONTEXT + "/SessionCtl";
+	
+	public String SESSION_LIST_VIEW = PAGE_FOLDER + "/SessionListView.jsp";
+	public String SESSION_LIST_CTL = APP_CONTEXT + "/SessionListCtl";
 }

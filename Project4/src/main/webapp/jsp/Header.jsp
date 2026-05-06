@@ -96,6 +96,10 @@
 	<a href=<%=ORSView.SCHEDULER_CTL%>><b>Add Scheduler Job</b></a>
 	<b>|</b>
 	<a href=<%=ORSView.SCHEDULER_LIST_CTL%>><b>Scheduler Job List</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.SESSION_CTL%>><b>Add User Session</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.SESSION_LIST_CTL%>><b>User Session List</b></a>
 	<hr>
 	<%@include file="Footer.jsp"%>
 </body>

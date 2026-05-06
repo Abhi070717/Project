@@ -115,7 +115,7 @@ public class ProductListCtl extends BaseCtl {
                     ProductBean deleteBean = new ProductBean();
 
                     for (String id : ids) {
-                        deleteBean.setId(Long.parseLong(id));
+                        deleteBean.setId(Integer.parseInt(id));
                         model.delete(deleteBean);
                     }
 
