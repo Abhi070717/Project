@@ -23,7 +23,7 @@ public class TestCompanyModel {
 //		testSearch();
 	}
 
-	public static void testNextPK() {
+	private static void testNextPK() {
 
 		CompanyModel model = new CompanyModel();
 
@@ -38,7 +38,7 @@ public class TestCompanyModel {
 		}
 	}
 
-	public static void testAdd() {
+	private static void testAdd() {
 
 		CompanyModel model = new CompanyModel();
 		CompanyBean bean = new CompanyBean();
@@ -64,7 +64,7 @@ public class TestCompanyModel {
 		}
 	}
 
-	public static void testUpdate() {
+	private static void testUpdate() {
 
 		CompanyModel model = new CompanyModel();
 
@@ -90,7 +90,7 @@ public class TestCompanyModel {
 		}
 	}
 
-	public static void testDelete() {
+	private static void testDelete() {
 
 		CompanyModel model = new CompanyModel();
 
@@ -106,7 +106,7 @@ public class TestCompanyModel {
 		}
 	}
 
-	public static void testFindByPK() {
+	private static void testFindByPK() {
 
 		CompanyModel model = new CompanyModel();
 
@@ -130,7 +130,7 @@ public class TestCompanyModel {
 		}
 	}
 
-	public static void testFindByCode() {
+	private static void testFindByCode() {
 
 		CompanyModel model = new CompanyModel();
 
@@ -156,7 +156,7 @@ public class TestCompanyModel {
 		}
 	}
 
-	public static void testSearch() {
+	private static void testSearch() {
 
 		CompanyModel model = new CompanyModel();
 		CompanyBean bean = new CompanyBean();
@@ -173,10 +173,10 @@ public class TestCompanyModel {
 				System.out.println("Name: " + cb.getName());
 				System.out.println("Head: " + cb.getHead());
 				System.out.println("Location: " + cb.getLocation());
-				System.out.println("CreatedBy : " + cb.getCreatedBy());
-				System.out.println("ModifiedBy : " + cb.getModifiedBy());
-				System.out.println("CreatedDatetime : " + cb.getCreatedDatetime());
-				System.out.println("ModifiedDatetime : " + cb.getModifiedDatetime());
+				System.out.println("CreatedBy : " + bean.getCreatedBy());
+				System.out.println("ModifiedBy : " + bean.getModifiedBy());
+				System.out.println("CreatedDatetime : " + bean.getCreatedDatetime());
+				System.out.println("ModifiedDatetime : " + bean.getModifiedDatetime());
 			}
 
 		} catch (ApplicationException e) {

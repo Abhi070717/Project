@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.proj4.bean.BaseBean;
-import in.co.rays.proj4.bean.SchedulerBean;
+import in.co.rays.proj4.bean.AccountBean;
 import in.co.rays.proj4.exception.ApplicationException;
-import in.co.rays.proj4.model.SchedulerModel;
+import in.co.rays.proj4.model.AccountModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet(name = "SchedulerListCtl", urlPatterns = { "/SchedulerListCtl" })
-public class SchedulerListCtl extends BaseCtl {
+@WebServlet(name = "AccountListCtl", urlPatterns = { "/AccountListCtl" })
+public class AccountListCtl extends BaseCtl {
 
     @Override
     protected void preload(HttpServletRequest request) {
-        SchedulerModel model = new SchedulerModel();
+        AccountModel model = new AccountModel();
         try {
-            List namelist = model.list();
+            List<AccountBean> namelist = model.list();
             request.setAttribute("nameList", namelist);
         } catch (ApplicationException e) {
             e.printStackTrace();
@@ -33,10 +33,10 @@ public class SchedulerListCtl extends BaseCtl {
     @Override
     protected BaseBean populateBean(HttpServletRequest request) {
 
-        SchedulerBean bean = new SchedulerBean();
+        AccountBean bean = new AccountBean();
 
-        bean.setJobName(DataUtility.getString(request.getParameter("name")));
-        bean.setJobCode(DataUtility.getString(request.getParameter("code")));
+        bean.setUserName(DataUtility.getString(request.getParameter("name")));
+        bean.setAccountCode(DataUtility.getString(request.getParameter("code")));
 
         return bean;
     }
@@ -48,16 +48,16 @@ public class SchedulerListCtl extends BaseCtl {
         int pageNo = 1;
         int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
 
-        SchedulerBean bean = (SchedulerBean) populateBean(request);
-        SchedulerModel model = new SchedulerModel();
+        AccountBean bean = (AccountBean) populateBean(request);
+        AccountModel model = new AccountModel();
 
         try {
 
-            List<SchedulerBean> list = model.search(bean, pageNo, pageSize);
-            List<SchedulerBean> next = model.search(bean, pageNo + 1, pageSize);
+            List<AccountBean> list = model.search(bean, pageNo, pageSize);
+            List<AccountBean> next = model.search(bean, pageNo + 1, pageSize);
 
             if (list == null || list.isEmpty()) {
-                ServletUtility.setErrorMessage("No record found", request);
+                ServletUtility.setErrorMessage("No Record Found ", request);
             }
 
             ServletUtility.setList(list, request);
@@ -82,8 +82,8 @@ public class SchedulerListCtl extends BaseCtl {
         pageNo = (pageNo == 0) ? 1 : pageNo;
         pageSize = (pageSize == 0) ? DataUtility.getInt(PropertyReader.getValue("page.size")) : pageSize;
 
-        SchedulerBean bean = (SchedulerBean) populateBean(request);
-        SchedulerModel model = new SchedulerModel();
+        AccountBean bean = (AccountBean) populateBean(request);
+        AccountModel model = new AccountModel();
 
         String op = request.getParameter("operation");
         String[] ids = request.getParameterValues("ids");
@@ -100,18 +100,18 @@ public class SchedulerListCtl extends BaseCtl {
                 pageNo--;
 
             } else if (OP_NEW.equalsIgnoreCase(op)) {
-                ServletUtility.redirect(ORSView.SCHEDULER_CTL, request, response);
+                ServletUtility.redirect(ORSView.ACCOUNT_CTL, request, response);
                 return;
 
             } else if (OP_RESET.equalsIgnoreCase(op)) {
-                ServletUtility.redirect(ORSView.SCHEDULER_LIST_CTL, request, response);
+                ServletUtility.redirect(ORSView.ACCOUNT_LIST_CTL, request, response);
                 return;
 
             } else if (OP_DELETE.equalsIgnoreCase(op)) {
 
                 if (ids != null && ids.length > 0) {
 
-                    SchedulerBean deleteBean = new SchedulerBean();
+                    AccountBean deleteBean = new AccountBean();
 
                     for (String id : ids) {
                         deleteBean.setId(Integer.parseInt(id));
@@ -125,8 +125,8 @@ public class SchedulerListCtl extends BaseCtl {
                 }
             }
 
-            List<SchedulerBean> list = model.search(bean, pageNo, pageSize);
-            List<SchedulerBean> next = model.search(bean, pageNo + 1, pageSize);
+            List<AccountBean> list = model.search(bean, pageNo, pageSize);
+            List<AccountBean> next = model.search(bean, pageNo + 1, pageSize);
             
             if (list == null || list.size() == 0) {
 				ServletUtility.setErrorMessage("No Record Found ", request);
@@ -148,6 +148,6 @@ public class SchedulerListCtl extends BaseCtl {
 
     @Override
     protected String getView() {
-        return ORSView.SCHEDULER_LIST_VIEW;
+        return ORSView.ACCOUNT_LIST_VIEW;
     }
 }

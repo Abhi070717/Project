@@ -100,6 +100,10 @@
 	<a href=<%=ORSView.SESSION_CTL%>><b>Add User Session</b></a>
 	<b>|</b>
 	<a href=<%=ORSView.SESSION_LIST_CTL%>><b>User Session List</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.ACCOUNT_CTL%>><b>Add Account Status</b></a>
+	<b>|</b>
+	<a href=<%=ORSView.ACCOUNT_LIST_CTL%>><b>Account Status List</b></a>
 	<hr>
 	<%@include file="Footer.jsp"%>
 </body>

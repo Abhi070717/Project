@@ -143,4 +143,10 @@ public interface ORSView {
 	
 	public String SESSION_LIST_VIEW = PAGE_FOLDER + "/SessionListView.jsp";
 	public String SESSION_LIST_CTL = APP_CONTEXT + "/SessionListCtl";
+
+	public String ACCOUNT_VIEW = PAGE_FOLDER + "/AccountView.jsp";
+	public String ACCOUNT_CTL = APP_CONTEXT + "/AccountCtl";
+	
+	public String ACCOUNT_LIST_VIEW = PAGE_FOLDER + "/AccountListView.jsp";
+	public String ACCOUNT_LIST_CTL = APP_CONTEXT + "/AccountListCtl";
 }
