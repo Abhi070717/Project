@@ -1,6 +1,5 @@
 package in.co.rays.proj4.testmodel;
 
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,28 +8,65 @@ import java.util.List;
 
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.model.RoleModel;
 
 public class TestRoleModel {
 
-	public static RoleModel model = new RoleModel();
-
 	public static void main(String[] args) {
 
+//		testNextPk();
 //		testAdd();
 //		testUpdate();
-		testDelete();
-//		testfindByPk();
+//		testDelete();
+//		testFindByPk();
 //		testFindByName();
-//		testUpdate();
+		testSearch();
+	}
+
+	public static void testNextPk() {
+
+		RoleModel model = new RoleModel();
+		try {
+			int pk = model.nextPk();
+			System.out.println("NextPk : " + pk);
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void testAdd() {
 
 		RoleBean bean = new RoleBean();
-		bean.setName("student");
-		bean.setDescription("student");
+
+		bean.setName("Student");
+		bean.setDescription("B.Tech");
+		bean.setCreatedBy("root");
+		bean.setModifiedBy("root");
+		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+
+		RoleModel model = new RoleModel();
+
+		try {
+			long i = model.add(bean);
+			System.out.println("Data Stored in st_role" + i);
+		} catch (ApplicationException | DuplicateRecordException e) {
+			e.printStackTrace();
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void testUpdate() {
+
+		RoleBean bean = new RoleBean();
+
+		bean.setId(1);
+		bean.setName("Student");
+		bean.setDescription("B.Tech CSE(DS)");
 		bean.setCreatedBy("root");
 		bean.setModifiedBy("root");
 		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
@@ -40,94 +76,98 @@ public class TestRoleModel {
 
 		try {
 			try {
-				model.add(bean);
+				model.update(bean);
+				System.out.println("Data Updated in st_role");
 			} catch (DuplicateRecordException e) {
 				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-
-			e.printStackTrace();
 		} catch (ApplicationException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	public static void testUpdate() {
-		try {
-			RoleBean bean = model.findByPk(1L);
-			bean.setName("Abhishish");
-			bean.setDescription("Student");
-			model.update(bean);
-
-			RoleBean updatedbean = model.findByPk(1L);
-
-			if (!"Admin".equals(updatedbean.getName())) {
-				System.out.println("Test Update Success");
-			}
-		} catch (ApplicationException | DuplicateRecordException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void testDelete() {
+
+		RoleBean bean = new RoleBean();
+
+		bean.setId(1);
+
+		RoleModel model = new RoleModel();
+
 		try {
-			RoleBean bean = new RoleBean();
-			long pk = 1L;
-			bean.setId(pk);
 			model.delete(bean);
-			RoleBean deletedbean = model.findByPk(pk);
-			if (deletedbean != null) {
-				System.out.println("Test Delete fail");
-			}
+			System.out.println("Data Deleted in st_role");
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
+
 	}
 
-	public static void testfindByPk() {
+	public static void testFindByPk() {
+
+		RoleModel model = new RoleModel();
+
 		try {
 			RoleBean bean = model.findByPk(1L);
-			if (bean == null) {
-				System.out.println("Test Find By PK fail");
-			}
-			System.out.println(bean.getId());
-			System.out.println(bean.getName());
-			System.out.println(bean.getDescription());
+
+			System.out.println("ID : " + bean.getId());
+			System.out.println("Name : " + bean.getName());
+			System.out.println("Description : " + bean.getDescription());
+			System.out.println("CreatedBy : " + bean.getCreatedBy());
+			System.out.println("ModifiedBy : " + bean.getModifiedBy());
+			System.out.println("CreatedDatetime : " + bean.getCreatedDatetime());
+			System.out.println("ModifiedDatetime : " + bean.getModifiedDatetime());
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	public static void testFindByName() {
+
+		RoleModel model = new RoleModel();
+
 		try {
-			RoleBean bean = model.findByName("admin");
-			if (bean == null) {
-				System.out.println("Test Find By PK fail");
-			}
-			System.out.println(bean.getId());
-			System.out.println(bean.getName());
-			System.out.println(bean.getDescription());
+			RoleBean bean = model.findByName("Student");
+
+			System.out.println("ID : " + bean.getId());
+			System.out.println("Name : " + bean.getName());
+			System.out.println("Description : " + bean.getDescription());
+			System.out.println("CreatedBy : " + bean.getCreatedBy());
+			System.out.println("ModifiedBy : " + bean.getModifiedBy());
+			System.out.println("CreatedDatetime : " + bean.getCreatedDatetime());
+			System.out.println("ModifiedDatetime : " + bean.getModifiedDatetime());
+
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void testSearch() {
+
+		RoleBean bean = new RoleBean();
+		
+		bean.setName("Student");
+
+		RoleModel model = new RoleModel();
+
 		try {
-			RoleBean bean = new RoleBean();
-			List list = new ArrayList();
-			bean.setName("student");
+			List<RoleBean> list = new ArrayList<RoleBean>();
+
 			list = model.search(bean, 0, 0);
-			if (list.size() < 0) {
-				System.out.println("Test Serach fail");
-			}
-			Iterator it = list.iterator();
+
+			Iterator<RoleBean> it = list.iterator();
+
 			while (it.hasNext()) {
 				bean = (RoleBean) it.next();
-				System.out.println(bean.getId());
-				System.out.println(bean.getName());
-				System.out.println(bean.getDescription());
+
+				System.out.println("ID : " + bean.getId());
+				System.out.println("Name : " + bean.getName());
+				System.out.println("Description : " + bean.getDescription());
+				System.out.println("CreatedBy : " + bean.getCreatedBy());
+				System.out.println("ModifiedBy : " + bean.getModifiedBy());
+				System.out.println("CreatedDatetime : " + bean.getCreatedDatetime());
+				System.out.println("ModifiedDatetime : " + bean.getModifiedDatetime());
 			}
 		} catch (ApplicationException e) {
 			e.printStackTrace();

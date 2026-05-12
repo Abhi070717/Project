@@ -8,6 +8,12 @@ import java.util.ResourceBundle;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+/**
+ * JDBC DataSource is a Data Connection Pool.
+ * 
+ * @author Abhishish Bhawsar
+ *
+ */
 public final class JDBCDataSource {
 
 	private static JDBCDataSource jds = null;
@@ -16,6 +22,9 @@ public final class JDBCDataSource {
 
 	private static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.proj4.bundle.system");
 
+	/**
+	 * JDBC Database connection pool ( DCP )
+	 */
 	private JDBCDataSource() {
 		try {
 			cpds = new ComboPooledDataSource();
@@ -31,6 +40,11 @@ public final class JDBCDataSource {
 		}
 	}
 
+	/**
+	 * Create instance of Connection Pool
+	 *
+	 * @return
+	 */
 	public static JDBCDataSource getInstance() {
 		if (jds == null) {
 			jds = new JDBCDataSource();
@@ -38,6 +52,11 @@ public final class JDBCDataSource {
 		return jds;
 	}
 
+	/**
+	 * Gets the connection from ComboPooledDataSource
+	 *
+	 * @return connection
+	 */
 	public static Connection getConnection() {
 		try {
 			return getInstance().cpds.getConnection();
@@ -46,6 +65,12 @@ public final class JDBCDataSource {
 		}
 	}
 
+	/**
+	 * Closes a connection
+	 *
+	 * @param connection
+	 * @throws Exception
+	 */
 	public static void closeConnection(Connection conn, Statement stmt, ResultSet rs) {
 		try {
 			if (rs != null) {
