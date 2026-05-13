@@ -50,6 +50,9 @@
 	<%
 	if (user.getRoleId() == RoleBean.ADMIN) {
 	%>
+	
+	
+	
 	<a href="<%=ORSView.ROLE_CTL%>">Add Role</a>
 	<b>|</b>
 	<a href="<%=ORSView.ROLE_LIST_CTL%>">Role List</a>
@@ -89,77 +92,11 @@
 	<a target="blank" href="<%=ORSView.JAVA_DOC_VIEW%>"><b>Java Doc</b></a>
 	<b>|</b>
 	<!-- Daily Module -->
-	<%-- <a href="<%=ORSView.HEALTH_CTL%>">Add Health</a>
+	<a href="<%=ORSView.MODULE_CTL%>"><b>Other Modules</b></a>
 	<b>|</b>
-	<a href="<%=ORSView.HEALTH_LIST_CTL%>">Health List</a>
+	<a href="<%=ORSView.VOICE_CTL%>">Add Voice Command</a>
 	<b>|</b>
-	<a href="<%=ORSView.PURGE_CTL%>">Add Purge</a>
-	<b>|</b>
-	<a href="<%=ORSView.PURGE_LIST_CTL%>">Purge List</a>
-	<b>|</b>
-	<a href="<%=ORSView.SYSTEM_CTL%>">Add System Event</a>
-	<b>|</b>
-	<a href="<%=ORSView.SYSTEM_LIST_CTL%>">System Event List</a>
-	<b>|</b>
-	<a href="<%=ORSView.SUBSCRIPTION_CTL%>">Add Subscription Plan</a>
-	<b>|</b>
-	<a href="<%=ORSView.SUBSCRIPTION_LIST_CTL%>">Subscription Plan List</a>
-	<b>|</b>
-	<a href="<%=ORSView.FEATURE_CTL%>">Add Feature Access</a>
-	<b>|</b>
-	<a href="<%=ORSView.FEATURE_LIST_CTL%>">Feature Access List</a>
-	<b>|</b>
-	<a href="<%=ORSView.AUDIT_CTL%>">Add Audit Trail</a>
-	<b>|</b>
-	<a href="<%=ORSView.AUDIT_LIST_CTL%>">Audit Trail List</a>
-	<b>|</b>
-	<a href="<%=ORSView.BLOCK_CTL%>">Add Block List</a>
-	<b>|</b> --%>
-	<a href="<%=ORSView.BLOCK_LIST_CTL%>">Block List</a>
-	<b>|</b>
-	<a href="<%=ORSView.RULE_CTL%>">Add Rule Engine</a>
-	<b>|</b>
-	<a href="<%=ORSView.RULE_LIST_CTL%>">Rule Engine List</a>
-	<b>|</b>
-	<a href="<%=ORSView.ACCESS_CTL%>">Add Access Log</a>
-	<b>|</b>
-	<a href="<%=ORSView.ACCESS_LIST_CTL%>">Access Log List</a>
-	<b>|</b>
-	<a href="<%=ORSView.TRANSFORMATION_CTL%>">Add Transformation</a>
-	<b>|</b>
-	<a href="<%=ORSView.TRANSFORMATION_LIST_CTL%>">Transformation List</a>
-	<b>|</b>
-	<a href="<%=ORSView.PASSWORD_CTL%>">Add Password Reset</a>
-	<b>|</b>
-	<a href="<%=ORSView.PASSWORD_LIST_CTL%>">Password Reset List</a>
-	<b>|</b>
-	<a href="<%=ORSView.QUEUE_CTL%>">Add Queue Listener</a>
-	<b>|</b>
-	<a href="<%=ORSView.QUEUE_LIST_CTL%>">Queue Listener List</a>
-	<b>|</b>
-	<a href="<%=ORSView.EVENT_CTL%>">Add Event Listener</a>
-	<b>|</b>
-	<a href="<%=ORSView.EVENT_LIST_CTL%>">Event Listener List</a>
-	<b>|</b>
-	<a href="<%=ORSView.ALLOW_CTL%>">Add Allow List</a>
-	<b>|</b>
-	<a href="<%=ORSView.ALLOW_LIST_CTL%>">Allow List</a>
-	<b>|</b>
-	<a href="<%=ORSView.FACE_CTL%>">Add Face Recognition</a>
-	<b>|</b>
-	<a href="<%=ORSView.FACE_LIST_CTL%>">Face Recognition List</a>
-	<b>|</b>
-	<a href="<%=ORSView.CLAIM_CTL%>">Add Claim</a>
-	<b>|</b>
-	<a href="<%=ORSView.CLAIM_LIST_CTL%>">Claim List</a>
-	<b>|</b>
-	<a href="<%=ORSView.ACCOUNT_CTL%>">Add Account Status</a>
-	<b>|</b>
-	<a href="<%=ORSView.ACCOUNT_LIST_CTL%>">Account Status List</a>
-	<b>|</b>
-	<a href="<%=ORSView.REGISTRATION_CTL%>">Add Registration</a>
-	<b>|</b>
-	<a href="<%=ORSView.REGISTRATION_LIST_CTL%>">Registration List</a>
+	<a href="<%=ORSView.VOICE_LIST_CTL%>">Voice Command List</a>
 	<%
 	}
 	%>

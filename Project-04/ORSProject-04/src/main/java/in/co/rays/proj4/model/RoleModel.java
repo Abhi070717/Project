@@ -67,7 +67,7 @@ public class RoleModel {
 		int pk = 0;
 
 		RoleBean existBRole = findByName(bean.getName());
-		if (existBRole != null) {
+		if (existBRole != null && existBRole.getId() != bean.getId()) {
 			log.warn("Role already exists: " + bean.getName());
 			throw new DuplicateRecordException("Role already exists");
 		}

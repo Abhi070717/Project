@@ -74,7 +74,7 @@ public class UserModel {
 
 		UserBean existbean = findByLogin(bean.getLogin());
 
-		if (existbean != null) {
+		if (existbean != null && existbean.getId() != bean.getId()) {
 			throw new DuplicateRecordException("Login Id already exists");
 		}
 
@@ -92,7 +92,7 @@ public class UserModel {
 			pstmt.setDate(6, new java.sql.Date(bean.getDob().getTime()));
 			pstmt.setString(7, bean.getMobileNo());
 			/* pstmt.setLong(8, bean.getRoleId()); */
-			pstmt.setLong(7,  bean.getRoleId());	
+			pstmt.setLong(8,  bean.getRoleId());	
 			pstmt.setString(9, bean.getGender());
 			pstmt.setString(10, bean.getCreatedBy());
 			pstmt.setString(11, bean.getModifiedBy());
@@ -129,7 +129,7 @@ public class UserModel {
 
 		UserBean beanExist = findByLogin(bean.getLogin());
 
-		if (beanExist != null && !(beanExist.getId() == bean.getId())) {
+		if (beanExist != null && beanExist.getId() != bean.getId()) {
 			throw new DuplicateRecordException("Login Id is already exist");
 		}
 

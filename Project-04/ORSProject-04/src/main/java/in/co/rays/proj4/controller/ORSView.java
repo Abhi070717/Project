@@ -24,6 +24,10 @@ public interface ORSView {
 
 	/** Base JSP folder. */
 	public String PAGE_FOLDER = "/jsp";
+	
+	
+	public String MODULE_VIEW = PAGE_FOLDER + "/ModuleView.jsp";
+	public String MODULE_CTL = APP_CONTEXT + "/ModuleCtl";
 
 	public String JAVA_DOC_VIEW = APP_CONTEXT + "/doc/index.html";
 
@@ -303,4 +307,14 @@ public interface ORSView {
 	public String REGISTRATION_LIST_VIEW = PAGE_FOLDER + "/RegistrationListView.jsp";
 	/** Registration List Controller URL */
 	public String REGISTRATION_LIST_CTL = APP_CONTEXT + "/ctl/RegistrationListCtl";
+
+	/** Voice View JSP */
+	public String VOICE_VIEW = PAGE_FOLDER + "/VoiceView.jsp";
+	/** Voice Controller URL */
+	public String VOICE_CTL = APP_CONTEXT + "/ctl/VoiceCtl";
+	
+	/** Voice List JSP */
+	public String VOICE_LIST_VIEW = PAGE_FOLDER + "/VoiceListView.jsp";
+	/** Voice List Controller URL */
+	public String VOICE_LIST_CTL = APP_CONTEXT + "/ctl/VoiceListCtl";
 }
