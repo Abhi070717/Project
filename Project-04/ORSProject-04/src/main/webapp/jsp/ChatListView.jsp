@@ -1,28 +1,28 @@
 <%@page import="in.co.rays.proj4.controller.ORSView"%>
 <%@page import="in.co.rays.proj4.util.HTMLUtility"%>
 <%@page import="in.co.rays.proj4.util.DataUtility"%>
-<%@page import="in.co.rays.proj4.controller.VoiceListCtl"%>
+<%@page import="in.co.rays.proj4.controller.ChatListCtl"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
-<%@page import="in.co.rays.proj4.bean.VoiceBean"%>
+<%@page import="in.co.rays.proj4.bean.ChatBean"%>
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Iterator"%>
 
 <html>
 <head>
-<title>Voice Command List</title>
+<title>Chat Room List</title>
 <link rel="icon" type="image/png"
 	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
 </head>
 <body>
 	<%@include file="Header.jsp"%>
 
-	<jsp:useBean id="bean" class="in.co.rays.proj4.bean.VoiceBean"
+	<jsp:useBean id="bean" class="in.co.rays.proj4.bean.ChatBean"
 		scope="request"></jsp:useBean>
 
 	<div align="center">
-		<h1 align="center" style="margin-bottom: -15; color: navy;">Voice
-			Command List</h1>
+		<h1 align="center" style="margin-bottom: -15; color: navy;">Chat
+			Room List</h1>
 
 		<div style="height: 15px; margin-bottom: 12px">
 			<h3>
@@ -33,17 +33,17 @@
 			</h3>
 		</div>
 
-		<form action="<%=ORSView.VOICE_LIST_CTL%>" method="post">
+		<form action="<%=ORSView.CHAT_LIST_CTL%>" method="post">
 			<%
 			int pageNo = ServletUtility.getPageNo(request);
 			int pageSize = ServletUtility.getPageSize(request);
 			int index = ((pageNo - 1) * pageSize) + 1;
 			int nextListSize = DataUtility.getInt(request.getAttribute("nextListSize").toString());
 
-			List<VoiceBean> codeList = (List<VoiceBean>) request.getAttribute("codeList");
+			List<ChatBean> codeList = (List<ChatBean>) request.getAttribute("codeList");
 
-			List<VoiceBean> list = (List<VoiceBean>) ServletUtility.getList(request);
-			Iterator<VoiceBean> it = list.iterator();
+			List<ChatBean> list = (List<ChatBean>) ServletUtility.getList(request);
+			Iterator<ChatBean> it = list.iterator();
 
 			if (list.size() != 0) {
 			%>
@@ -52,16 +52,16 @@
 
 			<table style="width: 100%">
 				<tr>
-					<td align="center"><label><b>Command Code: </b></label> <%=HTMLUtility.getList("code", String.valueOf(bean.getCommandCode()), codeList)%>
+					<td align="center"><label><b>Chat Room Code: </b></label> <%=HTMLUtility.getList("code", String.valueOf(bean.getChatRoomCode()), codeList)%>
 						&nbsp; 
-						<label><b>Voice Name:</b></label>
+						<label><b>Room Name:</b></label>
 						<input type="text"
-						name="name" placeholder="Enter Voice Name"
+						name="name" placeholder="Enter Room Name"
 						value="<%=ServletUtility.getParameter("name", request)%>">&emsp;
 						<input type="submit" name="operation"
-						value="<%=VoiceListCtl.OP_SEARCH%>">&nbsp; <input
+						value="<%=ChatListCtl.OP_SEARCH%>">&nbsp; <input
 						type="submit" name="operation"
-						value="<%=VoiceListCtl.OP_RESET%>"></td>
+						value="<%=ChatListCtl.OP_RESET%>"></td>
 				</tr>
 			</table>
 			<br>
@@ -69,26 +69,26 @@
 				<tr style="background-color: #e1e6f1e3;">
 					<th width="5%"><input type="checkbox" id="selectall" /></th>
 					<th width="5%">S.No</th>
-					<th width="25%">Command Code</th>
-					<th width="25%">User Name</th>
-					<th width="30%">Command Text</th>
+					<th width="25%">Chat Room Code</th>
+					<th width="25%">Room Name</th>
+					<th width="30%">Chat Created By</th>
 					<th width="25%">Status</th>
 					<th width="10%">Edit</th>
 				</tr>
 				<%
 				while (it.hasNext()) {
-					bean = (VoiceBean) it.next();
+					bean = (ChatBean) it.next();
 				%>
 				<tr>
 					<td style="text-align: center;"><input type="checkbox"
 						class="case" name="ids" value="<%=bean.getId()%>"></td>
 					<td style="text-align: center;"><%=index++%></td>
-					<td style="text-align: center; text-transform: capitalize;"><%=bean.getCommandCode()%></td>
-					<td style="text-align: center; text-transform: capitalize;"><%=bean.getUserName()%></td>
-					<td style="text-align: center; text-transform: capitalize;"><%=bean.getCommandText()%></td>
+					<td style="text-align: center; text-transform: capitalize;"><%=bean.getChatRoomCode()%></td>
+					<td style="text-align: center; text-transform: capitalize;"><%=bean.getRoomName()%></td>
+					<td style="text-align: center; text-transform: capitalize;"><%=bean.getChatCreatedBy()%></td>
 					<td style="text-align: center; text-transform: capitalize;"><%=bean.getStatus()%></td>
 					<td style="text-align: center;"><a
-						href="VoiceCtl?id=<%=bean.getId()%>">Edit</a></td>
+						href="ChatCtl?id=<%=bean.getId()%>">Edit</a></td>
 					<%
 					}
 					%>
@@ -97,14 +97,14 @@
 			<table style="width: 100%">
 				<tr>
 					<td style="width: 25%"><input type="submit" name="operation"
-						value="<%=VoiceListCtl.OP_PREVIOUS%>"
+						value="<%=ChatListCtl.OP_PREVIOUS%>"
 						<%=pageNo > 1 ? "" : "disabled"%>></td>
 					<td align="center" style="width: 25%"><input type="submit"
-						name="operation" value="<%=VoiceListCtl.OP_NEW%>"></td>
+						name="operation" value="<%=ChatListCtl.OP_NEW%>"></td>
 					<td align="center" style="width: 25%"><input type="submit"
-						name="operation" value="<%=VoiceListCtl.OP_DELETE%>"></td>
+						name="operation" value="<%=ChatListCtl.OP_DELETE%>"></td>
 					<td style="width: 25%" align="right"><input type="submit"
-						name="operation" value="<%=VoiceListCtl.OP_NEXT%>"
+						name="operation" value="<%=ChatListCtl.OP_NEXT%>"
 						<%=nextListSize != 0 ? "" : "disabled"%>></td>
 				</tr>
 			</table>
@@ -115,7 +115,7 @@
 			<table>
 				<tr>
 					<td align="right"><input type="submit" name="operation"
-						value="<%=VoiceListCtl.OP_BACK%>"></td>
+						value="<%=ChatListCtl.OP_BACK%>"></td>
 				</tr>
 			</table>
 			<%

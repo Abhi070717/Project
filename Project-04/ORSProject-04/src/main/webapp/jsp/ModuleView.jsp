@@ -107,6 +107,10 @@
 	<a href="<%=ORSView.REGISTRATION_CTL%>">Add Registration</a>
 	<b>|</b>
 	<a href="<%=ORSView.REGISTRATION_LIST_CTL%>">Registration List</a>
+	<b>|</b>
+	<a href="<%=ORSView.VOICE_CTL%>">Add Voice Command</a>
+	<b>|</b>
+	<a href="<%=ORSView.VOICE_LIST_CTL%>">Voice Command List</a>
 	<%
 	}
 	%>

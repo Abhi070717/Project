@@ -317,4 +317,14 @@ public interface ORSView {
 	public String VOICE_LIST_VIEW = PAGE_FOLDER + "/VoiceListView.jsp";
 	/** Voice List Controller URL */
 	public String VOICE_LIST_CTL = APP_CONTEXT + "/ctl/VoiceListCtl";
+
+	/** Chat View JSP */
+	public String CHAT_VIEW = PAGE_FOLDER + "/ChatView.jsp";
+	/** Chat Controller URL */
+	public String CHAT_CTL = APP_CONTEXT + "/ctl/ChatCtl";
+	
+	/** Chat List JSP */
+	public String CHAT_LIST_VIEW = PAGE_FOLDER + "/ChatListView.jsp";
+	/** Chat List Controller URL */
+	public String CHAT_LIST_CTL = APP_CONTEXT + "/ctl/ChatListCtl";
 }

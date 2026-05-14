@@ -94,9 +94,9 @@
 	<!-- Daily Module -->
 	<a href="<%=ORSView.MODULE_CTL%>"><b>Other Modules</b></a>
 	<b>|</b>
-	<a href="<%=ORSView.VOICE_CTL%>">Add Voice Command</a>
+	<a href="<%=ORSView.CHAT_CTL%>">Add Chat Room</a>
 	<b>|</b>
-	<a href="<%=ORSView.VOICE_LIST_CTL%>">Voice Command List</a>
+	<a href="<%=ORSView.CHAT_LIST_CTL%>">Chat Room List</a>
 	<%
 	}
 	%>
