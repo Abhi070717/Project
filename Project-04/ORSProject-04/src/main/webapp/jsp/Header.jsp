@@ -94,9 +94,9 @@
 	<!-- Daily Module -->
 	<a href="<%=ORSView.MODULE_CTL%>"><b>Other Modules</b></a>
 	<b>|</b>
-	<a href="<%=ORSView.CHAT_CTL%>">Add Chat Room</a>
+	<a href="<%=ORSView.LOGIN_HISTORY_CTL%>">Add Login History</a>
 	<b>|</b>
-	<a href="<%=ORSView.CHAT_LIST_CTL%>">Chat Room List</a>
+	<a href="<%=ORSView.LOGIN_HISTORY_LIST_CTL%>">Login History List</a>
 	<%
 	}
 	%>

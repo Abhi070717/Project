@@ -37,7 +37,8 @@ public class ErrorCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		process(request, response);
+		ServletUtility.forward(getView(), request, response);
+//		process(request, response);
 	}
 
 	/**
@@ -70,7 +71,7 @@ public class ErrorCtl extends BaseCtl {
 	private void process(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		String lastCtl = (String) request.getAttribute("javax.servlet.error.request_uri");
+		String lastCtl = (String) request.getAttribute("javax.servlet.error.request_uri"); 
 		if (lastCtl == null) {
 			lastCtl = (String) request.getAttribute("lastCtl");
 		}
@@ -99,6 +100,6 @@ public class ErrorCtl extends BaseCtl {
 	 */
 	@Override
 	protected String getView() {
-		return ORSView.LOGIN_VIEW;
+		return ORSView.ERROR_VIEW;
 	}
 }

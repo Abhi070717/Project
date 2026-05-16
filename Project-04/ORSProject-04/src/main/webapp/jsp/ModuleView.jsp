@@ -1,4 +1,5 @@
 <%@page import="in.co.rays.proj4.bean.UserBean"%>
+<%@page import="in.co.rays.proj4.bean.RoleBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="in.co.rays.proj4.controller.ORSView"%>
@@ -111,15 +112,27 @@
 	<a href="<%=ORSView.VOICE_CTL%>">Add Voice Command</a>
 	<b>|</b>
 	<a href="<%=ORSView.VOICE_LIST_CTL%>">Voice Command List</a>
+	<b>|</b>
+	<a href="<%=ORSView.CHAT_CTL%>">Add Chat Room</a>
+	<b>|</b>
+	<a href="<%=ORSView.CHAT_LIST_CTL%>">Chat Room List</a>
+	<b>|</b>
+	<a href="<%=ORSView.STORY_CTL%>">Add Story</a>
+	<b>|</b>
+	<a href="<%=ORSView.STORY_LIST_CTL%>">Story Upload List</a>
 	<%
 	}
 	%>
 	<hr>
-	
-	<br> <br> <br><br><br>
-		<h1 align="center">
-			<font size="10px" color="navy">Welcome to Daily Modules</font>
-		</h1>
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1 align="center">
+		<font size="10px" color="navy">Welcome to Daily Modules</font>
+	</h1>
 	<%@ include file="Footer.jsp"%>
 
 </body>
