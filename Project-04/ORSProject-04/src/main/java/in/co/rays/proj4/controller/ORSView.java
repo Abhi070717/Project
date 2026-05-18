@@ -27,7 +27,7 @@ public interface ORSView {
 	
 	
 	public String MODULE_VIEW = PAGE_FOLDER + "/ModuleView.jsp";
-	public String MODULE_CTL = APP_CONTEXT + "/ModuleCtl";
+	public String MODULE_CTL = APP_CONTEXT + "/ctl/ModuleCtl";
 
 	public String JAVA_DOC_VIEW = APP_CONTEXT + "/doc/index.html";
 
@@ -123,7 +123,7 @@ public interface ORSView {
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 
 	/** Error Controller URL */
-	public String ERROR_CTL = APP_CONTEXT + "/ctl/ErrorCtl";
+	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
 
 	/** ================= Daily Models ================= */
 
@@ -338,13 +338,23 @@ public interface ORSView {
 	/** Story List Controller URL */
 	public String STORY_LIST_CTL = APP_CONTEXT + "/ctl/StoryListCtl";
 
-	/** LoginHistory View JSP */
+	/** Login History View JSP */
 	public String LOGIN_HISTORY_VIEW = PAGE_FOLDER + "/LoginHistoryView.jsp";
-	/** LoginHistory Controller URL */
+	/** Login History Controller URL */
 	public String LOGIN_HISTORY_CTL = APP_CONTEXT + "/ctl/LoginHistoryCtl";
 	
-	/** LoginHistory List JSP */
+	/** Login History List JSP */
 	public String LOGIN_HISTORY_LIST_VIEW = PAGE_FOLDER + "/LoginHistoryListView.jsp";
-	/** LoginHistory List Controller URL */
+	/** Login History List Controller URL */
 	public String LOGIN_HISTORY_LIST_CTL = APP_CONTEXT + "/ctl/LoginHistoryListCtl";
+
+	/** Cricket View JSP */
+	public String CRICKET_VIEW = PAGE_FOLDER + "/CricketView.jsp";
+	/** Cricket Controller URL */
+	public String CRICKET_CTL = APP_CONTEXT + "/ctl/CricketCtl";
+	
+	/** Cricket List JSP */
+	public String CRICKET_LIST_VIEW = PAGE_FOLDER + "/CricketListView.jsp";
+	/** Cricket List Controller URL */
+	public String CRICKET_LIST_CTL = APP_CONTEXT + "/ctl/CricketListCtl";
 }

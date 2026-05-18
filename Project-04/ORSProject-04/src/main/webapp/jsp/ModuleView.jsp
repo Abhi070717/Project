@@ -35,8 +35,8 @@
 		<%=user.getFirstName()%>
 		(<%=session.getAttribute("role")%>)
 	</h3>
-
-
+	<a href="<%=ORSView.WELCOME_CTL%>"><b>Main Header</b></a>
+	<b>|</b>
 	<a href="<%=ORSView.HEALTH_CTL%>">Add Health</a>
 	<b>|</b>
 	<a href="<%=ORSView.HEALTH_LIST_CTL%>">Health List</a>
@@ -120,6 +120,10 @@
 	<a href="<%=ORSView.STORY_CTL%>">Add Story</a>
 	<b>|</b>
 	<a href="<%=ORSView.STORY_LIST_CTL%>">Story Upload List</a>
+	<b>|</b>
+	<a href="<%=ORSView.LOGIN_HISTORY_CTL%>">Add Login History</a>
+	<b>|</b>
+	<a href="<%=ORSView.LOGIN_HISTORY_LIST_CTL%>">Login History List</a>
 	<%
 	}
 	%>

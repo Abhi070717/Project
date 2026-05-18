@@ -1,7 +1,6 @@
 package in.co.rays.proj4.util;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -243,6 +242,7 @@ public class ServletUtility {
 	public static void handleException(Exception e, HttpServletRequest request, HttpServletResponse response,
 			String view) throws IOException, ServletException {
 		String lastCtl = (String) request.getAttribute("ORIGINAL_CTL");
+		System.out.println("Last ctl " + lastCtl);
 		request.setAttribute("lastCtl", lastCtl);
 		request.setAttribute("javax.servlet.error.exception", e);
 		request.setAttribute("view", view);

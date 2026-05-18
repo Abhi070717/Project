@@ -9,24 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet(name = "ModuleCtl", urlPatterns = { "/ModuleCtl" })
+@WebServlet(name = "ModuleCtl", urlPatterns = { "/ctl/ModuleCtl" })
+public class ModuleCtl extends BaseCtl {
 
-public class ModuleCtl extends BaseCtl{
-	
-	
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-
-        ServletUtility.forward(getView(), request, response);
-      
-    }
+			throws ServletException, IOException {
+		ServletUtility.forward(getView(), request, response);
+	}
 
 	@Override
 	protected String getView() {
-		// TODO Auto-generated method stub
 		return ORSView.MODULE_VIEW;
 	}
-
 }
